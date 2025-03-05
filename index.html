@@ -1,521 +1,493 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Performance Evaluation</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.10/purify.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 20px;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            background-color: white;
-            padding: 20px;
-            border: 5px solid black;
-            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-        }
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 5px solid black;
-            padding: 10px;
-            background-color: #004085;
-            color: white;
-            font-weight: bold;
-            text-align: center;
-        }
-        .header-title {
-            font-size: 24px;
-            flex-grow: 1;
-            text-align: center;
-        }
-        .review-date {
-            font-size: 14px;
-            padding: 5px 10px;
-            border: 2px solid white;
-            border-radius: 5px;
-        }
-        .section-header {
-            font-size: 20px;
-            font-weight: bold;
-            padding: 10px;
-            margin-top: 20px;
-            background-color: #d9534f;
-            color: white;
-            border: 5px solid black;
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 15px;
-        }
-        table, th, td {
-            border: 2px solid black;
-            padding: 8px;
-        }
-        th {
-            background-color: #004085;
-            color: white;
-            font-weight: bold;
-            text-align: left;
-        }
-        table input, table select, table textarea {
-            width: calc(100% - 16px);
-            padding: 5px;
-            border: 2px solid black;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 5px;
-            border: 2px solid black;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-        textarea {
-            resize: vertical;
-        }
-        .metric-title {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            font-weight: bold;
-            margin-top: 10px;
-            border-radius: 5px;
-            border: 3px solid black;
-        }
-        .flex-container {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px 0;
-        }
-        .flex-item {
-            width: 48%;
-        }
-        label {
-            font-weight: bold;
-            color: #004085;
-        }
-        .section-title {
-            font-weight: bold;
-            color: red;
-            text-transform: uppercase;
-        }
-        .bold-text {
-            font-weight: bold;
-        }
-        .download-button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 20px auto;
-            cursor: pointer;
-            border-radius: 5px;
-            display: block;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employee Performance Evaluation</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.10/purify.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 20px;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      background-color: white;
+      padding: 20px;
+      border: 5px solid black;
+      box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    }
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 5px solid black;
+      padding: 10px;
+      background-color: #004085;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+    }
+    .header-title {
+      font-size: 24px;
+      flex-grow: 1;
+      text-align: center;
+    }
+    .review-date {
+      font-size: 14px;
+      padding: 5px 10px;
+      border: 2px solid white;
+      border-radius: 5px;
+    }
+    .section-header {
+      font-size: 20px;
+      font-weight: bold;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #d9534f;
+      color: white;
+      border: 5px solid black;
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+    }
+    table,
+    th,
+    td {
+      border: 2px solid black;
+      padding: 8px;
+    }
+    th {
+      background-color: #004085;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+    }
+    table input,
+    table select,
+    table textarea {
+      width: calc(100% - 16px);
+      padding: 5px;
+      border: 2px solid black;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 5px;
+      border: 2px solid black;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    textarea {
+      resize: vertical;
+    }
+    .metric-title {
+      background-color: #007bff;
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 3px solid black;
+    }
+    .flex-container {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+    .flex-item {
+      width: 48%;
+    }
+    label {
+      font-weight: bold;
+      color: #004085;
+    }
+    .section-title {
+      font-weight: bold;
+      color: red;
+      text-transform: uppercase;
+    }
+    .bold-text {
+      font-weight: bold;
+    }
+    .download-button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 20px auto;
+      cursor: pointer;
+      border-radius: 5px;
+      display: block;
+    }
+  </style>
 </head>
 <body>
+  <!-- Wrap the entire form in a div with id "form-container" -->
+  <div class="container" id="form-container">
+    <div class="header-container">
+      <h2 class="header-title">EMPLOYEE PERFORMANCE EVALUATION FORM</h2>
+      <div class="review-date">Review Date: <input type="date" /></div>
+    </div>
 
-    <div class="container">
-        <div class="header-container">
-            <h2 class="header-title">EMPLOYEE PERFORMANCE EVALUATION FORM</h2>
-            <div class="review-date">Review Date: <input type="date"></div>
-        </div>
+    <div class="section-header">EMPLOYEE PERSONAL DETAILS</div>
+    <table>
+      <tr>
+        <td class="bold-text">Employee Number</td>
+        <td><input type="text" id="emp-number" /></td>
+        <td class="bold-text">Employee Name</td>
+        <td><input type="text" id="emp-name" /></td>
+      </tr>
+      <tr>
+        <td class="bold-text">Position Text</td>
+        <td><input type="text" id="position-text" /></td>
+        <td class="bold-text">Employee Group</td>
+        <td><input type="text" id="emp-group" /></td>
+      </tr>
+      <tr>
+        <td class="bold-text">Division Text</td>
+        <td><input type="text" id="division-text" /></td>
+        <td class="bold-text">Department Text</td>
+        <td><input type="text" id="department-text" /></td>
+      </tr>
+      <tr>
+        <td class="bold-text">Email ID</td>
+        <td><input type="email" id="email" /></td>
+        <td class="bold-text">Contact Number</td>
+        <td><input type="text" id="contact" /></td>
+      </tr>
+      <tr>
+        <td class="bold-text">Reviewed By</td>
+        <td><input type="text" id="reviewed-by" /></td>
+        <td class="bold-text">Review Date</td>
+        <td><input type="date" id="review-date" /></td>
+      </tr>
+    </table>
 
-        <div class="section-header">EMPLOYEE PERSONAL DETAILS</div>
+    <div class="section-header">PERFORMANCE METRICS</div>
+    <div id="performance-metrics"></div>
 
-        <table>
-          
-                
-            </tr>
-            <tr>
-                <td class="bold-text">Employee Number</td>
-                <td><input type="text"></td>
-                <td class="bold-text">Employee Name</td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <td class="bold-text">Position Text</td>
-                <td><input type="text"></td>
-                <td class="bold-text">Employee Group</td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <td class="bold-text">Division Text</td>
-                <td><input type="text"></td>
-                <td class="bold-text">Department Text</td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <td class="bold-text">Email ID</td>
-                <td><input type="email"></td>
-                <td class="bold-text">Contact Number</td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <td class="bold-text">Reviewed By</td>
-                <td><input type="text"></td>
-                <td class="bold-text">Review Date</td>
-                <td><input type="date"></td>
-            </tr>
-        </table>
+    <div class="section-header">OVERALL EMPLOYEE PERFORMANCE</div>
+    <p id="overall-performance">Not Rated</p>
 
-        <div class="section-header">PERFORMANCE METRICS</div>
+    <div class="section-header">OVERALL REMARKS / COMMENTS</div>
+    <textarea rows="4" id="remarks"></textarea>
 
-        <div id="performance-metrics"></div>
-
-        <div class="section-header">OVERALL EMPLOYEE PERFORMANCE</div>
-        <p id="overall-performance">Not Rated</p>
-
-        <div class="section-header">OVERALL REMARKS / COMMENTS</div>
-        <textarea rows="4"></textarea>
-
-        <div class="section-header">APPROVAL SIGNATURES</div>
-<table>
-    <tr>
+    <div class="section-header">APPROVAL SIGNATURES</div>
+    <table>
+      <tr>
         <th>EMPLOYEE</th>
         <th>FIRST WITNESS</th>
         <th>SECOND WITNESS</th>
-    </tr>
-    <tr>
+      </tr>
+      <tr>
         <td>
-            <input type="text" placeholder="NAME" class="placeholder-input">
-            <input type="text" placeholder="EMPLOYEE NUMBER" class="placeholder-input">
-            <input type="text" placeholder="POSITION / DESIGNATION" class="placeholder-input">
-            <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input">
+          <input type="text" placeholder="NAME" class="placeholder-input" />
+          <input type="text" placeholder="EMPLOYEE NUMBER" class="placeholder-input" />
+          <input type="text" placeholder="POSITION / DESIGNATION" class="placeholder-input" />
+          <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
         </td>
         <td>
-            <input type="text" placeholder="NAME" class="placeholder-input">
-            <input type="text" placeholder="EMPLOYEE NUMBER" class="placeholder-input">
-            <input type="text" placeholder="POSITION / DESIGNATION" class="placeholder-input">
-            <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input">
+          <input type="text" placeholder="NAME" class="placeholder-input" />
+          <input type="text" placeholder="EMPLOYEE NUMBER" class="placeholder-input" />
+          <input type="text" placeholder="POSITION / DESIGNATION" class="placeholder-input" />
+          <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
         </td>
         <td>
-            <input type="text" placeholder="NAME" class="placeholder-input">
-            <input type="text" placeholder="EMPLOYEE NUMBER" class="placeholder-input">
-            <input type="text" placeholder="POSITION / DESIGNATION" class="placeholder-input">
-            <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input">
+          <input type="text" placeholder="NAME" class="placeholder-input" />
+          <input type="text" placeholder="EMPLOYEE NUMBER" class="placeholder-input" />
+          <input type="text" placeholder="POSITION / DESIGNATION" class="placeholder-input" />
+          <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
         </td>
-    </tr>
-</table>
+      </tr>
+    </table>
 
-<table>
-    <tr>
+    <table>
+      <tr>
         <th>REVIEWER</th>
         <th>EMPLOYEE</th>
-    </tr>
-    <tr>
+      </tr>
+      <tr>
         <td>
-            <input type="text" placeholder="NAME" class="placeholder-input">
-            <input type="text" placeholder="EMPLOYEE NUMBER" class="placeholder-input">
-            <input type="text" placeholder="POSITION / DESIGNATION" class="placeholder-input">
-            <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input">
+          <input type="text" placeholder="NAME" class="placeholder-input" />
+          <input type="text" placeholder="EMPLOYEE NUMBER" class="placeholder-input" />
+          <input type="text" placeholder="POSITION / DESIGNATION" class="placeholder-input" />
+          <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
         </td>
         <td>
-            <input type="text" placeholder="NAME" class="placeholder-input">
-            <input type="text" placeholder="EMPLOYEE NUMBER" class="placeholder-input">
-            <input type="text" placeholder="POSITION / DESIGNATION" class="placeholder-input">
-            <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input">
+          <input type="text" placeholder="NAME" class="placeholder-input" />
+          <input type="text" placeholder="EMPLOYEE NUMBER" class="placeholder-input" />
+          <input type="text" placeholder="POSITION / DESIGNATION" class="placeholder-input" />
+          <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
         </td>
-    </tr>
-</table>
+      </tr>
+    </table>
+  </div>
 
-    <script>
-        const metrics = [
-        {
-  title: "1. TECHNICAL KNOWLEDGE",
-  details: `
-    <b style="margin-right: 5px;">HVAC Systems Understanding:</b> Knowledge of various AC systems, including residential, commercial, and industrial units.
-    <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+  <button class="download-button" onclick="downloadPDF()">Download PDF</button>
 
-    <b style="margin-right: 5px;">Diagnostics and Troubleshooting:</b> Ability to diagnose issues accurately using appropriate tools and techniques.
-    <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+  <script>
+    const metrics = [
+      {
+        title: "1. TECHNICAL KNOWLEDGE",
+        details: `
+          <b style="margin-right: 5px;">HVAC Systems Understanding:</b> Knowledge of various AC systems, including residential, commercial, and industrial units.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b style="margin-right: 5px;">Diagnostics and Troubleshooting:</b> Ability to diagnose issues accurately using appropriate tools and techniques.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b style="margin-right: 5px;">Electrical Knowledge:</b> Understanding of electrical components and wiring in HVAC systems, including capacitors, relays, and circuit boards.<br><br>
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b style="margin-right: 5px;">Refrigeration Knowledge:</b> Familiarity with refrigeration cycles, refrigerants, and their proper handling and charging procedures.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+        `
+      },
+      {
+        title: "2. HANDS-ON SKILLS",
+        details: `
+          <b>Installation Skills:</b> Competence in installing AC units, including proper setup, connections, and system configuration.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Repair Skills:</b> Proficiency in repairing faulty components, including compressors, fans, coils, thermostats, and wiring.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Maintenance Skills:</b> Ability to perform routine maintenance tasks such as cleaning filters, coils, and condensers, checking refrigerant levels, and ensuring system efficiency.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+        `
+      },
+      {
+        title: "3. PROBLEM-SOLVING ABILITY",
+        details: `
+          <b>Diagnosing Complex Issues:</b> Ability to identify and troubleshoot complex mechanical or electrical problems.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Efficient Solutions:</b> Ability to devise practical, cost-effective solutions to fix problems or improve system performance.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Adaptability:</b> Adjusting solutions based on the specific needs of the environment (e.g., residential vs. commercial setups).
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+        `
+      },
+      {
+        title: "4. ATTENTION TO DETAIL",
+        details: `
+          <b>Precision:</b> Ensuring all installations, repairs, and maintenance are completed accurately and to manufacturer specifications.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Safety Compliance:</b> Adhering to safety guidelines and protocols, such as handling refrigerants safely, working with electricity, and ensuring proper ventilation.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+        `
+      },
+      {
+        title: "5. CUSTOMER SERVICE SKILLS",
+        details: `
+          <b>Communication:</b> Explaining technical issues and solutions to customers in an understandable and professional manner.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Professionalism:</b> Maintaining a courteous, friendly, and respectful demeanor when interacting with customers, whether on-site or over the phone.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Customer Education:</b> Offering advice on system maintenance, energy-saving tips, and how to operate AC units properly.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+        `
+      },
+      {
+        title: "6. TIME MANAGEMENT",
+        details: `
+          <b>Efficiency:</b> Completing tasks within the expected time frame, ensuring minimal disruption to the customer’s daily activities.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Prioritization:</b> Managing multiple service calls, balancing urgent repairs with routine maintenance without compromising quality.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+        `
+      },
+      {
+        title: "7. KNOWLEDGE OF CODES AND REGULATIONS",
+        details: `
+          <b>Local Codes and Standards:</b> Knowledge of local, state, and federal regulations regarding HVAC systems, such as installation codes, refrigerant handling, and energy efficiency standards.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Permit Requirements:</b> Understanding when and how to obtain necessary permits for installation or repairs.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+        `
+      },
+      {
+        title: "8. PHYSICAL AND MANUAL DEXTERITY",
+        details: `
+          <b>Physical Stamina:</b> Ability to work in challenging physical environments (e.g., rooftops, basements, attics) and handle heavy equipment.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Precision Handling:</b> Skill in using tools such as wrenches, pressure gauges, thermometers, and soldering tools.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+        `
+      },
+      {
+        title: "9. SAFETY AWARENESS",
+        details: `
+          <b>Workplace Safety:</b> Consistently following safety protocols, such as wearing personal protective equipment (PPE), handling hazardous materials properly, and ensuring workspaces are safe.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Hazard Prevention:</b> Recognizing and mitigating potential safety hazards, such as electrical risks, refrigerant leaks, or improper ventilation.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+        `
+      },
+      {
+        title: "10. TROUBLESHOOTING EFFICIENCY",
+        details: `
+          <b>Speed:</b> The ability to identify problems and fix them quickly, minimizing downtime for the customer.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Comprehensive Troubleshooting:</b> Not only fixing the immediate issue but also identifying any other potential problems or areas for improvement.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+        `
+      },
+      {
+        title: "11. QUALITY OF WORK",
+        details: `
+          <b>Durability of Work:</b> Ensuring repairs and installations are durable, minimizing the need for repeat visits or fixes.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Attention to Detail:</b> Thoroughness in performing repairs and maintenance, ensuring all components are functioning properly.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+        `
+      },
+      {
+        title: "12. ADAPTABILITY AND CONTINUED LEARNING",
+        details: `
+          <b>Staying Current:</b> Keeping up to date with the latest AC technologies, refrigerants, and industry trends.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Certifications:</b> Having relevant certifications such as EPA 608 (for refrigerant handling), NATE (North American Technician Excellence), or HVACR certifications that demonstrate competence and knowledge.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Training and Development:</b> Willingness to participate in ongoing training or workshops to enhance skills and knowledge.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+        `
+      },
+      {
+        title: "13. PERFORMANCE METRICS",
+        details: `
+          <b>Customer Satisfaction:</b> Positive feedback from clients regarding service quality, communication, and reliability.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>First-Time Fix Rate:</b> The percentage of issues resolved on the first visit.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+          <b>Work Completion Rate:</b> Successful completion of jobs without the need for rework.
+          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+        `
+      }
+    ];
 
-    <b style="margin-right: 5px;">Electrical Knowledge:</b> Understanding of electrical components and wiring in HVAC systems, including capacitors, relays, and circuit boards.<br><br>
-    <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+    const metricsContainer = document.getElementById("performance-metrics");
+    const overallPerformanceText = document.getElementById("overall-performance");
 
-    <b style="margin-right: 5px;">Refrigeration Knowledge:</b> Familiarity with refrigeration cycles, refrigerants, and their proper handling and charging procedures.
-   <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>  
-    `
-},
-{
-    title: "2. HANDS-ON SKILLS",
-    details: `
-      <b>Installation Skills:</b> Competence in installing AC units, including proper setup, connections, and system configuration.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Repair Skills:</b> Proficiency in repairing faulty components, including compressors, fans, coils, thermostats, and wiring.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Maintenance Skills:</b> Ability to perform routine maintenance tasks such as cleaning filters, coils, and condensers, checking refrigerant levels, and ensuring system efficiency.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-    `
-  },
-  {
-    title: "3. PROBLEM-SOLVING ABILITY",
-    details: `
-      <b>Diagnosing Complex Issues:</b> Ability to identify and troubleshoot complex mechanical or electrical problems.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Efficient Solutions:</b> Ability to devise practical, cost-effective solutions to fix problems or improve system performance.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Adaptability:</b> Adjusting solutions based on the specific needs of the environment (e.g., residential vs. commercial setups).
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-    `
-  },
-  {
-    title: "4. ATTENTION TO DETAIL",
-    details: `
-      <b>Precision:</b> Ensuring all installations, repairs, and maintenance are completed accurately and to manufacturer specifications.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Safety Compliance:</b> Adhering to safety guidelines and protocols, such as handling refrigerants safely, working with electricity, and ensuring proper ventilation.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-    `
-  },
-  {
-    title: "5. CUSTOMER SERVICE SKILLS",
-    details: `
-      <b>Communication:</b> Explaining technical issues and solutions to customers in an understandable and professional manner.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Professionalism:</b> Maintaining a courteous, friendly, and respectful demeanor when interacting with customers, whether on-site or over the phone.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Customer Education:</b> Offering advice on system maintenance, energy-saving tips, and how to operate AC units properly.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-    `
-  },
-  {
-    title: "6. TIME MANAGEMENT",
-    details: `
-      <b>Efficiency:</b> Completing tasks within the expected time frame, ensuring minimal disruption to the customer’s daily activities.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Prioritization:</b> Managing multiple service calls, balancing urgent repairs with routine maintenance without compromising quality.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-    `
-  },
-  {
-    title: "7. KNOWLEDGE OF CODES AND REGULATIONS",
-    details: `
-      <b>Local Codes and Standards:</b> Knowledge of local, state, and federal regulations regarding HVAC systems, such as installation codes, refrigerant handling, and energy efficiency standards.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Permit Requirements:</b> Understanding when and how to obtain necessary permits for installation or repairs.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-    `
-  },
-  {
-    title: "8. PHYSICAL AND MANUAL DEXTERITY",
-    details: `
-      <b>Physical Stamina:</b> Ability to work in challenging physical environments (e.g., rooftops, basements, attics) and handle heavy equipment.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Precision Handling:</b> Skill in using tools such as wrenches, pressure gauges, thermometers, and soldering tools.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-    `
-  },
-  {
-    title: "9. SAFETY AWARENESS",
-    details: `
-      <b>Workplace Safety:</b> Consistently following safety protocols, such as wearing personal protective equipment (PPE), handling hazardous materials properly, and ensuring workspaces are safe.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Hazard Prevention:</b> Recognizing and mitigating potential safety hazards, such as electrical risks, refrigerant leaks, or improper ventilation.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-    `
-  },
-  {
-    title: "10. TROUBLESHOOTING EFFICIENCY",
-    details: `
-      <b>Speed:</b> The ability to identify problems and fix them quickly, minimizing downtime for the customer.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Comprehensive Troubleshooting:</b> Not only fixing the immediate issue but also identifying any other potential problems or areas for improvement.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-    `
-  },
-  {
-    title: "11. QUALITY OF WORK",
-    details: `
-      <b>Durability of Work:</b> Ensuring repairs and installations are durable, minimizing the need for repeat visits or fixes.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Attention to Detail:</b> Thoroughness in performing repairs and maintenance, ensuring all components are functioning properly.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-    `
-  },
-  {
-    title: "12. ADAPTABILITY AND CONTINUED LEARNING",
-    details: `
-      <b>Staying Current:</b> Keeping up to date with the latest AC technologies, refrigerants, and industry trends.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Certifications:</b> Having relevant certifications such as EPA 608 (for refrigerant handling), NATE (North American Technician Excellence), or HVACR certifications that demonstrate competence and knowledge.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Training and Development:</b> Willingness to participate in ongoing training or workshops to enhance skills and knowledge.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-    `
-  },
-  {
-    title: "13. PERFORMANCE METRICS",
-    details: `
-      <b>Customer Satisfaction:</b> Positive feedback from clients regarding service quality, communication, and reliability.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>First-Time Fix Rate:</b> The percentage of issues resolved on the first visit.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-
-      <b>Work Completion Rate:</b> Successful completion of jobs without the need for rework.
-      <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-    `
-  }
-            
-
-        ];
-
-        const metricsContainer = document.getElementById("performance-metrics");
-const overallPerformanceText = document.getElementById("overall-performance");
-
-metrics.forEach((metric, index) => {
-    const metricDiv = document.createElement("div");
-    metricDiv.classList.add("performance-feedback");
-
-    metricDiv.innerHTML = `
+    metrics.forEach((metric, index) => {
+      const metricDiv = document.createElement("div");
+      metricDiv.classList.add("performance-feedback");
+      metricDiv.innerHTML = `
         <div class="metric-title"><b>${metric.title}</b></div>
         <p>${metric.details}</p>
-
         <div class="feedback-container" data-metric-index="${index}" data-rating="0">
-            <div class="star-rating">
-                <span class="star" data-value="1">★</span>
-                <span class="star" data-value="2">★</span>
-                <span class="star" data-value="3">★</span>
-                <span class="star" data-value="4">★</span>
-                <span class="star" data-value="5">★</span>
-            </div>
-            <span class="feedback-text" id="feedback-desc-${index}">Not Rated</span>
+          <div class="star-rating">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+          </div>
+          <span class="feedback-text" id="feedback-desc-${index}">Not Rated</span>
         </div>
-
         <div style="margin-top: 15px;">
-            <label for="comments-${index}"><b>Employee Comments:</b></label>
-            <textarea id="comments-${index}" rows="4" placeholder="Enter your comments here..."></textarea>
+          <label for="comments-${index}"><b>Employee Comments:</b></label>
+          <textarea id="comments-${index}" rows="4" placeholder="Enter your comments here..."></textarea>
         </div>
-    `;
+      `;
+      metricsContainer.appendChild(metricDiv);
+    });
 
-    metricsContainer.appendChild(metricDiv);
-});
-
-// Event Delegation for star clicks
-metricsContainer.addEventListener("click", function(event) {
-    if (event.target.classList.contains("star")) {
+    // Event delegation for star clicks
+    metricsContainer.addEventListener("click", function (event) {
+      if (event.target.classList.contains("star")) {
         const star = event.target;
         const starContainer = star.closest(".feedback-container");
         const metricIndex = starContainer.dataset.metricIndex;
         const selectedValue = star.dataset.value;
-
         highlightStars(starContainer, selectedValue);
         updateFeedback(metricIndex, selectedValue);
         starContainer.dataset.rating = selectedValue;
         updateOverallPerformance();
-    }
-});
+      }
+    });
 
-// Function to highlight selected stars
-function highlightStars(starContainer, selectedValue) {
-    const stars = starContainer.querySelectorAll(".star");
-    stars.forEach(star => {
+    // Highlight selected stars
+    function highlightStars(starContainer, selectedValue) {
+      const stars = starContainer.querySelectorAll(".star");
+      stars.forEach((star) => {
         const starValue = star.dataset.value;
         star.style.color = starValue <= selectedValue ? "gold" : "gray";
-    });
-}
+      });
+    }
 
-// Function to update feedback description
-function updateFeedback(index, value) {
-    const feedbackDesc = document.getElementById(`feedback-desc-${index}`);
-
-    const descriptions = {
+    // Update feedback description based on rating
+    function updateFeedback(index, value) {
+      const feedbackDesc = document.getElementById(`feedback-desc-${index}`);
+      const descriptions = {
         "1": "Poor Performance",
         "2": "Average Performance - Needs Improvement",
         "3": "Good Performance",
         "4": "Very Good Performance",
-        "5": "Excellent Performance"
-    };
+        "5": "Excellent Performance",
+      };
+      feedbackDesc.textContent = descriptions[value] || "Not Rated";
+    }
 
-    feedbackDesc.textContent = descriptions[value] || "Not Rated";
-}
-
-// Function to update overall performance (calculates only when all 13 are rated)
-function updateOverallPerformance() {
-    const starContainers = metricsContainer.querySelectorAll(".feedback-container");
-    const ratings = Array.from(starContainers, container => {
-        return parseInt(container.dataset.rating) || 0;
-    }).filter(rating => rating > 0);
-
-    if (ratings.length === 13) { // Check if all 13 metrics are rated
+    // Update overall performance when all 13 metrics are rated
+    function updateOverallPerformance() {
+      const starContainers = metricsContainer.querySelectorAll(".feedback-container");
+      const ratings = Array.from(starContainers, (container) => parseInt(container.dataset.rating) || 0).filter(
+        (rating) => rating > 0
+      );
+      if (ratings.length === 13) {
         const average = ratings.reduce((a, b) => a + b, 0) / ratings.length;
         const roundedAverage = Math.round(average);
         const descriptions = {
-            1: "Poor Performance",
-            2: "Average Performance - Needs Improvement",
-            3: "Good Performance",
-            4: "Very Good Performance",
-            5: "Excellent Performance"
+          1: "Poor Performance",
+          2: "Average Performance - Needs Improvement",
+          3: "Good Performance",
+          4: "Very Good Performance",
+          5: "Excellent Performance",
         };
         overallPerformanceText.textContent = descriptions[roundedAverage] || "Not Rated";
-    } else {
+      } else {
         overallPerformanceText.textContent = "Please rate all 13 metrics.";
+      }
     }
-};
 
-function downloadPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            // Add title
-            doc.setFontSize(18);
-            doc.text('EMPLOYEE PERFORMANCE EVALUATION FORM', 10, 20);
-
-            // Add the performance metrics
-            metrics.forEach((metric, index) => {
-                doc.setFontSize(12);
-                doc.text(metric.title, 10, 30 + (index * 60));
-                doc.html(metric.details, {
-                    callback: function (doc) {
-                        doc.save('Employee_Performance_Evaluation.pdf');
-                    },
-                    x: 10,
-                    y: 40 + (index * 60),
-                    width: 180
-                });
-            });
+    // Updated downloadPDF function using html2canvas
+    function downloadPDF() {
+      const formContainer = document.getElementById("form-container");
+      // Ensure user-entered values are captured in the snapshot
+      const inputs = formContainer.querySelectorAll("input, textarea");
+      inputs.forEach((input) => {
+        if (input.type === "text" || input.type === "email" || input.tagName === "TEXTAREA") {
+          input.setAttribute("value", input.value);
+        } else if (input.type === "date") {
+          input.setAttribute("value", input.value || " ");
         }
-    </script>
-
+      });
+      // Capture the formatted form with html2canvas
+      html2canvas(formContainer, {
+        scale: 2,
+        useCORS: true,
+      }).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF("p", "mm", "a4");
+        // Calculate dimensions to fit A4 (210mm wide)
+        const imgWidth = 210;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        pdf.addImage(imgData, "PNG", 0, 10, imgWidth, imgHeight);
+        pdf.save("Employee_Performance_Evaluation.pdf");
+      });
+    }
+  </script>
 </body>
 </html>
-</table>
-</div>  <button class="download-button" onclick="downloadPDF()">Download PDF</button>
-
-<script>
-
-
