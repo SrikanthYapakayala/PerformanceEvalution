@@ -128,17 +128,16 @@
       padding: 15px 32px;
       text-align: center;
       text-decoration: none;
-      display: inline-block;
+      display: block;
       font-size: 16px;
       margin: 20px auto;
       cursor: pointer;
       border-radius: 5px;
-      display: block;
     }
   </style>
 </head>
 <body>
-  <!-- Wrap the entire form in a div with id "form-container" -->
+  <!-- The form is wrapped in a div with id "form-container" -->
   <div class="container" id="form-container">
     <div class="header-container">
       <h2 class="header-title">EMPLOYEE PERFORMANCE EVALUATION FORM</h2>
@@ -242,6 +241,7 @@
   <button class="download-button" onclick="downloadPDF()">Download PDF</button>
 
   <script>
+    // Define performance metrics and add them to the DOM
     const metrics = [
       {
         title: "1. TECHNICAL KNOWLEDGE",
@@ -442,9 +442,9 @@
     // Update overall performance when all 13 metrics are rated
     function updateOverallPerformance() {
       const starContainers = metricsContainer.querySelectorAll(".feedback-container");
-      const ratings = Array.from(starContainers, (container) => parseInt(container.dataset.rating) || 0).filter(
-        (rating) => rating > 0
-      );
+      const ratings = Array.from(starContainers, (container) =>
+        parseInt(container.dataset.rating) || 0
+      ).filter((rating) => rating > 0);
       if (ratings.length === 13) {
         const average = ratings.reduce((a, b) => a + b, 0) / ratings.length;
         const roundedAverage = Math.round(average);
@@ -461,30 +461,49 @@
       }
     }
 
-    // Updated downloadPDF function using html2canvas
+    // Updated downloadPDF function that clones the form and replaces inputs with static text
     function downloadPDF() {
       const formContainer = document.getElementById("form-container");
-      // Ensure user-entered values are captured in the snapshot
-      const inputs = formContainer.querySelectorAll("input, textarea");
+      // Clone the container to avoid modifying the original
+      const clonedContainer = formContainer.cloneNode(true);
+
+      // Replace each input and textarea with a span containing its value
+      const inputs = clonedContainer.querySelectorAll("input, textarea");
       inputs.forEach((input) => {
-        if (input.type === "text" || input.type === "email" || input.tagName === "TEXTAREA") {
-          input.setAttribute("value", input.value);
-        } else if (input.type === "date") {
-          input.setAttribute("value", input.value || " ");
-        }
+        const span = document.createElement("span");
+        // Use the input's current value (or placeholder if empty)
+        span.textContent = input.value || input.placeholder || "";
+        // Optional: copy some basic styling
+        span.style.fontFamily = window.getComputedStyle(input).fontFamily;
+        span.style.fontSize = window.getComputedStyle(input).fontSize;
+        span.style.border = window.getComputedStyle(input).border;
+        // Replace the input element with the span
+        input.parentNode.replaceChild(span, input);
       });
-      // Capture the formatted form with html2canvas
-      html2canvas(formContainer, {
+
+      // Capture the cloned, static form using html2canvas
+      html2canvas(clonedContainer, {
         scale: 2,
         useCORS: true,
+        backgroundColor: "#ffffff"
       }).then((canvas) => {
         const imgData = canvas.toDataURL("image/png");
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF("p", "mm", "a4");
-        // Calculate dimensions to fit A4 (210mm wide)
-        const imgWidth = 210;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-        pdf.addImage(imgData, "PNG", 0, 10, imgWidth, imgHeight);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+
+        // Calculate image dimensions to fit on the A4 page
+        let imgWidth = pdfWidth;
+        let imgHeight = (canvas.height * pdfWidth) / canvas.width;
+        if (imgHeight > pdfHeight) {
+          const ratio = pdfHeight / imgHeight;
+          imgWidth = imgWidth * ratio;
+          imgHeight = imgHeight * ratio;
+        }
+        // Center the image vertically (optional)
+        const marginY = (pdfHeight - imgHeight) / 2;
+        pdf.addImage(imgData, "PNG", 0, marginY, imgWidth, imgHeight);
         pdf.save("Employee_Performance_Evaluation.pdf");
       });
     }
