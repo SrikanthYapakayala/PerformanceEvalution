@@ -1,22 +1,17 @@
-/* Body styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     margin: 20px;
-}
-
-/* Container for the entire form */
-.container {
+  }
+  .container {
     width: 80%;
     margin: auto;
     background-color: white;
     padding: 20px;
     border: 5px solid black;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Header Section */
-.header-container {
+  }
+  .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -26,22 +21,19 @@ body {
     color: white;
     font-weight: bold;
     text-align: center;
-}
-
-.header-title {
+  }
+  .header-title {
     font-size: 24px;
     flex-grow: 1;
     text-align: center;
-}
-
-.review-date {
+  }
+  .review-date {
     font-size: 14px;
     padding: 5px 10px;
     border: 2px solid white;
     border-radius: 5px;
-}
-
-.section-header {
+  }
+  .section-header {
     font-size: 20px;
     font-weight: bold;
     padding: 10px;
@@ -50,52 +42,45 @@ body {
     color: white;
     border: 5px solid black;
     text-align: center;
-}
-
-/* Table styling */
-table {
+  }
+  table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 15px;
-}
-
-table, th, td {
+  }
+  table, th, td {
     border: 2px solid black;
     padding: 8px;
-}
-
-th {
+  }
+  th {
     background-color: #004085;
     color: white;
     font-weight: bold;
     text-align: left;
-}
-
-/* Target the input fields within the table */
-table input,
-table select,
-table textarea {
+  }
+  table input,
+  table select,
+  table textarea {
     width: calc(100% - 16px);
     padding: 5px;
     border: 2px solid black;
     border-radius: 5px;
     box-sizing: border-box;
-}
-
-input, select, textarea {
+    height: 30px; /* Explicitly set height for inputs */
+    line-height: 20px; /* Adjust line height for vertical centering */
+  }
+  input, select, textarea {
     width: 100%;
     padding: 5px;
     border: 2px solid black;
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 14px;
-}
-
-textarea {
+  }
+  textarea {
     resize: vertical;
-}
-
-.metric-title {
+  }
+  .metric-title {
     background-color: #007bff;
     color: white;
     padding: 10px;
@@ -103,62 +88,69 @@ textarea {
     margin-top: 10px;
     border-radius: 5px;
     border: 3px solid black;
-}
-
-.flex-container {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-}
-
-.flex-item {
-    width: 48%;
-}
-
-label {
+  }
+  label {
     font-weight: bold;
     color: #004085;
-}
-
-.section-title {
+  }
+  .bold-text {
     font-weight: bold;
-    color: red;
-    text-transform: uppercase;
-}
-
-.bold-text {
-    font-weight: bold;
-}
-
-/* Placeholder input styles */
-.placeholder-input {
-    color: lightgray;
-    font-style: italic;
+  }
+  .download-button {
+    background-color: #4CAF50;
     border: none;
-    background: transparent;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0;
+    color: white;
+    padding: 15px 32px;
     text-align: center;
-    display: table-cell; /* Change to table-cell */
-    line-height: 30px;
-    vertical-align: middle;
-}
-
-/* Remove placeholder styles when focused */
-.placeholder-input:focus {
-    color: black;
-    font-style: normal;
-    outline: none;
-    text-align: left;
-}
-
-/* Table cell styling */
-table td {
-    padding: 5px;
-}
-
-/* Increase input box height */
-table input[type="text"] {
-    height: 30px;
-}
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin: 20px auto;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .star-rating {
+    cursor: pointer;
+  }
+  .star {
+    font-size: 20px;
+    color: gray;
+    margin-right: 2px;
+  }
+  
+  /* Flexbox Layout for Table Rows */
+  table tr:nth-child(3), /* Employee Number/Name row */
+  table tr:nth-child(4), /* Position Text/Employee Group row */
+  table tr:nth-child(5), /* Division Text/Department Text row */
+  table tr:nth-child(6), /* Email ID/Contact Number row */
+  table tr:nth-child(7)  /* Reviewed By/Review Date row */
+  {
+    display: flex;
+  }
+  
+  table tr:nth-child(3) td,
+  table tr:nth-child(4) td,
+  table tr:nth-child(5) td,
+  table tr:nth-child(6) td,
+  table tr:nth-child(7) td {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  
+  table tr:nth-child(3) td:first-child,
+  table tr:nth-child(4) td:first-child,
+  table tr:nth-child(5) td:first-child,
+  table tr:nth-child(6) td:first-child,
+  table tr:nth-child(7) td:first-child {
+    flex: 0 0 150px;
+  }
+  
+  /* Ensure inputs fill their cells */
+  table tr:nth-child(3) input,
+  table tr:nth-child(4) input,
+  table tr:nth-child(5) input,
+  table tr:nth-child(6) input,
+  table tr:nth-child(7) input {
+    width: 100%;
+  }
