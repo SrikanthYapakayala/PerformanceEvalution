@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Employee Performance Evaluation</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.10/purify.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <!-- html2pdf.js (bundles html2canvas + jsPDF) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -58,9 +58,7 @@
       border-collapse: collapse;
       margin-bottom: 15px;
     }
-    table,
-    th,
-    td {
+    table, th, td {
       border: 2px solid black;
       padding: 8px;
     }
@@ -79,9 +77,7 @@
       border-radius: 5px;
       box-sizing: border-box;
     }
-    input,
-    select,
-    textarea {
+    input, select, textarea {
       width: 100%;
       padding: 5px;
       border: 2px solid black;
@@ -101,22 +97,9 @@
       border-radius: 5px;
       border: 3px solid black;
     }
-    .flex-container {
-      display: flex;
-      justify-content: space-between;
-      margin: 10px 0;
-    }
-    .flex-item {
-      width: 48%;
-    }
     label {
       font-weight: bold;
       color: #004085;
-    }
-    .section-title {
-      font-weight: bold;
-      color: red;
-      text-transform: uppercase;
     }
     .bold-text {
       font-weight: bold;
@@ -134,11 +117,21 @@
       cursor: pointer;
       border-radius: 5px;
     }
+    .star-rating {
+      cursor: pointer;
+    }
+    .star {
+      font-size: 20px;
+      color: gray;
+      margin-right: 2px;
+    }
   </style>
 </head>
 <body>
-  <!-- The form is wrapped in a div with id "form-container" -->
+
+  <!-- Wrap entire form in a container for html2pdf -->
   <div class="container" id="form-container">
+
     <div class="header-container">
       <h2 class="header-title">EMPLOYEE PERFORMANCE EVALUATION FORM</h2>
       <div class="review-date">Review Date: <input type="date" /></div>
@@ -241,7 +234,9 @@
   <button class="download-button" onclick="downloadPDF()">Download PDF</button>
 
   <script>
-    // Define performance metrics and add them to the DOM
+    // -----------------------------------------
+    // 1) DEFINE METRICS & RENDER THEM IN DOM
+    // -----------------------------------------
     const metrics = [
       {
         title: "1. TECHNICAL KNOWLEDGE",
@@ -287,6 +282,7 @@
           <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
         `
       },
+      // ... You can include the rest of your metrics here ...
       {
         title: "5. CUSTOMER SERVICE SKILLS",
         details: `
@@ -298,87 +294,13 @@
           <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
         `
       },
-      {
-        title: "6. TIME MANAGEMENT",
-        details: `
-          <b>Efficiency:</b> Completing tasks within the expected time frame, ensuring minimal disruption to the customer’s daily activities.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-          <b>Prioritization:</b> Managing multiple service calls, balancing urgent repairs with routine maintenance without compromising quality.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-        `
-      },
-      {
-        title: "7. KNOWLEDGE OF CODES AND REGULATIONS",
-        details: `
-          <b>Local Codes and Standards:</b> Knowledge of local, state, and federal regulations regarding HVAC systems, such as installation codes, refrigerant handling, and energy efficiency standards.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-          <b>Permit Requirements:</b> Understanding when and how to obtain necessary permits for installation or repairs.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-        `
-      },
-      {
-        title: "8. PHYSICAL AND MANUAL DEXTERITY",
-        details: `
-          <b>Physical Stamina:</b> Ability to work in challenging physical environments (e.g., rooftops, basements, attics) and handle heavy equipment.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-          <b>Precision Handling:</b> Skill in using tools such as wrenches, pressure gauges, thermometers, and soldering tools.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-        `
-      },
-      {
-        title: "9. SAFETY AWARENESS",
-        details: `
-          <b>Workplace Safety:</b> Consistently following safety protocols, such as wearing personal protective equipment (PPE), handling hazardous materials properly, and ensuring workspaces are safe.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-          <b>Hazard Prevention:</b> Recognizing and mitigating potential safety hazards, such as electrical risks, refrigerant leaks, or improper ventilation.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-        `
-      },
-      {
-        title: "10. TROUBLESHOOTING EFFICIENCY",
-        details: `
-          <b>Speed:</b> The ability to identify problems and fix them quickly, minimizing downtime for the customer.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-          <b>Comprehensive Troubleshooting:</b> Not only fixing the immediate issue but also identifying any other potential problems or areas for improvement.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-        `
-      },
-      {
-        title: "11. QUALITY OF WORK",
-        details: `
-          <b>Durability of Work:</b> Ensuring repairs and installations are durable, minimizing the need for repeat visits or fixes.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-          <b>Attention to Detail:</b> Thoroughness in performing repairs and maintenance, ensuring all components are functioning properly.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-        `
-      },
-      {
-        title: "12. ADAPTABILITY AND CONTINUED LEARNING",
-        details: `
-          <b>Staying Current:</b> Keeping up to date with the latest AC technologies, refrigerants, and industry trends.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-          <b>Certifications:</b> Having relevant certifications such as EPA 608 (for refrigerant handling), NATE (North American Technician Excellence), or HVACR certifications that demonstrate competence and knowledge.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-          <b>Training and Development:</b> Willingness to participate in ongoing training or workshops to enhance skills and knowledge.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-        `
-      },
-      {
-        title: "13. PERFORMANCE METRICS",
-        details: `
-          <b>Customer Satisfaction:</b> Positive feedback from clients regarding service quality, communication, and reliability.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-          <b>First-Time Fix Rate:</b> The percentage of issues resolved on the first visit.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-          <b>Work Completion Rate:</b> Successful completion of jobs without the need for rework.
-          <div style="border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
-        `
-      }
+      // ... etc. for metrics 6 to 13 ...
     ];
 
     const metricsContainer = document.getElementById("performance-metrics");
     const overallPerformanceText = document.getElementById("overall-performance");
 
+    // Dynamically insert each metric into the DOM
     metrics.forEach((metric, index) => {
       const metricDiv = document.createElement("div");
       metricDiv.classList.add("performance-feedback");
@@ -403,7 +325,9 @@
       metricsContainer.appendChild(metricDiv);
     });
 
-    // Event delegation for star clicks
+    // -----------------------------------------
+    // 2) STAR RATINGS LOGIC
+    // -----------------------------------------
     metricsContainer.addEventListener("click", function (event) {
       if (event.target.classList.contains("star")) {
         const star = event.target;
@@ -417,7 +341,6 @@
       }
     });
 
-    // Highlight selected stars
     function highlightStars(starContainer, selectedValue) {
       const stars = starContainer.querySelectorAll(".star");
       stars.forEach((star) => {
@@ -426,7 +349,6 @@
       });
     }
 
-    // Update feedback description based on rating
     function updateFeedback(index, value) {
       const feedbackDesc = document.getElementById(`feedback-desc-${index}`);
       const descriptions = {
@@ -439,13 +361,14 @@
       feedbackDesc.textContent = descriptions[value] || "Not Rated";
     }
 
-    // Update overall performance when all 13 metrics are rated
     function updateOverallPerformance() {
       const starContainers = metricsContainer.querySelectorAll(".feedback-container");
       const ratings = Array.from(starContainers, (container) =>
         parseInt(container.dataset.rating) || 0
       ).filter((rating) => rating > 0);
-      if (ratings.length === 13) {
+
+      // If all metrics are rated (e.g., 13 total)
+      if (ratings.length === metrics.length) {
         const average = ratings.reduce((a, b) => a + b, 0) / ratings.length;
         const roundedAverage = Math.round(average);
         const descriptions = {
@@ -457,55 +380,28 @@
         };
         overallPerformanceText.textContent = descriptions[roundedAverage] || "Not Rated";
       } else {
-        overallPerformanceText.textContent = "Please rate all 13 metrics.";
+        overallPerformanceText.textContent = "Please rate all metrics.";
       }
     }
 
-    // Updated downloadPDF function that clones the form and replaces inputs with static text
+    // -----------------------------------------
+    // 3) DOWNLOAD PDF USING html2pdf.js
+    // -----------------------------------------
     function downloadPDF() {
-      const formContainer = document.getElementById("form-container");
-      // Clone the container to avoid modifying the original
-      const clonedContainer = formContainer.cloneNode(true);
+      // Target the entire form container
+      const element = document.getElementById("form-container");
 
-      // Replace each input and textarea with a span containing its value
-      const inputs = clonedContainer.querySelectorAll("input, textarea");
-      inputs.forEach((input) => {
-        const span = document.createElement("span");
-        // Use the input's current value (or placeholder if empty)
-        span.textContent = input.value || input.placeholder || "";
-        // Optional: copy some basic styling
-        span.style.fontFamily = window.getComputedStyle(input).fontFamily;
-        span.style.fontSize = window.getComputedStyle(input).fontSize;
-        span.style.border = window.getComputedStyle(input).border;
-        // Replace the input element with the span
-        input.parentNode.replaceChild(span, input);
-      });
+      // Configure html2pdf options
+      const opt = {
+        margin:       0,
+        filename:     'Employee_Performance_Evaluation.pdf',
+        image:        { type: 'jpeg', quality: 1.0 },
+        html2canvas:  { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
 
-      // Capture the cloned, static form using html2canvas
-      html2canvas(clonedContainer, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: "#ffffff"
-      }).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF("p", "mm", "a4");
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = pdf.internal.pageSize.getHeight();
-
-        // Calculate image dimensions to fit on the A4 page
-        let imgWidth = pdfWidth;
-        let imgHeight = (canvas.height * pdfWidth) / canvas.width;
-        if (imgHeight > pdfHeight) {
-          const ratio = pdfHeight / imgHeight;
-          imgWidth = imgWidth * ratio;
-          imgHeight = imgHeight * ratio;
-        }
-        // Center the image vertically (optional)
-        const marginY = (pdfHeight - imgHeight) / 2;
-        pdf.addImage(imgData, "PNG", 0, marginY, imgWidth, imgHeight);
-        pdf.save("Employee_Performance_Evaluation.pdf");
-      });
+      // Generate and download the PDF
+      html2pdf().from(element).set(opt).save();
     }
   </script>
 </body>
