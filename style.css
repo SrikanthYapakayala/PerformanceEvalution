@@ -1,156 +1,300 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 20px;
-  }
-  .container {
-    width: 80%;
-    margin: auto;
-    background-color: white;
-    padding: 20px;
-    border: 5px solid black;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-  }
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 5px solid black;
-    padding: 10px;
-    background-color: #004085;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-  }
-  .header-title {
-    font-size: 24px;
-    flex-grow: 1;
-    text-align: center;
-  }
-  .review-date {
-    font-size: 14px;
-    padding: 5px 10px;
-    border: 2px solid white;
-    border-radius: 5px;
-  }
-  .section-header {
-    font-size: 20px;
-    font-weight: bold;
-    padding: 10px;
-    margin-top: 20px;
-    background-color: #d9534f;
-    color: white;
-    border: 5px solid black;
-    text-align: center;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 15px;
-  }
-  table, th, td {
-    border: 2px solid black;
-    padding: 8px;
-  }
-  th {
-    background-color: #004085;
-    color: white;
-    font-weight: bold;
-    text-align: left;
-  }
-  table input,
-  table select,
-  table textarea {
-    width: calc(100% - 16px);
-    padding: 5px;
-    border: 2px solid black;
-    border-radius: 5px;
-    box-sizing: border-box;
-    height: 30px; /* Explicitly set height for inputs */
-    line-height: 20px; /* Adjust line height for vertical centering */
-  }
-  input, select, textarea {
-    width: 100%;
-    padding: 5px;
-    border: 2px solid black;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 14px;
-  }
-  textarea {
-    resize: vertical;
-  }
-  .metric-title {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    font-weight: bold;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 3px solid black;
-  }
-  label {
-    font-weight: bold;
-    color: #004085;
-  }
-  .bold-text {
-    font-weight: bold;
-  }
-  .download-button {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: block;
-    font-size: 16px;
-    margin: 20px auto;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  .star-rating {
-    cursor: pointer;
-  }
-  .star {
-    font-size: 20px;
-    color: gray;
-    margin-right: 2px;
-  }
-  
-  /* Flexbox Layout for Table Rows */
-  table tr:nth-child(3), /* Employee Number/Name row */
-  table tr:nth-child(4), /* Position Text/Employee Group row */
-  table tr:nth-child(5), /* Division Text/Department Text row */
-  table tr:nth-child(6), /* Email ID/Contact Number row */
-  table tr:nth-child(7)  /* Reviewed By/Review Date row */
-  {
-    display: flex;
-  }
-  
-  table tr:nth-child(3) td,
-  table tr:nth-child(4) td,
-  table tr:nth-child(5) td,
-  table tr:nth-child(6) td,
-  table tr:nth-child(7) td {
-    flex: 1;
-    display: flex;
-    align-items: center;
-  }
-  
-  table tr:nth-child(3) td:first-child,
-  table tr:nth-child(4) td:first-child,
-  table tr:nth-child(5) td:first-child,
-  table tr:nth-child(6) td:first-child,
-  table tr:nth-child(7) td:first-child {
-    flex: 0 0 150px;
-  }
-  
-  /* Ensure inputs fill their cells */
-  table tr:nth-child(3) input,
-  table tr:nth-child(4) input,
-  table tr:nth-child(5) input,
-  table tr:nth-child(6) input,
-  table tr:nth-child(7) input {
-    width: 100%;
-  }
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 2px; /* Reduced body margin */
+  font-size: 12px; /* Increased font size */
+}
+
+.container {
+  width: 794px; /* Approximate width for A4 (adjust if needed) */
+  margin: 0 auto; /* Center the container */
+  background-color: white;
+  padding: 5px;
+  border: 3px solid black;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box; /* Include padding and border in width */
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 5px solid black;
+  padding: 10px;
+  background-color: #004085;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.header-title {
+  font-size: 20px;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.review-date {
+  font-size: 12px;
+  padding: 5px 10px;
+  border: 2px solid white;
+  border-radius: 5px;
+}
+
+.section-header {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px;
+  margin-top: 1px;
+  margin-bottom: 10px;
+  background-color: #d98e4f;
+  color: white;
+  border: 2px solid black;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 5px;
+  table-layout: fixed; /* Ensure table maintains width */
+}
+
+table,
+th,
+td {
+    border: 1px solid black; /* Reduced border width */
+    padding: 4px; /* Reduced table cell padding */
+    font-size: 11px;
+    word-wrap: break-word; /* Allow long words to break */
+    overflow-wrap: break-word; /* Alternative for word-wrap */
+}
+
+th {
+  background-color: #004085;
+  color: white;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Remove width calculation here */
+table input,
+table select,
+table textarea {
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 12px;
+}
+
+/* Reduce font size for input fields within the first table */
+table:first-of-type input {
+  font-size: 10px; /* Reduced font size to 10px */
+}
+
+
+textarea {
+  resize: vertical;
+  max-width: 95%; /* Limit textarea width */
+}
+
+.metric-title {
+  background-color: #ffa700;
+  color: white;
+  padding: 2px;
+  font-weight: bold;
+  margin-top: 1px;
+  border-radius: 1px;
+  border: 2px solid black;
+  font-size: 14px;
+}
+
+label {
+  font-weight: bold;
+  color: #004085;
+  font-size: 10px;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.download-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  margin: 20px auto;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.star-rating {
+  cursor: pointer;
+}
+
+.star {
+  font-size: 20px;
+  color: gray;
+  margin-right: 2px;
+}
+
+
+/* Table row and cell display */
+table tr:nth-child(3),
+table tr:nth-child(4),
+table tr:nth-child(5),
+table tr:nth-child(6),
+table tr:nth-child(7) {
+  display: table-row;
+}
+
+table tr:nth-child(3) td,
+table tr:nth-child(4) td,
+table tr:nth-child(5) td,
+table tr:nth-child(6) td,
+table tr:nth-child(7) td {
+  display: table-cell;
+}
+
+/* Fixed width for label cells */
+table tr:nth-child(3) td:nth-child(1),
+table tr:nth-child(4) td:nth-child(1),
+table tr:nth-child(5) td:nth-child(1),
+table tr:nth-child(6) td:nth-child(1),
+table tr:nth-child(7) td:nth-child(1) {
+  width: 150px;
+}
+
+/* Input width and padding */
+table tr:nth-child(3) td:nth-child(2),
+table tr:nth-child(4) td:nth-child(2),
+table tr:nth-child(5) td:nth-child(2),
+table tr:nth-child(6) td:nth-child(2),
+table tr:nth-child(7) td:nth-child(2) {
+  width: auto;
+  padding-left: 10px;
+}
+
+table tr:nth-child(3) input,
+table tr:nth-child(4) input,
+table tr:nth-child(5) input,
+table tr:nth-child(6) input,
+table tr:nth-child(7) input {
+  width: 100%;
+}
+
+/* Remove inner borders */
+table tr:nth-child(3) td:nth-child(1),
+table tr:nth-child(4) td:nth-child(1),
+table tr:nth-child(5) td:nth-child(1),
+table tr:nth-child(6) td:nth-child(1),
+table tr:nth-child(7) td:nth-child(1) {
+  border-right: none;
+}
+
+/* Adjust spacing for performance metrics */
+.performance-feedback p {
+  margin: 0;
+  padding: 0;
+}
+
+#performance-metrics h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0;
+  line-height: 1.2;
+}
+
+/* Reduce margin for metric titles */
+.performance-feedback .metric-title {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+/* Make feedback text inline with stars */
+.feedback-container .feedback-text {
+  display: inline;
+  margin-left: 10px;
+}
+
+/* CSS for comments container */
+.comments-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0;
+  /* Remove margin from comments container */
+}
+
+.comments-container div {
+  width: 48%;
+  margin: 0;
+  vertical-align: top;
+  /* Ensure consistent vertical alignment */
+}
+
+.comments-container textarea {
+  padding: 5px;
+  margin: 0;
+  /* Remove textarea margins */
+  line-height: 1;
+  /* Adjust line height as needed */
+  vertical-align: top;
+  /* Ensure consistent vertical alignment */
+}
+
+/* Remove space between metric details and comments */
+.performance-feedback {
+  margin-bottom: 0;
+  /* Remove bottom margin from performance feedback */
+}
+
+/* Center placeholder text in input fields */
+.placeholder-input::placeholder {
+  text-align: center;
+}
+
+/* Ensure input fields take full width */
+.placeholder-input {
+  width: 100% !important; /* Add !important */
+  padding: 6px;
+  margin-bottom: 5px;
+  box-sizing: border-box;
+  display: block; /* Add this to make input fields block-level */
+}
+
+#approval-signatures-section td {
+  padding: 8px; /* Adjust padding if needed */
+  vertical-align: top;
+}
+/* Reduce spacing between metric details */
+/* Reduce spacing between metric details */
+.performance-feedback > div {
+  margin-bottom: 1px; /* Adjust this value as needed */
+}
+.review-date {
+  font-size: 14px;
+  padding: 5px 10px;
+  border: 2px solid white;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.review-date input[type="date"] {
+  display: block;
+  margin: 5px auto 0; /* Add top margin for spacing, center horizontally */
+}
