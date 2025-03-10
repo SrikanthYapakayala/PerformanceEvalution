@@ -180,6 +180,20 @@ td {
     display: block;
     margin: 5px auto 0; /* Add top margin for spacing, center horizontally */
 }
+#suggestions {
+    position: absolute;
+    border: 1px solid #ccc;
+    background-color: white;
+    display: none;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 200px;
+    z-index: 100;
+}
+
+#suggestions div:hover {
+    background-color: #f0f0f0;
+}
   </style>
 </head>
 <body>
@@ -193,7 +207,7 @@ td {
     <table>
       <tr>
         <td class="bold-text">Employee Number</td>
-        <td><input type="text" id="emp-number" /></td>
+        <td><input type="text" id="emp-number" /><div id="suggestions"></div></td>
         <td class="bold-text">Employee Name</td>
         <td><input type="text" id="emp-name" /></td>
       </tr>
@@ -423,7 +437,6 @@ metrics.forEach((metric, index) => {
     `;
     metricsContainer.appendChild(metricDiv);
 });
-
 // -----------------------------------------
 // 2) STAR RATINGS LOGIC
 // -----------------------------------------
@@ -505,103 +518,131 @@ function downloadPDF() {
 // -----------------------------------------
     // 4) FETCH & POPULATE EMPLOYEE DATA
     // -----------------------------------------
-    const employeeNumberInput = document.getElementById("emp-number");
-    const employeeNameInput = document.getElementById("emp-name");
-    const positionTextInput = document.getElementById("position-text");
-    const employeeGroupInput = document.getElementById("emp-group");
-    const divisionTextInput = document.getElementById("division-text");
-    const departmentTextInput = document.getElementById("department-text");
-    const emailInput = document.getElementById("email");
-    const contactInput = document.getElementById("contact");
+    let employeeData = [];
 
-    let employeeData = []; // Corrected initialization
+const employeeNumberInput = document.getElementById("emp-number");
+const employeeNameInput = document.getElementById("emp-name");
+const positionTextInput = document.getElementById("position-text");
+const employeeGroupInput = document.getElementById("emp-group");
+const divisionTextInput = document.getElementById("division-text");
+const departmentTextInput = document.getElementById("department-text");
+const emailInput = document.getElementById("email");
+const contactInput = document.getElementById("contact");
+const suggestionsDiv = document.getElementById("suggestions");
 
-    // Your Google Sheets URL
-    const googleSheetsUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdxa99pRN_wDel4uOm07GpSSi8YcHP4Q9z-7h7hD70gIeqyhY6QcWoxDjHKn8EGiUdnkNLDOdOY2Fu/pub?output=csv";
+const googleSheetsUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdxa99pRN_wDel4uOm07GpSSi8YcHP4Q9z-7h7hD70gIeqyhY6QcWoxDjHKn8EGiUdnkNLDOdOY2Fu/pub?output=csv";
 
-    // Function to fetch and parse CSV data
-    function fetchEmployeeData() {
-      fetch(googleSheetsUrl)
-        .then(response => response.text())
-        .then(csvData => {
-          employeeData = parseCSV(csvData);
-        })
-        .catch(error => console.error("Error fetching employee data:", error));
+function fetchEmployeeData() {
+  return fetch(googleSheetsUrl)
+    .then(response => response.text())
+    .then(csvData => {
+      employeeData = parseCSV(csvData);
+      return employeeData;
+    })
+    .catch(error => console.error("Error fetching employee data:", error));
+}
+
+function parseCSV(csv) {
+  const lines = csv.split("\n");
+  const headers = lines[0].split(",");
+  const result = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const obj = {};
+    const currentLine = lines[i].split(",");
+
+    for (let j = 0; j < headers.length; j++) {
+      obj[headers[j].trim()] = currentLine[j] ? currentLine[j].trim() : "";
     }
+    result.push(obj);
+  }
+  return result;
+}
 
-    // Function to parse CSV data
-    function parseCSV(csv) {
-      const lines = csv.split("\n");
-      const headers = lines[0].split(",");
-      const result = []; // Corrected initialization
+function populateEmployeeDetails(empNumber) {
+  const employee = employeeData.find(emp => emp["Employee Number"] === empNumber);
 
-      for (let i = 1; i < lines.length; i++) {
-        const obj = {};
-        const currentLine = lines[i].split(",");
+  if (employee) {
+    employeeNameInput.value = employee["Employee Name"];
+    positionTextInput.value = employee["Position Text"];
+    employeeGroupInput.value = employee["Employee Group"];
+    divisionTextInput.value = employee["Division Text"];
+    departmentTextInput.value = employee["Department Text"];
+    emailInput.value = employee["Email ID"] || "";
+    contactInput.value = employee["Contact Number"] || "";
 
-        for (let j = 0; j < headers.length; j++) {
-          obj[headers[j].trim()] = currentLine[j] ? currentLine[j].trim() : "";
-        }
-        result.push(obj);
-      }
-      return result;
-    }
+    employeeNameInput.readOnly = true;
+    positionTextInput.readOnly = true;
+    employeeGroupInput.readOnly = true;
+    divisionTextInput.readOnly = true;
+    departmentTextInput.readOnly = true;
+  } else {
+    employeeNameInput.value = "";
+    positionTextInput.value = "";
+    employeeGroupInput.value = "";
+    divisionTextInput.value = "";
+    departmentTextInput.value = "";
+    emailInput.value = "";
+    contactInput.value = "";
 
-    // Function to populate employee details
-    function populateEmployeeDetails(empNumber) {
-      const employee = employeeData.find(emp => emp["Employee Number"] === empNumber);
+    employeeNameInput.readOnly = false;
+    positionTextInput.readOnly = false;
+    employeeGroupInput.readOnly = false;
+    divisionTextInput.readOnly = false;
+    departmentTextInput.readOnly = false;
+  }
+}
 
-      if (employee) {
-        employeeNameInput.value = employee["Employee Name"];
-        positionTextInput.value = employee["Position Text"];
-        employeeGroupInput.value = employee["Employee Group"];
-        divisionTextInput.value = employee["Division Text"];
-        departmentTextInput.value = employee["Department Text"];
-        // Keep Email and Contact Number editable (clear them if empty in the sheet)
-        emailInput.value = employee["Email ID"] || "";
-        contactInput.value = employee["Contact Number"] || "";
+employeeNumberInput.addEventListener("input", function () {
+    const empNumber = this.value;
 
-        // Make the fields non-editable
-        employeeNameInput.readOnly = true;
-        positionTextInput.readOnly = true;
-        employeeGroupInput.readOnly = true;
-        divisionTextInput.readOnly = true;
-        departmentTextInput.readOnly = true;
-      } else {
-        // Clear fields if employee not found
-        employeeNameInput.value = "";
-        positionTextInput.value = "";
-        employeeGroupInput.value = "";
-        divisionTextInput.value = "";
-        departmentTextInput.value = "";
-        emailInput.value = "";
-        contactInput.value = "";
-
-        // Make all fields editable again
-        employeeNameInput.readOnly = false;
-        positionTextInput.readOnly = false;
-        employeeGroupInput.readOnly = false;
-        divisionTextInput.readOnly = false;
-        departmentTextInput.readOnly = false;
-      }
-    }
-
-    // Event listener for employee number input
-    employeeNumberInput.addEventListener("input", function () {
-      const empNumber = this.value;
-
-      // Validation: Check if the employee number exceeds 6 digits
-      if (empNumber.length > 6) {
-        this.value = empNumber.slice(0, 6); // Truncate to 6 digits
+    if (empNumber.length > 6) {
+        this.value = empNumber.slice(0, 6);
         alert("Employee number cannot exceed 6 digits.");
-        return; // Stop further processing
-      }
+        return;
+    }
 
-      populateEmployeeDetails(empNumber);
-    });
+    populateEmployeeDetails(empNumber);
+    showSuggestions(empNumber);
+});
 
-    // Fetch employee data when the page loads
-    fetchEmployeeData();
+function showSuggestions(input) {
+    suggestionsDiv.innerHTML = "";
+
+    if (input.trim() === "") {
+        suggestionsDiv.style.display = "none";
+        return;
+    }
+
+    const matchingEmployees = employeeData.filter(emp =>
+        emp["Employee Number"].startsWith(input)
+    );
+
+    if (matchingEmployees.length > 0) {
+        matchingEmployees.slice(0, 10).forEach(emp => {
+            const suggestionItem = document.createElement("div");
+            suggestionItem.textContent = emp["Employee Number"];
+            suggestionItem.style.padding = "5px";
+            suggestionItem.style.cursor = "pointer";
+
+            suggestionItem.addEventListener("click", function () {
+                employeeNumberInput.value = emp["Employee Number"];
+                populateEmployeeDetails(emp["Employee Number"]);
+                suggestionsDiv.style.display = "none";
+            });
+
+            suggestionsDiv.appendChild(suggestionItem);
+        });
+
+        suggestionsDiv.style.display = "block";
+    } else {
+        suggestionsDiv.style.display = "none";
+    }
+}
+
+fetchEmployeeData().then(() => {
+  // Data is fetched and parsed.
+});
   </script>
 </body>
 </html>
