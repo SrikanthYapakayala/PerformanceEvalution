@@ -1,648 +1,1456 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Employee Performance Evaluation</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-  <style>
-    body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 12px;
-    font-size: 12px;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Performance Evaluation</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            font-size: 12px;
+            overflow: auto;
+            /* ADDED: Enable scrolling */
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #333;
+            text-align: center;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .position-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .position-list li {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .position-list a {
+            display: block;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .position-list a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Welcome Page Specific Styles */
+        #welcome-page {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            /* REMOVED: overflow: hidden; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            /* light background */
+        }
+
+        /* Updated Background Panel Styles */
+        .background-panel {
+            position: absolute;
+            width: 60%;
+            /* Adjust for desired panel size */
+            height: 60%;
+            /* Adjust */
+            overflow: hidden;
+            transform-origin: top left;
+            opacity: 0.8;
+            /* Adjust transparency */
+            border: 2px solid white;
+            /* Add white border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Add subtle shadow */
+        }
+
+        .background-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            /* Smooth transition on hover */
+        }
+
+        /* Hover Effect */
+        .background-panel:hover img {
+            transform: scale(1.1);
+            /* Slight zoom on hover */
+        }
+
+        /* Custom Panel Positioning and Images */
+        #panel1 {
+            top: -10%;
+            /* Adjust vertical position */
+            left: -15%;
+            /* Adjust horizontal position */
+            width: 70%;
+            height: 60%;
+            transform: rotate(-8deg);
+        }
+
+        #panel2 {
+            top: -5%;
+            right: -20%;
+            width: 60%;
+            height: 50%;
+            transform: rotate(6deg);
+        }
+
+        #panel3 {
+            bottom: -15%;
+            left: -15%;
+            width: 55%;
+            height: 55%;
+            transform: rotate(5deg);
+        }
+
+        #panel4 {
+            bottom: -10%;
+            right: -25%;
+            width: 55%;
+            height: 55%;
+            transform: rotate(-5deg);
+        }
+
+        /* Content Container */
+        .welcome-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            /* Adjust transparency */
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            /* More pronounced shadow */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: auto;
+        }
+
+        .welcome-message {
+            font-size: 2.8em;
+            /* Larger message */
+            margin-bottom: 25px;
+            color: #545F66;
+            /* Dark Gray from Logo */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            /* Add text shadow */
+        }
+
+        .proceed-button {
+            padding: 18px 35px;
+            /* Adjust button size */
+            background-color: #2C4DA8;
+            /* Blue from Logo */
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1.3em;
+            transition: background-color 0.3s ease;
+            /* Smooth transition on hover */
+        }
+
+        .proceed-button:hover {
+            background-color: #1C3D98;
+            /* Darker shade of Blue */
+        }
+
+        /* Ensure Button text is visible */
+        .proceed-button a {
+            color: white;
+            text-decoration: none;
+            /* Remove underline from link */
+        }
+
+        /* AC Technician Form Specific Styles */
+        .ac-technician-container {
+            width: 794px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 5px;
+            border: 3px solid black;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .ac-header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 5px solid black;
+            padding: 10px;
+            background-color: #004085;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .ac-header-title {
+            font-size: 18px;
+            flex-grow: 1;
+            text-align: center;
+            color: white;
+        }
+
+        .ac-review-date {
+            font-size: 14px;
+            padding: 5px 10px;
+            border: 2px solid white;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .ac-section-header {
+            font-size: 12px;
+            font-weight: bold;
+            padding: 3px;
+            margin-top: 1px;
+            margin-bottom: 1px;
+            background-color: #d98e4f;
+            color: white;
+            border: 2px solid black;
+            text-align: center;
+        }
+
+        /* AC Table Style */
+        .ac-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2px;
+        }
+
+        .ac-table,
+        .ac-table th,
+        .ac-table td {
+            border: 1px solid black;
+            padding: 4px;
+            font-size: 11px;
+        }
+
+        .ac-table th {
+            background-color: #004085;
+            color: white;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        /* Added these rules */
+        .ac-table td {
+            padding: 5px;
+            vertical-align: middle;
+            /* Center content vertically */
+            word-break: break-word;
+            /* Prevent long text from overflowing */
+        }
+
+        .ac-table input[type="text"],
+        .ac-table input[type="email"] {
+            width: calc(100% - 10px);
+            /* Adjust to account for padding */
+            padding: 6px;
+            border: 1px solid black;
+            border-radius: 5px;
+            box-sizing: border-box;
+            /* Ensure padding is included in width */
+        }
+
+        /* Adjusted column widths to allocate more space for Name & Position */
+        .ac-table th:nth-child(1),
+        .ac-table td:nth-child(1), /* Employee Number, Position Text, Division Text, etc. */
+        .ac-table th:nth-child(3),
+        .ac-table td:nth-child(3) /* Employee Name, Employee Group, Department Text, etc. */ {
+            width: 20%; /* Reduced width for the first and third header and data columns */
+        }
+
+        .ac-table th:nth-child(2),
+        .ac-table td:nth-child(2), /* Employee Number, Position Text, Division Text, etc. */
+        .ac-table th:nth-child(4),
+        .ac-table td:nth-child(4) /* Employee Name, Employee Group, Department Text, etc. */ {
+            width: 30%; /* Increased width for the second and fourth header and data columns */
+        }
+
+        /* End added rules */
+
+        .ac-table select,
+        .ac-table textarea {
+            width: calc(104% - 16px);
+            padding: 9px;
+            border: 1px solid black;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /*input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 5px;
+            border: 2px solid black;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 12px;
+        }*/
+
+        .ac-table:first-of-type {
+            font-size: 10px;
+        }
+
+        textarea {
+            resize: vertical;
+            max-width: 100%;
+            /* Limit textarea width */
+        }
+
+        input.highlighted,
+        select.highlighted,
+        textarea.highlighted {
+            border-color: red;
+            box-shadow: 0 0 5px red;
+        }
+
+        input:required:invalid,
+        textarea:required:invalid,
+        input[type="date"]:required:invalid {
+            box-shadow: none;
+            border-color: #ccc;
+        }
+
+        input:required,
+        textarea:required,
+        input[type="date"]:required {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        .ac-table:first-of-type input {
+            font-size: 10px;
+        }
+
+        textarea {
+            resize: vertical;
+            max-width: 100%;
+        }
+
+        .ac-metric-title {
+            background-color: #ffa700;
+            color: white;
+            padding: 2px;
+            font-weight: bold;
+            margin-top: 1px;
+            border-radius: 1px;
+            border: 2px solid black;
+            font-size: 14px;
+        }
+
+        .ac-flex-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .ac-flex-item {
+            width: 48%;
+        }
+
+        label {
+            font-weight: bold;
+            color: #004085;
+        }
+
+        .ac-section-title {
+            font-weight: bold;
+            color: red;
+            text-transform: uppercase;
+        }
+
+        .ac-bold-text {
+            font-weight: bold;
+        }
+
+        .ac-download-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 20px auto;
+            cursor: pointer;
+            border-radius: 5px;
+            display: block;
+        }
+
+        .ac-star-rating {
+            cursor: pointer;
+        }
+
+        .ac-star {
+            font-size: 20px;
+            color: gray;
+            margin-right: 2px;
+        }
+
+        .ac-comments-container {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .ac-comments-container div {
+            width: 48%;
+        }
+
+        .placeholder-input::placeholder {
+            color: #999;
+        }
+
+        .placeholder-input {
+            width: calc(100% - 12px);
+            padding: 6px;
+            margin-bottom: 7px;
+            box-sizing: content-box;
+            height: 30px;
+            width: calc(100% - 12px);
+        }
+
+        /* Styles for table cells in the signature section */
+#approval-signatures-section {
+  table-layout: fixed; /* Force equal column widths */
+  width: 100%; /* Take up the full available width */
 }
 
-.container {
-    width: 794px;
-    margin: 0 auto;
-    background-color: white;
-    padding: 5px;
-    border: 3px solid black;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
-}
-    .header-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border: 5px solid black;
-        padding: 10px;
-        background-color: #004085;
-        color: white;
-        font-weight: bold;
-        text-align: center;
-    }
-    .header-title {
-        font-size: 21px;
-        flex-grow: 1;
-        text-align: center;
-    }
-    .review-date {
-        font-size: 14px;
-        padding: 5px 10px;
-        border: 2px solid white;
-        border-radius: 5px;
-        text-align: center; /* Center the entire content */
-    }
-    .section-header {
-      font-size: 12px;
-      font-weight: bold;
-      padding: 3px;
-      margin-top: 1px;
-      margin-bottom: 1px;
-      background-color: #d98e4f;
-      color: white;
-      border: 2px solid black;
-      text-align: center;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 2px;
-    }
-    table,
-th,
-td {
-    border: 1px solid black;
-    padding: 4px;
-    font-size: 11px;
-}
-    th {
-        background-color: #004085;
-        color: white;
-        font-weight: bold;
-        text-align: left;
-    }
-    table input, table select, table textarea {
-        width: calc(104% - 16px);
-        padding: 9px;
-        border: 1px solid black;
-        border-radius: 5px;
-        box-sizing: border-box;
-    }
-    input, select, textarea {
-        width: 100%;
-        padding: 5px;
-        border: 2px solid black;
-        border-radius: 5px;
-        box-sizing: border-box;
-        font-size: 12px; /* Reduced font size to 12px */
-    }
-
-    /* Reduce font size for input fields within the first table */
-    table:first-of-type input {
-      font-size: 10px;
-    }
-
-    textarea {
-        resize: vertical;
-        max-width: 100%; /* Limit textarea width */
-    }
-    .metric-title {
-      background-color: #ffa700;
-  color: white;
-  padding: 2px;
-  font-weight: bold;
-  margin-top: 1px;
-  border-radius: 1px;
-  border: 2px solid black;
-  font-size: 14px;
-    }
-    .flex-container {
-        display: flex;
-        justify-content: space-between;
-        margin: 10px 0;
-    }
-    .flex-item {
-        width: 48%;
-    }
-    label {
-        font-weight: bold;
-        color: #004085;
-    }
-    .section-title {
-        font-weight: bold;
-        color: red;
-        text-transform: uppercase;
-    }
-    .bold-text {
-        font-weight: bold;
-    }
-    .download-button {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 20px auto;
-        cursor: pointer;
-        border-radius: 5px;
-        display: block;
-    }
-    .star-rating {
-        cursor: pointer;
-    }
-    .star {
-        font-size: 20px;
-        color: gray;
-        margin-right: 2px;
-    }
-    .comments-container {
-      display: flex;
-      justify-content: space-evenly;
-    }
-    .comments-container div {
-      width: 48%;
-    }
-    /* Style for placeholder inputs */
-    .placeholder-input::placeholder {
-        color: #999; /* Light gray color for placeholders */
-    }
-    .placeholder-input {
-        width: calc(100% - 12px); /* Adjust width to account for padding */
-        padding: 6px;
-        margin-bottom: 5px; /* Add some spacing between inputs */
-        box-sizing: content-box; /* Include padding and border in the element's total width and height */
-    }
-    /* Style for table cells in the signature section */
-    #approval-signatures-section td {
-        vertical-align: top; /* Align inputs to the top of the cell */
-    }
-  /* Reduce spacing between metric details */
-.performance-feedback > div {
-  margin-bottom: 1px; /* Adjust this value as needed */
+#approval-signatures-section td {
+  vertical-align: top;
+  padding: 8px;
+  width: 33.33%; /* Divide the width equally among the three columns */
+  box-sizing: border-box; /* Needed if you have padding on the tds */
 }
 
-.review-date input[type="date"] {
-    display: block;
-    margin: 5px auto 0; /* Add top margin for spacing, center horizontally */
-}
-#suggestions {
-    position: absolute;
-    border: 1px solid #ccc;
-    background-color: white;
-    display: none;
-    max-height: 200px;
-    overflow-y: auto;
-    width: 200px;
-    z-index: 100;
+#approval-signatures-section .placeholder-input {
+  width: calc(100% - 16px); /* Adjust for padding */
+  margin-bottom: 7px; /* Increased margin-bottom */
+  padding: 6px;
+  box-sizing: border-box;
 }
 
-#suggestions div:hover {
-    background-color: #f0f0f0;
+#approval-signatures-section th {
+  font-size: 10px;
 }
-  </style>
+
+#approval-signatures-section tr td{
+    padding: 6px;
+}
+
+        .performance-feedback>div {
+            margin-bottom: 1px;
+        }
+
+        .ac-review-date input[type="date"] {
+            display: block;
+            margin: 5px auto 0;
+        }
+
+        #suggestions {
+            position: absolute;
+            border: 1px solid #ccc;
+            background-color: white;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 200px;
+            z-index: 100;
+        }
+
+        #suggestions div:hover {
+            background-color: #f0f0f0;
+        }
+
+        .suggestions {
+            position: fixed;
+            border: 1px solid #ccc;
+            background-color: white;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 200px;
+            z-index: 100;
+        }
+
+        .suggestions div:hover {
+            background-color: #f0f0f0;
+        }
+
+        .metric-rating-box {
+            border: 2px solid black;
+            padding: 10px;
+            margin: 5px 0;
+            width: fit-content;
+            min-width: 200px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .metric-rating-box:hover {
+            background-color: #f0f0f0;
+        }
+
+        .rating-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .rating-container label {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            white-space: nowrap;
+        }
+
+        .rating-container input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .rating-box {
+            border: 2px dotted #ddd;
+            padding: 3px;
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .rating-box label {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .rating-box input[type="radio"] {
+            margin-right: 5px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #999;
+            border-radius: 50%;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rating-box input[type="radio"]:checked {
+            border-color: #007bff;
+        }
+
+        .rating-box label.grayed-out {
+            opacity: 0.5;
+        }
+
+        .rating-box input[type="radio"]:checked::before {
+            content: '\2713';
+            font-size: 16px;
+            color: #007bff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .required-field::after {
+            content: " *";
+            color: red;
+        }
+
+        .suggestion-item {
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        #reviewer-number-container {
+            position: relative;
+        }
+
+        /* Additional styles for improved layout */
+        .ac-table:first-of-type td {
+            padding: 6px;
+        }
+
+        .ac-table:first-of-type input[type="text"],
+        .ac-table:first-of-type input[type="email"] {
+            width: calc(100% - 12px);
+            margin-bottom: 3px;
+        }
+
+        #approval-signatures-section td {
+            padding: 8px;
+        }
+
+        #approval-signatures-section .placeholder-input {
+            width: calc(100% - 16px);
+            margin-bottom: 4px;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="container" id="form-container">
-    <div class="header-container">
-      <h2 class="header-title">EMPLOYEE PERFORMANCE EVALUATION FORM</h2>
-      <div class="review-date">Review Date: <input type="date" /></div>
+
+    <!-- Welcome Page Content -->
+    <div id="welcome-page">
+        <!-- Angled Background Panels -->
+        <div class="background-panel" id="panel1">
+            <img src="https://images.unsplash.com/photo-1606122348434-96570830b8f6?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Construction Site">
+        </div>
+        <div class="background-panel" id="panel2">
+            <img src="https://images.unsplash.com/photo-1580778683348-d25eb82f54ef?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Industrial Plant">
+        </div>
+        <div class="background-panel" id="panel3">
+            <img src="https://images.unsplash.com/photo-1550546148-94d512e9f20d?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Excavator">
+        </div>
+        <div class="background-panel" id="panel4">
+            <img src="https://images.unsplash.com/photo-1517245336163-16f621a47215?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Pipes">
+        </div>
+        <!-- Content Container -->
+        <div class="welcome-container">
+            <h1 class="welcome-message">Welcome to Employee Performance Evaluation!</h1>
+            <a href="#" class="proceed-button" onclick="showEvaluationPage()">Proceed to Evaluation</a>
+        </div>
     </div>
 
-    <div class="section-header" id="personal-details">EMPLOYEE PERSONAL DETAILS</div>
-    <table>
-      <tr>
-        <td class="bold-text">Employee Number</td>
-        <td><input type="text" id="emp-number" /><div id="suggestions"></div></td>
-        <td class="bold-text">Employee Name</td>
-        <td><input type="text" id="emp-name" /></td>
-      </tr>
-      <tr>
-        <td class="bold-text">Position Text</td>
-        <td><input type="text" id="position-text" /></td>
-        <td class="bold-text">Employee Group</td>
-        <td><input type="text" id="emp-group" /></td>
-      </tr>
-      <tr>
-        <td class="bold-text">Division Text</td>
-        <td><input type="text" id="division-text" /></td>
-        <td class="bold-text">Department Text</td>
-        <td><input type="text" id="department-text" /></td>
-      </tr>
-      <tr>
-        <td class="bold-text">Email ID</td>
-        <td><input type="email" id="email" /></td>
-        <td class="bold-text">Contact Number</td>
-        <td><input type="text" id="contact" /></td>
-      </tr>
-      <tr>
-        <td class="bold-text">Reviewed By</td>
-        <td><input type="text" id="reviewed-by" /></td>
-        <td class="bold-text">Review Date</td>
-        <td><input type="date" id="review-date" /></td>
-      </tr>
-    </table>
+    <!-- Evaluation Page/Selection Page Content -->
+    <div id="evaluation-page" style="display:none;">
+        <div class="container">
+            <h1>Employee Performance Evaluation</h1>
+            <ul class="position-list">
+                <li><a href="#" onclick="showACTechnicianForm(); return false;">AC Technician</a></li>
+                <li><a href="#">Dispatch Officer</a></li>
+                <li><a href="#">Electrical Engineer</a></li>
+                <li><a href="#">Electrician Industrial</a></li>
+                <li><a href="#">HSE Advisor</a></li>
+                <li><a href="#">IT Support Executive</a></li>
+                <li><a href="#">Permit Applicant</a></li>
+                <li><a href="#">Permit Holder</a></li>
+                <li><a href="#">Pipe Fitter</a></li>
+                <li><a href="#">Quality Control</a></li>
+            </ul>
+        </div>
+    </div>
 
-    <div class="section-header" id="performance-metrics-header">PERFORMANCE METRICS</div>
-    <div id="performance-metrics"></div>
+    <!-- AC Technician Form -->
+    <div id="ac-technician-form" class="ac-technician-container" style="display:none;">
 
-    <div class="section-header" id="overall-performance-header">OVERALL EMPLOYEE PERFORMANCE</div>
-    <p id="overall-performance">Not Rated</p>
+        <div id="form-container">
+            <div class="ac-header-container">
+                <h2 class="ac-header-title">EMPLOYEE PERFORMANCE EVALUATION FORM - AC TECHNICIAN</h2>
+                <div class="ac-review-date required-field">Review Date: <input type="date" id="review-date-header"
+                        class="required" /></div>
+            </div>
 
-    <div class="section-header">OVERALL REMARKS / COMMENTS</div>
-    <textarea rows="4" id="remarks"></textarea>
+            <div class="ac-section-header" id="personal-details">EMPLOYEE PERSONAL DETAILS</div>
+            <table class="ac-table">
+                <tr>
+                    <td class="ac-bold-text required-field">Employee Number</td>
+                    <td><input type="text" id="emp-number" class="required" /><div id="suggestions"></div>
+                    </td>
+                    <td class="ac-bold-text required-field">Employee Name</td>
+                    <td><input type="text" id="emp-name" class="required" readonly /></td>
+                </tr>
+                <tr>
+                    <td class="ac-bold-text">Position Text</td>
+                    <td><input type="text" id="position-text" readonly /></td>
+                    <td class="ac-bold-text">Employee Group</td>
+                    <td><input type="text" id="emp-group" readonly /></td>
+                </tr>
+                <tr>
+                    <td class="ac-bold-text">Division Text</td>
+                    <td><input type="text" id="division-text" readonly /></td>
+                    <td class="ac-bold-text">Department Text</td>
+                    <td><input type="text" id="department-text" readonly /></td>
+                </tr>
+                <tr>
+                    <td class="ac-bold-text required-field">Email ID</td>
+                    <td><input type="text" id="email" class="required" maxlength="40" /></td>
+                    <td class="ac-bold-text required-field">Contact Number</td>
+                    <td><input type="text" id="contact" class="required" maxlength="8"
+                            oninput="this.value = this.value.replace(/[^0-9NA]/g, '').toUpperCase();" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="ac-bold-text required-field">Reviewer Employee ID</td>
+                    <td>
+                        <div id="reviewer-number-container">
+                            <input type="text" id="reviewer-number" class="required" /><div id="suggestions-reviewer"
+                                class="suggestions"></div>
+                        </div>
+                    </td>
+                    <td class="ac-bold-text required-field">Reviewer Name</td>
+                    <td><input type="text" id="reviewer-name" class="required" readonly /></td>
+                </tr>
 
-    <div class="section-header">APPROVAL SIGNATURES</div>
-    <table id="approval-signatures-section">
-      <tr>
-        <th>EMPLOYEE</th>
-        <th>FIRST WITNESS</th>
-        <th>SECOND WITNESS</th>
-      </tr>
-      <tr>
-        <td>
-          <input type="text" placeholder="NAME" class="placeholder-input" />
-          <input type="text" placeholder="EMPLOYEE NUMBER" class="placeholder-input" />
-          <input type="text" placeholder="POSITION / DESIGNATION" class="placeholder-input" />
-          <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
-        </td>
-        <td>
-          <input type="text" placeholder="NAME" class="placeholder-input" />
-          <input type="text" placeholder="EMPLOYEE NUMBER" class="placeholder-input" />
-          <input type="text" placeholder="POSITION / DESIGNATION" class="placeholder-input" />
-          <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
-        </td>
-        <td>
-          <input type="text" placeholder="NAME" class="placeholder-input" />
-          <input type="text" placeholder="EMPLOYEE NUMBER" class="placeholder-input" />
-          <input type="text" placeholder="POSITION / DESIGNATION" class="placeholder-input" />
-          <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
-        </td>
-      </tr>
-    </table>
+            </table>
 
-    <table>
-      <tr>
-        <th>REVIEWER</th>
-        <th>EMPLOYEE</th>
-      </tr>
-      <tr>
-        <td>
-          <input type="text" placeholder="NAME" class="placeholder-input" />
-          <input type="text" placeholder="EMPLOYEE NUMBER" class="placeholder-input" />
-          <input type="text" placeholder="POSITION / DESIGNATION" class="placeholder-input" />
-          <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
-        </td>
-        <td>
-          <input type="text" placeholder="NAME" class="placeholder-input" />
-          <input type="text" placeholder="EMPLOYEE NUMBER" class="placeholder-input" />
-          <input type="text" placeholder="POSITION / DESIGNATION" class="placeholder-input" />
-          <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
-        </td>
-      </tr>
-    </table>
-  </div>
+            <div class="ac-section-header" id="performance-metrics-header">PERFORMANCE METRICS</div>
+            <div id="performance-metrics"></div>
 
-  <button class="download-button" onclick="downloadPDF()">Download PDF</button>
+            <div class="ac-section-header" id="overall-performance-header">OVERALL EMPLOYEE PERFORMANCE</div>
+            <p id="overall-performance">Please rate all metrics.</p>
 
-  <script>
-    // -----------------------------------------
-    // 1) DEFINE METRICS & RENDER THEM IN DOM
-    // -----------------------------------------
-    const metrics = [
-  {
-    title: "1. TECHNICAL KNOWLEDGE",
-    details: `
+            <div class="ac-section-header required-field">OVERALL REMARKS / COMMENTS</div>
+            <textarea rows="4" id="remarks" class="required"></textarea>
+
+            <div class="ac-section-header">APPROVAL SIGNATURES</div>
+            <table class="ac-table" id="approval-signatures-section">
+                <tr>
+                    <th>EMPLOYEE</th>
+                    <th>FIRST WITNESS</th>
+                    <th>SECOND WITNESS</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="employee-number-signature" placeholder="EMPLOYEE NUMBER"
+                            class="placeholder-input" readonly />
+                        <input type="text" id="employee-name-signature" placeholder="EMPLOYEE NAME"
+                            class="placeholder-input" readonly />
+                        <input type="text" id="position-signature" placeholder="POSITION / DESIGNATION"
+                            class="placeholder-input" readonly />
+                        <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
+                    </td>
+                    <td>
+                        <input type="text" id="employee-number-2" placeholder="EMPLOYEE NUMBER"
+                            class="placeholder-input" />
+                        <div id="suggestions-2" class="suggestions"></div>
+                        <input type="text" id="employee-name-2" placeholder="EMPLOYEE NAME" class="placeholder-input"
+                            readonly />
+                        <input type="text" id="position-2" placeholder="POSITION / DESIGNATION"
+                            class="placeholder-input" readonly />
+                        <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
+                    </td>
+                    <td>
+                        <input type="text" id="employee-number-3" placeholder="EMPLOYEE NUMBER"
+                            class="placeholder-input" />
+                        <div id="suggestions-3" class="suggestions"></div>
+                        <input type="text" id="employee-name-3" placeholder="EMPLOYEE NAME" class="placeholder-input"
+                            readonly />
+                        <input type="text" id="position-3" placeholder="POSITION / DESIGNATION"
+                            class="placeholder-input" readonly />
+                        <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
+                    </td>
+                </tr>
+            </table>
+
+            <table class="ac-table">
+                <tr>
+                    <th>REVIEWER</th>
+                    <th>EMPLOYEE</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="reviewer-number-signature" placeholder="EMPLOYEE NUMBER"
+                            class="placeholder-input" readonly />
+                        <input type="text" id="reviewer-name-signature" placeholder="EMPLOYEE NAME"
+                            class="placeholder-input" readonly />
+                        <input type="text" id="reviewer-position-signature" placeholder="POSITION / DESIGNATION"
+                            class="placeholder-input" readonly />
+                        <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
+                    </td>
+                    <td>
+                        <input type="text" id="employee-number-4" placeholder="EMPLOYEE NUMBER"
+                            class="placeholder-input" readonly />
+                        <input type="text" id="employee-name-4" placeholder="EMPLOYEE NAME" class="placeholder-input"
+                            readonly />
+                        <input type="text" id="position-4" placeholder="POSITION / DESIGNATION"
+                            class="placeholder-input" readonly />
+                        <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
+                    </td>
+                </tr>
+            </table>
+            <button class="ac-download-button" onclick="downloadPDF()">Download PDF</button>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <script>
+
+        // Show/Hide page functions
+        function showEvaluationPage() {
+            document.getElementById('welcome-page').style.display = 'none';
+            document.getElementById('evaluation-page').style.display = 'block';
+            document.getElementById('ac-technician-form').style.display = 'none';
+
+        }
+
+        function showACTechnicianForm() {
+            document.getElementById('evaluation-page').style.display = 'none';
+            document.getElementById('welcome-page').style.display = 'none';
+            document.getElementById('ac-technician-form').style.display = 'block';
+
+
+        }
+        // -----------------------------------------
+        // 1) DEFINE METRICS & RENDER THEM IN DOM
+        // -----------------------------------------
+        const metrics = [{
+                title: "1. TECHNICAL KNOWLEDGE",
+                details: `
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>HVAC Systems Understanding:</b> Knowledge of various AC systems, including residential, commercial, and industrial units.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Diagnostics and Troubleshooting:</b> Ability to diagnose issues accurately using appropriate tools and techniques.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Electrical Knowledge:</b> Understanding of electrical components and wiring in HVAC systems, including capacitors, relays, and circuit boards.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Refrigeration Knowledge:</b> Familiarity with refrigeration cycles, refrigerants, and their proper handling and charging procedures.</div>
     `
-  },
-  {
-    title: "2. HANDS-ON SKILLS",
-    details: `
+            },
+            {
+                title: "2. HANDS-ON SKILLS",
+                details: `
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Installation Skills:</b> Competence in installing AC units, including proper setup, connections, and system configuration.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Repair Skills:</b> Proficiency in repairing faulty components, including compressors, fans, coils, thermostats, and wiring.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Maintenance Skills:</b> Ability to perform routine maintenance tasks such as cleaning filters, coils, and condensers, checking refrigerant levels, and ensuring system efficiency.</div>
     `
-  },
-  {
-    title: "3. PROBLEM-SOLVING ABILITY",
-    details: `
+            },
+            {
+                title: "3. PROBLEM-SOLVING ABILITY",
+                details: `
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Diagnosing Complex Issues:</b> Ability to identify and troubleshoot complex mechanical or electrical problems.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Efficient Solutions:</b> Ability to devise practical, cost-effective solutions to fix problems or improve system performance.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Adaptability:</b> Adjusting solutions based on the specific needs of the environment (e.g., residential vs. commercial setups).</div>
     `
-  },
-  {
-    title: "4. ATTENTION TO DETAIL",
-    details: `
+            },
+            {
+                title: "4. ATTENTION TO DETAIL",
+                details: `
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Precision:</b> Ensuring all installations, repairs, and maintenance are completed accurately and to manufacturer specifications.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Safety Compliance:</b> Adhering to safety guidelines and protocols, such as handling refrigerants safely, working with electricity, and ensuring proper ventilation.</div>
     `
-  },
-  {
-    title: "5. CUSTOMER SERVICE SKILLS",
-    details: `
+            },
+            {
+                title: "5. CUSTOMER SERVICE SKILLS",
+                details: `
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Communication:</b> Explaining technical issues and solutions to customers in an understandable and professional manner.</div>
-      <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Professionalism:</b> Maintaining a courteous, friendly, and respectful demeanor when interacting with customers, whether on-site or over the phone.</div>
+      <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Professionalism:</b> Maintaining a courteous, friendly, and respectful demeanor when interacting with customers, whether on site or over the phone.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Customer Education:</b> Offering advice on system maintenance, energy-saving tips, and how to operate AC units properly.</div>
     `
-  },
-  {
-    title: "6. TIME MANAGEMENT",
-    details: `
+            },
+            {
+                title: "6. TIME MANAGEMENT",
+                details: `
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Efficiency:</b> Completing tasks within the expected time frame, ensuring minimal disruption to the customer’s daily activities.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Prioritization:</b> Managing multiple service calls, balancing urgent repairs with routine maintenance without compromising quality.</div>
     `
-  },
-  {
-    title: "7. KNOWLEDGE OF CODES AND REGULATIONS",
-    details: `
+            },
+            {
+                title: "7. KNOWLEDGE OF CODES AND REGULATIONS",
+                details: `
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Local Codes and Standards:</b> Knowledge of local, state, and federal regulations regarding HVAC systems, such as installation codes, refrigerant handling, and energy efficiency standards.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Permit Requirements:</b> Understanding when and how to obtain necessary permits for installation or repairs.</div>
     `
-  },
-  {
-    title: "8. PHYSICAL AND MANUAL DEXTERITY",
-    details: `
+            },
+            {
+                title: "8. PHYSICAL AND MANUAL DEXTERITY",
+                details: `
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Physical Stamina:</b> Ability to work in challenging physical environments (e.g., rooftops, basements, attics) and handle heavy equipment.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Precision Handling:</b> Skill in using tools such as wrenches, pressure gauges, thermometers, and soldering tools.</div>
     `
-  },
-  {
-    title: "9. SAFETY AWARENESS",
-    details: `
+            },
+            {
+                title: "9. SAFETY AWARENESS",
+                details: `
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Workplace Safety:</b> Consistently following safety protocols, such as wearing personal protective equipment (PPE), handling hazardous materials properly, and ensuring workspaces are safe.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Hazard Prevention:</b> Recognizing and mitigating potential safety hazards, such as electrical risks, refrigerant leaks, or improper ventilation.</div>
     `
-  },
-  {
-    title: "10. TROUBLESHOOTING EFFICIENCY",
-    details: `
+            },
+            {
+                title: "10. TROUBLESHOOTING EFFICIENCY",
+                details: `
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Speed:</b> The ability to identify problems and fix them quickly, minimizing downtime for the customer.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Comprehensive Troubleshooting:</b> Not only fixing the immediate issue but also identifying any other potential problems or areas for improvement.</div>
     `
-  },
-  {
-    title: "11. QUALITY OF WORK",
-    details: `
+            },
+            {
+                title: "11. QUALITY OF WORK",
+                details: `
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Durability of Work:</b> Ensuring repairs and installations are durable, minimizing the need for repeat visits or fixes.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Attention to Detail:</b> Thoroughness in performing repairs and maintenance, ensuring all components are functioning properly.</div>
     `
-  },
-  {
-    title: "12. ADAPTABILITY AND CONTINUED LEARNING",
-    details: `
+            },
+            {
+                title: "12. ADAPTABILITY AND CONTINUED LEARNING",
+                details: `
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Staying Current:</b> Keeping up to date with the latest AC technologies, refrigerants, and industry trends.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Certifications:</b> Having relevant certifications such as EPA 608 (for refrigerant handling), NATE (North American Technician Excellence), or HVACR certifications that demonstrate competence and knowledge.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Training and Development:</b> Willingness to participate in ongoing training or workshops to enhance skills and knowledge.</div>
     `
-  },
-  {
-    title: "13. PERFORMANCE METRICS",
-    details: `
+            },
+            {
+                title: "13. PERFORMANCE METRICS",
+                details: `
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Customer Satisfaction:</b> Positive feedback from clients regarding service quality, communication, and reliability.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>First-Time Fix Rate:</b> The percentage of issues resolved on the first visit.</div>
       <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Work Completion Rate:</b> Successful completion of jobs without the need for rework.</div>
     `
-  }
-];
+            }
+        ];
 
-const metricsContainer = document.getElementById("performance-metrics");
-const overallPerformanceText = document.getElementById("overall-performance");
+        const metricsContainer = document.getElementById("performance-metrics");
+        const overallPerformanceText = document.getElementById("overall-performance");
 
-// Dynamically insert each metric into the DOM
-metrics.forEach((metric, index) => {
-    const metricDiv = document.createElement("div");
-    metricDiv.classList.add("performance-feedback");
-    metricDiv.innerHTML = `
-        <div class="metric-title"><b>${metric.title}</b></div>
+        // Dynamically insert each metric into the DOM
+        metrics.forEach((metric, index) => {
+            const metricDiv = document.createElement("div");
+            metricDiv.classList.add("performance-feedback");
+            metricDiv.innerHTML = `
+        <div class="ac-metric-title"><b>${metric.title}</b></div>
         <p>${metric.details}</p>
-        <div class="feedback-container" data-metric-index="${index}" data-rating="0">
-            <div class="star-rating">
-                <span class="star" data-value="1">★</span>
-                <span class="star" data-value="2">★</span>
-                <span class="star" data-value="3">★</span>
-                <span class="star" data-value="4">★</span>
-                <span class="star" data-value="5">★</span>
-            </div>
-            <span class="feedback-text" id="feedback-desc-${index}">Not Rated</span>
+        <div class="rating-box">
+            <label><input type="radio" name="rating-${index}" value="1"> Poor</label>
+            <label><input type="radio" name="rating-${index}" value="2"> Average</label>
+            <label><input type="radio" name="rating-${index}" value="3"> Good</label>
+            <label><input type="radio" name="rating-${index}" value="4"> Very Good</label>
+            <label><input type="radio" name="rating-${index}" value="5"> Excellent</label>
         </div>
-        <div class="comments-container">
-            <div>
-                <label for="comments-${index}"><b>Employee Comments:</b></label>
-                <textarea id="comments-${index}" rows="4" placeholder="Enter your comments here..."></textarea>
-            </div>
-            <div>
-                <label for="hr-comments-${index}"><b>HR Comments:</b></label>
-                <textarea id="hr-comments-${index}" rows="4" placeholder="Enter HR comments here..."></textarea>
+        <div style="margin-top: 20px;">
+            <div class="ac-comments-container">
+                <div>
+                    <label for="comments-${index}" class="required-field"><b>Employee Comments:</b></label>
+                    <textarea id="comments-${index}" rows="4" placeholder="Enter your comments here..." class="required"></textarea>
+                </div>
+                <div>
+                    <label for="hr-comments-${index}"><b>HR Comments:</b></label>
+                    <textarea id="hr-comments-${index}" rows="4" placeholder="Enter HR comments here..."></textarea>
+                </div>
             </div>
         </div>
     `;
-    metricsContainer.appendChild(metricDiv);
-});
-// -----------------------------------------
-// 2) STAR RATINGS LOGIC
-// -----------------------------------------
+            metricsContainer.appendChild(metricDiv);
+        });
+
+        // Add event listeners for dynamic styling and toggle behavior
 metricsContainer.addEventListener("click", function (event) {
-    if (event.target.classList.contains("star")) {
-        const star = event.target;
-        const starContainer = star.closest(".feedback-container");
-        const metricIndex = starContainer.dataset.metricIndex;
-        const selectedValue = star.dataset.value;
-        highlightStars(starContainer, selectedValue);
-        updateFeedback(metricIndex, selectedValue);
-        starContainer.dataset.rating = selectedValue;
-        updateOverallPerformance();
+    if (event.target.type === "radio") {
+        const selectedRadio = event.target;
+        const ratingBox = selectedRadio.closest(".rating-box");
+        const radios = ratingBox.querySelectorAll('input[type="radio"]');
+
+        // Styling and checkmark
+        radios.forEach(radio => {
+            const label = radio.parentElement;
+            if (radio === event.target) {
+                radio.classList.toggle("checked");
+            } else {
+                radio.classList.remove("checked"); // Remove 'checked' class
+            }
+        });
     }
 });
+        // -----------------------------------------
+        // 2) STAR RATINGS LOGIC
+        // -----------------------------------------
+        metricsContainer.addEventListener("change", function(event) {
+            if (event.target.type === "radio") {
+                updateOverallPerformance();
+            }
+        });
 
-function highlightStars(starContainer, selectedValue) {
-    const stars = starContainer.querySelectorAll(".star");
-    stars.forEach((star) => {
-        const starValue = star.dataset.value;
-        star.style.color = starValue <= selectedValue ? "gold" : "gray";
-    });
-}
+        function updateOverallPerformance() {
+            const ratings = [];
+            metrics.forEach((metric, index) => {
+                const selectedRating = document.querySelector(`input[name="rating-${index}"]:checked`);
+                if (selectedRating) {
+                    ratings.push(parseInt(selectedRating.value));
+                }
+            });
 
-function updateFeedback(index, value) {
-    const feedbackDesc = document.getElementById(`feedback-desc-${index}`);
-    const descriptions = {
-        "1": "Poor Performance",
-        "2": "Average Performance - Needs Improvement",
-        "3": "Good Performance",
-        "4": "Very Good Performance",
-        "5": "Excellent Performance",
-    };
-    feedbackDesc.textContent = descriptions[value] || "Not Rated";
-}
+            if (ratings.length === metrics.length) {
+                const average = ratings.reduce((a, b) => a + b, 0) / ratings.length;
+                const roundedAverage = Math.round(average);
+                const descriptions = {
+                    1: "Poor Performance",
+                    2: "Needs Improvement",
+                    3: "Good Performance",
+                    4: "Very Good Performance",
+                    5: "Excellent Performance",
+                };
+                overallPerformanceText.textContent = `Performance Rating: ${descriptions[roundedAverage]}`;
+            } else {
+                overallPerformanceText.textContent = "Please rate all metrics.";
+            }
+        }
 
-function updateOverallPerformance() {
-    const starContainers = metricsContainer.querySelectorAll(".feedback-container");
-    const ratings = Array.from(starContainers, (container) =>
-        parseInt(container.dataset.rating) || 0
-    ).filter((rating) => rating > 0);
-
-    if (ratings.length === metrics.length) {
-        const average = ratings.reduce((a, b) => a + b, 0) / ratings.length;
-        const roundedAverage = Math.round(average);
-        const descriptions = {
-            1: "Poor Performance",
-            2: "Average Performance - Needs Improvement",
-            3: "Good Performance",
-            4: "Very Good Performance",
-            5: "Excellent Performance",
-        };
-        overallPerformanceText.textContent = descriptions[roundedAverage] || "Not Rated";
-    } else {
-        overallPerformanceText.textContent = "Please rate all metrics.";
+        // -----------------------------------------
+        // 3) DOWNLOAD PDF USING html2pdf.js
+        // -----------------------------------------
+        function downloadPDF() {
+    if (!validateForm()) {
+        return; // Validation failed, don't proceed
     }
-}
 
-// -----------------------------------------
-// 3) DOWNLOAD PDF USING html2pdf.js
-// -----------------------------------------
-function downloadPDF() {
     const element = document.getElementById("form-container");
+    const suggestionsElements = document.querySelectorAll('.suggestions'); // Get all suggestion boxes
+
+    // Store original display values and temporarily hide suggestion boxes
+    const originalDisplays = [];
+    suggestionsElements.forEach((el, index) => {
+        originalDisplays[index] = el.style.display;
+        el.style.display = 'none'; // Hide the element
+    });
 
     const opt = {
-        margin: [0, 0, 0, 0], // Adjusted margins
+        margin: [0, 0, 0, 0],
         filename: 'Employee_Performance_Evaluation.pdf',
-        image: { type: 'jpeg', quality: 1.0, scale: 2, useCORS: true, scrollX: 0, scrollY: 0, x: 0, y: 0 }, //Reduced scale to 2
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: 'avoid-all'}
+        image: {
+            type: 'jpeg',
+            quality: 1.0,
+            scale: 2,
+            useCORS: true,
+            scrollX: 0,
+            scrollY: 0,
+            x: 0,
+            y: 0
+        },
+        jsPDF: {
+            unit: 'mm',
+            format: 'a4',
+            orientation: 'portrait'
+        },
+        pagebreak: {
+            mode: 'avoid-all'
+        }
     };
+
+    opt.jsPDF.formatDate = function(date) { /* ... your date formatting ... */ };
+
+    const reviewDate = new Date(document.getElementById("review-date-header").value);
+    opt.jsPDF.reviewDateFormatted = opt.jsPDF.formatDate(reviewDate);
+
     const body = document.querySelector('body');
     const originalMargin = body.style.margin;
     body.style.margin = '0';
-    html2pdf().from(element).set(opt).save().then(()=>{
+
+    html2pdf().from(element).set(opt).save().then(() => {
         body.style.margin = originalMargin;
-    });
-}
-// -----------------------------------------
-    // 4) FETCH & POPULATE EMPLOYEE DATA
-    // -----------------------------------------
-    let employeeData = [];
 
-const employeeNumberInput = document.getElementById("emp-number");
-const employeeNameInput = document.getElementById("emp-name");
-const positionTextInput = document.getElementById("position-text");
-const employeeGroupInput = document.getElementById("emp-group");
-const divisionTextInput = document.getElementById("division-text");
-const departmentTextInput = document.getElementById("department-text");
-const emailInput = document.getElementById("email");
-const contactInput = document.getElementById("contact");
-const suggestionsDiv = document.getElementById("suggestions");
-
-const googleSheetsUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdxa99pRN_wDel4uOm07GpSSi8YcHP4Q9z-7h7hD70gIeqyhY6QcWoxDjHKn8EGiUdnkNLDOdOY2Fu/pub?output=csv";
-
-function fetchEmployeeData() {
-  return fetch(googleSheetsUrl)
-    .then(response => response.text())
-    .then(csvData => {
-      employeeData = parseCSV(csvData);
-      return employeeData;
-    })
-    .catch(error => console.error("Error fetching employee data:", error));
-}
-
-function parseCSV(csv) {
-  const lines = csv.split("\n");
-  const headers = lines[0].split(",");
-  const result = [];
-
-  for (let i = 1; i < lines.length; i++) {
-    const obj = {};
-    const currentLine = lines[i].split(",");
-
-    for (let j = 0; j < headers.length; j++) {
-      obj[headers[j].trim()] = currentLine[j] ? currentLine[j].trim() : "";
-    }
-    result.push(obj);
-  }
-  return result;
-}
-
-function populateEmployeeDetails(empNumber) {
-  const employee = employeeData.find(emp => emp["Employee Number"] === empNumber);
-
-  if (employee) {
-    employeeNameInput.value = employee["Employee Name"];
-    positionTextInput.value = employee["Position Text"];
-    employeeGroupInput.value = employee["Employee Group"];
-    divisionTextInput.value = employee["Division Text"];
-    departmentTextInput.value = employee["Department Text"];
-    emailInput.value = employee["Email ID"] || "";
-    contactInput.value = employee["Contact Number"] || "";
-
-    employeeNameInput.readOnly = true;
-    positionTextInput.readOnly = true;
-    employeeGroupInput.readOnly = true;
-    divisionTextInput.readOnly = true;
-    departmentTextInput.readOnly = true;
-  } else {
-    employeeNameInput.value = "";
-    positionTextInput.value = "";
-    employeeGroupInput.value = "";
-    divisionTextInput.value = "";
-    departmentTextInput.value = "";
-    emailInput.value = "";
-    contactInput.value = "";
-
-    employeeNameInput.readOnly = false;
-    positionTextInput.readOnly = false;
-    employeeGroupInput.readOnly = false;
-    divisionTextInput.readOnly = false;
-    departmentTextInput.readOnly = false;
-  }
-}
-
-employeeNumberInput.addEventListener("input", function () {
-    const empNumber = this.value;
-
-    if (empNumber.length > 6) {
-        this.value = empNumber.slice(0, 6);
-        alert("Employee number cannot exceed 6 digits.");
-        return;
-    }
-
-    populateEmployeeDetails(empNumber);
-    showSuggestions(empNumber);
-});
-
-function showSuggestions(input) {
-    suggestionsDiv.innerHTML = "";
-
-    if (input.trim() === "") {
-        suggestionsDiv.style.display = "none";
-        return;
-    }
-
-    const matchingEmployees = employeeData.filter(emp =>
-        emp["Employee Number"].startsWith(input)
-    );
-
-    if (matchingEmployees.length > 0) {
-        matchingEmployees.slice(0, 10).forEach(emp => {
-            const suggestionItem = document.createElement("div");
-            suggestionItem.textContent = emp["Employee Number"];
-            suggestionItem.style.padding = "5px";
-            suggestionItem.style.cursor = "pointer";
-
-            suggestionItem.addEventListener("click", function () {
-                employeeNumberInput.value = emp["Employee Number"];
-                populateEmployeeDetails(emp["Employee Number"]);
-                suggestionsDiv.style.display = "none";
-            });
-
-            suggestionsDiv.appendChild(suggestionItem);
+        // Restore the original display values of the suggestion boxes
+        suggestionsElements.forEach((el, index) => {
+            el.style.display = originalDisplays[index] || ''; // Revert to original or default
         });
 
-        suggestionsDiv.style.display = "block";
-    } else {
-        suggestionsDiv.style.display = "none";
-    }
+    });
 }
 
-fetchEmployeeData().then(() => {
-  // Data is fetched and parsed.
-});
-  </script>
+        // -----------------------------------------
+        // 4) VALIDATE FORM
+        // -----------------------------------------
+        function validateForm() {
+            let isValid = true;
+
+            // Reset all highlighted fields
+            resetHighlightedFields();
+
+            // Employee Personal Details
+            const employeeNumber = document.getElementById("emp-number");
+            const employeeName = document.getElementById("emp-name");
+            const email = document.getElementById("email");
+            const contact = document.getElementById("contact");
+            const reviewerNumber = document.getElementById("reviewer-number");
+            const reviewerName = document.getElementById("reviewer-name");
+            const remarks = document.getElementById("remarks");
+            const reviewDate = document.getElementById("review-date-header");
+
+
+            if (!employeeNumber.value) {
+                isValid = false;
+                highlightField(employeeNumber);
+            }
+            if (!employeeName.value) {
+                isValid = false;
+                highlightField(employeeName);
+            }
+            if (!email.value) {
+                isValid = false;
+                highlightField(email);
+            }
+            if (!contact.value) {
+                isValid = false;
+                highlightField(contact);
+            }
+            if (!reviewerNumber.value) {
+                isValid = false;
+                highlightField(reviewerNumber);
+            }
+            if (!reviewerName.value) {
+                isValid = false;
+                highlightField(reviewerName);
+            }
+            if (!reviewDate.value) {
+                isValid = false;
+                highlightField(reviewDate);
+            }
+
+            // Performance Metrics
+            metrics.forEach((metric, index) => {
+                const selectedRating = document.querySelector(`input[name="rating-${index}"]:checked`);
+                const employeeComments = document.getElementById(`comments-${index}`);
+
+
+                if (!selectedRating) {
+                    isValid = false;
+                    // Highlight the rating radios (since they are not direct elements)
+                    const ratingBox = document.querySelector(`.rating-box:nth-child(${index+1})`);
+                    ratingBox.classList.add("highlighted");
+                }
+                if (!employeeComments.value) {
+                    isValid = false;
+                    highlightField(employeeComments);
+                }
+            });
+
+            if (!remarks.value) {
+                isValid = false;
+                highlightField(remarks);
+            }
+
+            if (!isValid) {
+                alert("Please fill in the highlighted required fields.");
+            }
+
+            return isValid;
+        }
+
+        function highlightField(element) {
+            element.classList.add("highlighted");
+        }
+        function resetHighlightedFields() {
+            let highlighted = document.querySelectorAll('.highlighted');
+            highlighted.forEach(element => {
+                element.classList.remove('highlighted');
+            });
+        }
+
+        // -----------------------------------------
+        // 5) FETCH & POPULATE EMPLOYEE DATA
+        // -----------------------------------------
+        let employeeData = [];
+
+        const employeeNumberInput = document.getElementById("emp-number");
+        const employeeNameInput = document.getElementById("emp-name");
+        const positionTextInput = document.getElementById("position-text");
+        const employeeGroupInput = document.getElementById("emp-group");
+        const divisionTextInput = document.getElementById("division-text");
+        const departmentTextInput = document.getElementById("department-text");
+        const emailInput = document.getElementById("email");
+        const contactInput = document.getElementById("contact");
+        const suggestionsDiv = document.getElementById("suggestions");
+
+        const googleSheetsUrl =
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdxa99pRN_wDel4uOm07GpSSi8YcHP4Q9z-7h7hD70gIeqyhY6QcWoxDjHKn8EGiUdnkNLDOdOY2Fu/pub?output=csv";
+
+        function fetchEmployeeData() {
+            return fetch(googleSheetsUrl)
+                .then(response => response.text())
+                .then(csvData => {
+                    employeeData = parseCSV(csvData);
+                    return employeeData;
+                })
+                .catch(error => console.error("Error fetching employee data:", error));
+        }
+
+        function parseCSV(csv) {
+            const lines = csv.split("\n");
+            const headers = lines[0].split(",");
+            const result = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const obj = {};
+                const currentLine = lines[i].split(",");
+
+                for (let j = 0; j < headers.length; j++) {
+                    obj[headers[j].trim()] = currentLine[j] ? currentLine[j].trim() : "";
+                }
+                result.push(obj);
+            }
+            return result;
+        }
+
+        function populateEmployeeDetails(empNumber) {
+            const employee = employeeData.find(emp => emp["Employee Number"] === empNumber);
+
+            if (employee) {
+                employeeNameInput.value = employee["Employee Name"];
+                positionTextInput.value = employee["Position Text"];
+                employeeGroupInput.value = employee["Employee Group"];
+                divisionTextInput.value = employee["Division Text"];
+                departmentTextInput.value = employee["Department Text"];
+                emailInput.value = employee["Email ID"] || "";
+                contactInput.value = employee["Contact Number"] || "";
+
+                // Populate Signature Employee Table (including Reviewer)
+                document.getElementById("employee-number-signature").value = empNumber;
+                document.getElementById("employee-name-signature").value = employee["Employee Name"];
+                document.getElementById("position-signature").value = employee["Position Text"];
+
+                document.getElementById("employee-number-4").value = empNumber;
+                document.getElementById("employee-name-4").value = employee["Employee Name"];
+                document.getElementById("position-4").value = employee["Position Text"];
+
+            } else {
+                employeeNameInput.value = "";
+                positionTextInput.value = "";
+                employeeGroupInput.value = "";
+                divisionTextInput.value = "";
+                emailInput.value = "";
+                contactInput.value = "";
+            }
+
+            document.getElementById("reviewer-number-signature").value = document.getElementById("reviewer-number").value;
+            document.getElementById("reviewer-name-signature").value = document.getElementById("reviewer-name").value;
+            const reviewerEmployee = employeeData.find(emp => emp["Employee Number"] === document.getElementById("reviewer-number").value);
+            if (reviewerEmployee) {
+                document.getElementById("reviewer-position-signature").value = reviewerEmployee["Position Text"];
+            } else {
+                document.getElementById("reviewer-position-signature").value = "";
+            }
+        }
+
+        employeeNumberInput.addEventListener("input", function() {
+            const empNumber = this.value;
+
+            if (empNumber.length > 6) {
+                this.value = empNumber.slice(0, 6);
+                alert("Employee number cannot exceed 6 digits.");
+                return;
+            }
+
+            populateEmployeeDetails(empNumber);
+            showSuggestions(empNumber, "suggestions", "emp-number");
+        });
+
+        // Event listener for reviewer number
+        document.getElementById("reviewer-number").addEventListener("input", function() {
+            const reviewerEmpNumber = this.value;
+            if (reviewerEmpNumber.length > 6) {
+                this.value = reviewerEmpNumber.slice(0, 6);
+                alert("Employee number cannot exceed 6 digits.");
+                return;
+            }
+            showSuggestions(reviewerEmpNumber, "suggestions-reviewer", "reviewer-number");
+        });
+
+        function showSuggestions(input, suggestionsDivId, inputId) {
+            const suggestionsDiv = document.getElementById(suggestionsDivId);
+            suggestionsDiv.innerHTML = "";
+            suggestionsDiv.style.display = "none"; // Hide suggestions initially
+
+            if (input.trim() === "") {
+                return;
+            }
+
+            const matchingEmployees = employeeData.filter(emp =>
+                emp["Employee Number"].startsWith(input)
+            );
+
+            if (matchingEmployees.length > 0) {
+                matchingEmployees.slice(0, 10).forEach(emp => {
+                    const suggestionItem = document.createElement("div");
+                    suggestionItem.classList.add("suggestion-item");
+                    suggestionItem.textContent = emp["Employee Number"];
+
+                    suggestionItem.addEventListener("click", function() {
+                        const selectedEmpNumber = emp["Employee Number"];
+                        document.getElementById(inputId).value = selectedEmpNumber;
+                        if (inputId === "emp-number") {
+                            populateEmployeeDetails(selectedEmpNumber);
+                        } else if (inputId === "reviewer-number") {
+                            const reviewer = employeeData.find(e => e["Employee Number"] === selectedEmpNumber);
+                            if (reviewer) {
+                                document.getElementById("reviewer-name").value = reviewer["Employee Name"];
+                                // Populate Signature Reviewer Table
+                                document.getElementById("reviewer-number-signature").value = reviewer["Employee Number"];
+                                document.getElementById("reviewer-name-signature").value = reviewer["Employee Name"];
+                                document.getElementById("reviewer-position-signature").value = reviewer["Position Text"];
+                            }
+                        }
+                        suggestionsDiv.style.display = "none";
+                    });
+
+                    suggestionsDiv.appendChild(suggestionItem);
+                });
+
+                suggestionsDiv.style.display = "block";
+            }
+        }
+        // Event listeners for signature table inputs
+        document.getElementById("employee-number-2").addEventListener("input", function() {
+            populateSignatureDetails(this.value, "employee-name-2", "position-2");
+            showSuggestionsSignature(this.value, "suggestions-2", "employee-number-2");
+        });
+
+        document.getElementById("employee-number-3").addEventListener("input", function() {
+            populateSignatureDetails(this.value, "employee-name-3", "position-3");
+            showSuggestionsSignature(this.value, "suggestions-3", "employee-number-3");
+        });
+
+        function populateSignatureDetails(empNumber, nameInputId, positionInputId) {
+            const employee = employeeData.find(emp => emp["Employee Number"] === empNumber);
+
+            if (employee) {
+                document.getElementById(nameInputId).value = employee["Employee Name"];
+                document.getElementById(positionInputId).value = employee["Position Text"];
+            } else {
+                document.getElementById(nameInputId).value = "";
+                document.getElementById(positionInputId).value = "";
+            }
+        }
+
+        function showSuggestionsSignature(input, suggestionsDivId, inputId) {
+            const suggestionsDiv = document.getElementById(suggestionsDivId);
+            suggestionsDiv.innerHTML = "";
+            suggestionsDiv.style.display = "none";
+
+            if (input.trim() === "") {
+                return;
+            }
+
+            const matchingEmployees = employeeData.filter(emp =>
+                emp["Employee Number"].startsWith(input) && input !== document.getElementById("emp-number").value
+            );
+
+            if (matchingEmployees.length > 0) {
+                matchingEmployees.slice(0, 10).forEach(emp => {
+                    const suggestionItem = document.createElement("div");
+                    suggestionItem.classList.add("suggestion-item");
+                    suggestionItem.textContent = emp["Employee Number"];
+
+                    suggestionItem.addEventListener("click", function() {
+                        const selectedEmpNumber = emp["Employee Number"];
+                        document.getElementById(inputId).value = selectedEmpNumber;
+                        populateSignatureDetails(emp["Employee Number"], inputId.replace("number", "name"), inputId.replace("number", "position"));
+                        suggestionsDiv.style.display = "none";
+                    });
+
+                    suggestionsDiv.appendChild(suggestionItem);
+                });
+
+                suggestionsDiv.style.display = "block";
+            }
+        }
+
+        fetchEmployeeData().then(() => {
+            // Data is fetched and parsed.
+            populateEmployeeDetails(document.getElementById("emp-number").value);
+            //Populate Reviewer Signature if exists
+            const reviewerEmpNumber = document.getElementById("reviewer-number").value;
+            if (reviewerEmpNumber) {
+                const reviewer = employeeData.find(e => e["Employee Number"] === reviewerEmpNumber);
+                if (reviewer) {
+                    document.getElementById("reviewer-name").value = reviewer["Employee Name"];
+                    // Populate Signature Reviewer Table
+                    document.getElementById("reviewer-number-signature").value = reviewer["Employee Number"];
+                    document.getElementById("reviewer-name-signature").value = reviewer["Employee Name"];
+                    document.getElementById("reviewer-position-signature").value = reviewer["Position Text"];
+                }
+            }
+        });
+    </script>
 </body>
+
 </html>
