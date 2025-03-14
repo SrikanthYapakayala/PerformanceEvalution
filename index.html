@@ -1279,7 +1279,7 @@ metricsContainer.addEventListener("click", function (event) {
                 positionTextInput.value = employee["Position Text"];
                 employeeGroupInput.value = employee["Employee Group"];
                 divisionTextInput.value = employee["Division Text"];
-                departmentTextInput.value = employee["Department Text"];
+                departmentTextInput.value = employee["Department Text"]; // ADD Department TEXT Here to show
                 emailInput.value = employee["Email ID"] || "";
                 contactInput.value = employee["Contact Number"] || "";
 
@@ -1297,18 +1297,23 @@ metricsContainer.addEventListener("click", function (event) {
                 positionTextInput.value = "";
                 employeeGroupInput.value = "";
                 divisionTextInput.value = "";
+                departmentTextInput.value = ""; //Clear Department Text Value
                 emailInput.value = "";
                 contactInput.value = "";
-            }
-
-            document.getElementById("reviewer-number-signature").value = document.getElementById("reviewer-number").value;
-            document.getElementById("reviewer-name-signature").value = document.getElementById("reviewer-name").value;
-            const reviewerEmployee = employeeData.find(emp => emp["Employee Number"] === document.getElementById("reviewer-number").value);
-            if (reviewerEmployee) {
-                document.getElementById("reviewer-position-signature").value = reviewerEmployee["Position Text"];
-            } else {
+               //Clear reviewer Name and  Signature Reviewer Table
+                document.getElementById("reviewer-name").value = "";
+                document.getElementById("reviewer-number-signature").value = "";
+                document.getElementById("reviewer-name-signature").value = "";
                 document.getElementById("reviewer-position-signature").value = "";
             }
+              document.getElementById("reviewer-number-signature").value = document.getElementById("reviewer-number").value;
+              document.getElementById("reviewer-name-signature").value = document.getElementById("reviewer-name").value;
+              const reviewerEmployee = employeeData.find(emp => emp["Employee Number"] === document.getElementById("reviewer-number").value);
+              if (reviewerEmployee) {
+                  document.getElementById("reviewer-position-signature").value = reviewerEmployee["Position Text"];
+              } else {
+                  document.getElementById("reviewer-position-signature").value = "";
+              }
         }
 
         employeeNumberInput.addEventListener("input", function() {
@@ -1332,6 +1337,14 @@ metricsContainer.addEventListener("click", function (event) {
                 alert("Employee number cannot exceed 6 digits.");
                 return;
             }
+          //Clear reviewer name and signature table when input is empty
+          if (reviewerEmpNumber.trim() === "") {
+              document.getElementById("reviewer-name").value = "";
+              document.getElementById("reviewer-number-signature").value = "";
+              document.getElementById("reviewer-name-signature").value = "";
+              document.getElementById("reviewer-position-signature").value = "";
+              return;
+          }
             showSuggestions(reviewerEmpNumber, "suggestions-reviewer", "reviewer-number");
         });
 
