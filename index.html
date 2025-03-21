@@ -14,9 +14,9 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f8f9fa;
       margin: 0;
-      font-size: 14px;
+      font-size: 11px;
+      /* Slightly smaller base font size */
       overflow: auto;
-      /* ADDED: Enable scrolling */
       height: 100vh;
     }
 
@@ -45,7 +45,8 @@
     th,
     td {
       border: 1px solid #ddd;
-      padding: 12px;
+      padding: 8px;
+      /* Reduced padding */
       text-align: left;
     }
 
@@ -57,7 +58,8 @@
     .button {
       background-color: #007bff;
       color: white;
-      padding: 12px 20px;
+      padding: 10px 16px;
+      /* Reduced button padding */
       border: none;
       border-radius: 5px;
       cursor: pointer;
@@ -74,12 +76,15 @@
     textarea,
     select {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
+      padding: 8px;
+      /* Reduced input padding */
+      margin-bottom: 10px;
+      /* Reduced margin */
       border: 1px solid #ced4da;
       border-radius: 4px;
       box-sizing: border-box;
-      font-size: 16px;
+      font-size: 12px;
+      /* Reduced input font size */
     }
 
     textarea {
@@ -91,7 +96,8 @@
       max-width: 1200px;
       margin: 30px auto;
       background-color: white;
-      padding: 30px;
+      padding: 25px;
+      /* Reduced container padding */
       border-radius: 12px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     }
@@ -109,7 +115,8 @@
 
     .position-list a {
       display: block;
-      padding: 12px 20px;
+      padding: 10px 16px;
+      /* Reduced padding */
       background-color: #007bff;
       color: white;
       text-decoration: none;
@@ -132,10 +139,12 @@
 
     #login-container {
       background-color: rgba(255, 255, 255, 0.9);
-      padding: 40px;
+      padding: 30px;
+      /* Reduced padding */
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      width: 400px;
+      width: 350px;
+      /* Slightly reduced width */
       text-align: center;
       margin: 0 auto;
       position: absolute;
@@ -146,34 +155,41 @@
     }
 
     .login-logo {
-      margin-bottom: 30px;
+      margin-bottom: 20px;
+      /* Reduced margin */
     }
 
     .login-logo img {
-      max-width: 180px;
+      max-width: 150px;
+      /* Reduced size */
       height: auto;
     }
 
     .login-input-group {
-      margin-bottom: 25px;
+      margin-bottom: 20px;
+      /* Reduced margin */
       text-align: left;
     }
 
     .login-input-group label {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      /* Reduced margin */
       font-weight: bold;
       color: #495057;
     }
 
     .login-input-group input[type="text"],
     .login-input-group input[type="password"] {
-      width: calc(100% - 20px);
-      padding: 12px;
+      width: calc(100% - 16px);
+      /* Adjusted width */
+      padding: 10px;
+      /* Reduced padding */
       border: 1px solid #ced4da;
       border-radius: 4px;
       box-sizing: border-box;
-      font-size: 16px;
+      font-size: 14px;
+      /* Reduced font size */
       transition: border-color 0.2s ease-in-out;
     }
 
@@ -187,11 +203,13 @@
     .login-button {
       background-color: #007bff;
       color: white;
-      padding: 14px 25px;
+      padding: 12px 20px;
+      /* Reduced padding */
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 16px;
+      /* Reduced font size */
       width: 100%;
       transition: background-color 0.3s ease;
     }
@@ -201,8 +219,10 @@
     }
 
     #login-message {
-      margin-top: 20px;
-      font-size: 16px;
+      margin-top: 15px;
+      /* Reduced margin */
+      font-size: 14px;
+      /* Reduced font size */
       color: red;
     }
 
@@ -212,7 +232,8 @@
 
     .welcome-container {
       background-color: rgba(255, 255, 255, 0.6);
-      padding: 40px;
+      padding: 30px;
+      /* Reduced padding */
       border-radius: 15px;
       text-align: center;
       position: absolute;
@@ -227,25 +248,30 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      display: none; /* Initially hidden */
+      display: none;
+      /* Initially hidden */
     }
 
     .welcome-message {
-      font-size: 3.2em;
-      margin-bottom: 30px;
+      font-size: 2.5em;
+      /* Reduced font size */
+      margin-bottom: 20px;
+      /* Reduced margin */
       color: #545F66;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
     }
 
     .proceed-button {
-      padding: 20px 40px;
+      padding: 15px 30px;
+      /* Reduced padding */
       background-color: #52D197;
       color: white;
       border: none;
       border-radius: 12px;
       cursor: pointer;
       text-decoration: none;
-      font-size: 1.4em;
+      font-size: 1.2em;
+      /* Reduced font size */
       transition: background-color 0.3s ease;
     }
 
@@ -265,7 +291,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cdefs%3E%3Cpattern id='triangles' width='40' height='40' patternUnits='userSpaceOnUse'%3E%3Cpolygon points='20,0 40,20 20,40 0,20' fill='rgba(255,255,255,0.1)'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23triangles)'/%3E%3C/svg%3E");
+      background-image: url(Background.jpeg);
       opacity: 0.8;
       z-index: 0;
     }
@@ -280,8 +306,10 @@
       opacity: 0.8;
       border: 2px solid white;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      display: block; /* Initially visible */
-      z-index: 1; /* Place behind the login container */
+      display: block;
+      /* Initially visible */
+      z-index: 1;
+      /* Place behind the login container */
     }
 
     .background-panel img {
@@ -328,17 +356,20 @@
       transform: rotate(-5deg);
     }
 
-    /* AC Technician Form Specific Styles */
-    .ac-technician-container {
-      width: 794px;
-      margin: 20px auto;
-      background-color: white;
-      padding: 5px;
-      border: 3px solid black;
-      box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-      box-sizing: border-box;
-      display: none;
-    }
+   /* AC Technician Form Specific Styles */
+ .ac-technician-container {
+  width: 794px;
+  margin: 20px auto;
+  background-color: white;
+  padding: 5px;
+  border: 3px solid black;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  display: none;
+  outline: 2px solid #007bff;
+   /* Outline will be visible when this form are visible */
+}
+
 
     .ac-header-container {
       display: flex;
@@ -353,14 +384,14 @@
     }
 
     .ac-header-title {
-      font-size: 18px;
+      font-size: 16px;
       flex-grow: 1;
       text-align: center;
       color: white;
     }
 
     .ac-review-date {
-      font-size: 14px;
+      font-size: 12px;
       padding: 5px 10px;
       border: 2px solid white;
       border-radius: 5px;
@@ -368,7 +399,7 @@
     }
 
     .ac-section-header {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: bold;
       padding: 3px;
       margin-top: 1px;
@@ -391,7 +422,7 @@
     .ac-table td {
       border: 1px solid black;
       padding: 4px;
-      font-size: 11px;
+      font-size: 10px;
     }
 
     .ac-table th {
@@ -513,7 +544,7 @@
       margin-top: 1px;
       border-radius: 1px;
       border: 2px solid black;
-      font-size: 14px;
+      font-size: 12px;
     }
 
     .ac-flex-container {
@@ -545,12 +576,15 @@
       background-color: #4CAF50;
       border: none;
       color: white;
-      padding: 15px 32px;
+      padding: 12px 24px;
+      /* Reduced padding */
       text-align: center;
       text-decoration: none;
       display: inline-block;
-      font-size: 16px;
-      margin: 20px auto;
+      font-size: 14px;
+      /* Reduced font size */
+      margin: 15px auto;
+      /* Reduced margin */
       cursor: pointer;
       border-radius: 5px;
       display: block;
@@ -588,30 +622,49 @@
       width: calc(100% - 12px);
     }
 
-    /* Styles for table cells in the signature section */
-    #approval-signatures-section {
-      table-layout: fixed;
-      /* Force equal column widths */
+/* Styles for approval signature tables */
+.approval-signature-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-bottom: 10px; /* Adjust as needed */
+}
+
+.approval-signature-table th,
+.approval-signature-table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+    box-sizing: border-box;
+    vertical-align: top;
+    word-break: break-word; /* Enable text wrapping */
+}
+
+.approval-signature-table .placeholder-input {
+    width: calc(100% - 16px);
+    margin: 0 auto;
+    text-align: center;
+    padding: 8px;  /* Adjusted padding */
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-size: 11px;  /* Reduced font size */
+    height: auto;  /* Height adjusts to content */
+    white-space: normal; /* Allows multi-line text */
+}
+
+/* Override the default table styles for the signature table */
+.approval-signature-table th {
+    background-color: darksalmon;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.approval-signature-table td {
+    font-size: 10px;
+}
+
+    table.ac-table {
       width: 100%;
-      /* Take up the full available width */
-    }
-
-    #approval-signatures-section td {
-      vertical-align: top;
-      padding: 8px;
-      width: 33.33%;
-      /* Divide the width equally among the three columns */
-      box-sizing: border-box;
-      /* Needed if you have padding on the tds */
-    }
-
-    #approval-signatures-section .placeholder-input {
-      width: calc(100% - 16px);
-      /* Adjust for padding */
-      margin-bottom: 7px;
-      /* Increased margin-bottom */
-      padding: 6px;
-      box-sizing: border-box;
     }
 
     #approval-signatures-section th {
@@ -619,7 +672,7 @@
     }
 
     #approval-signatures-section tr td {
-      padding: 6px;
+      padding: 2px;
     }
 
     .performance-feedback>div {
@@ -679,62 +732,109 @@
       margin-bottom: 5px;
     }
 
-    .rating-container label {
+    /* Custom Rating Styles */
+    .rating-scale {
       display: flex;
-      flex-direction: row;
-      /* Put the radio box on the left of the text. */
+      justify-content: space-around;
       align-items: center;
-      cursor: pointer;
       font-size: 10px;
-      color: #777;
-      /* Gray color for unselected labels */
-      white-space: nowrap;
-      margin: 0;
     }
 
-    .rating-container input[type="radio"] {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      width: 16px;
-      height: 16px;
-      border: 1px solid #777;
-      /* Light gray border for unselected */
-      border-radius: 2px;
-      /* Make it square */
-      outline: none;
+    .rating-option {
+      display: flex;
+      flex-direction: row; /* changed to row */
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      position: relative;
-      margin-right: 4px;
+      box-sizing: border-box;
+      padding: 5px;
+      border-radius: 5px;
+      transition: background-color 0.2s, color 0.2s;
+      width: auto;       /* Set width to auto */
+      white-space: nowrap;  /* Prevent line breaks */
+    }
+
+    .rating-option:hover {
+      background-color: #f0f0f0;
+    }
+
+    .rating-option.selected {
+      background-color: #ffc107;
+      color: black;
+      font-weight: bold;
+    }
+
+    .rating-number {
+      width: 24px;
+      height: 24px;
+      border: 1px solid #999;
+      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-sizing: border-box;
+      margin-right: 3px;  /* Add margin for spacing */
     }
 
-    .rating-container input[type="radio"]:checked {
-      border: 1px solid #0000FF;
-      /* Blue border when checked */
+    input[type="radio"] {
+      display: none;
     }
 
-    .rating-container input[type="radio"]:checked::before {
-      content: '\2713';
-      /* Checkmark character */
-      font-size: 12px;
-      color: #0000FF;
-      /*The check mark would be in blue color*/
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
+    /* .rating-container label {
+            display: flex;
+            flex-direction: row;
+             Put the radio box on the left of the text.
+            align-items: center;
+            cursor: pointer;
+            font-size: 10px;
+            color: #777;
+             Gray color for unselected labels
+            white-space: nowrap;
+            margin: 0;
+        }
 
-    .rating-container label:has(input[type="radio"]:checked) {
-      color: #0000FF;
-      /* Make selected label text blue */
-      font-weight: bold;
-      /* Bold selected text */
-    }
+        .rating-container input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #777;
+             Light gray border for unselected
+            border-radius: 2px;
+             Make it square
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            margin-right: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+
+        .rating-container input[type="radio"]:checked {
+            border: 1px solid #0000FF;
+             Blue border when checked
+        }
+
+        .rating-container input[type="radio"]:checked::before {
+            content: '\2713';
+             Checkmark character
+            font-size: 12px;
+            color: #0000FF;
+            The check mark would be in blue color
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .rating-container label:has(input[type="radio"]:checked) {
+            color: #0000FF;
+             Make selected label text blue
+            font-weight: bold;
+             Bold selected text
+        } */
 
     /* .rating-box input[type="radio"]:checked::before {
             content: '\2713';
@@ -766,7 +866,7 @@
 
     /* Additional styles for improved layout */
     .ac-table:first-of-type td {
-      padding: 6px;
+      padding: 2px;
     }
 
     .ac-table:first-of-type input[type="text"],
@@ -781,13 +881,14 @@
 
     #approval-signatures-section .placeholder-input {
       width: calc(100% - 16px);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .rating-box {
       border: 1px solid #ccc;
-      padding: 10px;
-      border-radius: 5px;
+      padding: 0px;
+      border-radius: 10px;
+      outline: 1px solid #c200ff;
       margin-bottom: 10px;
     }
 
@@ -838,7 +939,7 @@
 
     .rating-box {
       border: 1px solid #ccc;
-      padding: 10px;
+      padding: 1px;
       border-radius: 5px;
       margin-bottom: 10px;
     }
@@ -928,13 +1029,13 @@
 
   <div id="welcome-page">
     <div id="login-container">
-        <div class="login-logo">
-          <img src="Images/logo.png" alt="Al Tasnim Group Logo">
-        </div>
-        <div class="login-input-group">
-          <label for="username">User Name</label>
-          <input type="text" id="username" name="username" required>
-        </div>
+      <div class="login-logo">
+        <img src="logo.png" alt="Al Tasnim Group Logo">
+      </div>
+      <div class="login-input-group">
+        <label for="username">User Name</label>
+        <input type="text" id="username" name="username" required>
+      </div>
       <div class="login-input-group">
         <label for="password">Password</label>
         <input type="password" id="password" name="password" required>
@@ -942,715 +1043,734 @@
       <button type="button" class="login-button" onclick="authenticateUser()">Login</button>
       <div id="login-message"></div>
     </div>
+    <!-- Updated Background Panels -->
     <div class="background-panel" id="panel1">
-      <img src="https://images.unsplash.com/photo-1606122348434-96570830b8f6?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="Construction Site">
+      <img src="Pannel1.jpg"
+        alt="Construction Machinery">
     </div>
     <div class="background-panel" id="panel2">
-      <img src="https://images.unsplash.com/photo-1580778683348-d25eb82f54ef?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="Industrial Plant">
-    </div>
-    <div class="background-panel" id="panel3">
-      <img src="https://images.unsplash.com/photo-1550546148-94d512e9f20d?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="Excavator">
-    </div>
-    <div class="background-panel" id="panel4">
-      <img src="https://images.unsplash.com/photo-1517245336163-16f621a47215?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="Pipes">
-    </div>
-    <div id="welcome-message-container" class="welcome-container" style="display:none;">
-      <h1 class="welcome-message">Welcome toEmployee Performance Evaluation!</h1>
-      <a href="#" class="proceed-button" onclick="showEvaluationPage()">Proceed to Evaluation</a>
-    </div>
+      <img src="Pannel2.jpg"
+      alt="Construction Workers">
   </div>
-  <div id="evaluation-page" style="display:none;">
-    <div class="container">
-      <h1>Employee Performance Evaluation</h1>
-      <div class="position-grid">
-        <a href="#" onclick="showACTechnicianForm(); return false;" class="position-card">
-          <i class="fas fa-wrench position-icon"></i>
-          AC Technician
-        </a>
-        <a href="#" class="position-card">
-          <i class="fas fa-headset position-icon"></i>
-          Dispatch Officer
-        </a>
-        <a href="#" class="position-card">
-          <i class="fas fa-bolt position-icon"></i>Electrical Engineer
-        </a>
-        <a href="#" class="position-card">
-          <i class="fas fa-industry position-icon"></i>
-          Electrician Industrial
-        </a>
-        <a href="#" class="position-card">
-          <i class="fas fa-shield-alt position-icon"></i>
-          HSE Advisor
-        </a>
-        <a href="#" class="position-card">
-          <i class="fas fa-desktop position-icon"></i>
-          IT Support Executive
-        </a>
-        <a href="#" class="position-card">
-          <i class="fas fa-file-alt position-icon"></i>
-          Permit Applicant
-        </a>
-        <a href="#" class="position-card">
-          <i class="fas fa-check-circle position-icon"></i>
-          Permit Holder
-        </a>
-        <a href="#" class="position-card">
-          <i class="fas fa-tools position-icon"></i>
-          Pipe Fitter
-        </a>
-        <a href="#" class="position-card">
-          <i class="fas fa-check position-icon"></i>
-          Quality Control
-        </a>
-        <a href="#" class="position-card">
-          <i class="fas fa-calculator position-icon"></i>
-          Quantity Surveyor
-        </a>
-        <a href="#" class="position-card">
-          <i class="fas fa-plug position-icon"></i>
-          Site Engineer - Electrical
-        </a>
-        <a href="#" class="position-card">
-          <i class="fas fa-hard-hat position-icon"></i>
-          Site Engineer
-        </a>
-        <a href="#" class="position-card">
-          <i class="fas fa-warehouse position-icon"></i>
-          Stores Engineer - General
-        </a>
-        <a href="#" class="position-card">
-          <i class="fas fa-user-shield position-icon"></i>
-          Supervisor - Security
-        </a>
-      </div>
-    </div>
+  <div class="background-panel" id="panel3">
+    <img src="Pannel3.jpeg"
+      alt="Worker Welding">
   </div>
+  <div class="background-panel" id="panel4">
+    <img src="https://images.unsplash.com/photo-1591639831738-c48204e0933c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8fGVufDBfHx8fA%3D%3D"
+    alt="Blueprints">
+</div>
+<div id="welcome-message-container" class="welcome-container" style="display:none;">
+  <h1 class="welcome-message">Welcome to Employee Performance Evaluation!</h1>
+  <a href="#" class="proceed-button" onclick="showEvaluationPage()">Proceed to Evaluation</a>
+</div>
+</div>
+<div id="evaluation-page" style="display:none;">
+<div class="container">
+  <h1>Employee Performance Evaluation</h1>
+  <div class="position-grid">
+    <a href="#" onclick="showACTechnicianForm(); return false;" class="position-card">
+      <i class="fas fa-wrench position-icon"></i>
+      AC Technician
+    </a>
+    <a href="#" class="position-card">
+      <i class="fas fa-headset position-icon"></i>
+      Dispatch Officer
+    </a>
+    <a href="#" class="position-card">
+      <i class="fas fa-bolt position-icon"></i>Electrical Engineer
+    </a>
+    <a href="#" class="position-card">
+      <i class="fas fa-industry position-icon"></i>
+      Electrician Industrial
+    </a>
+    <a href="#" class="position-card">
+      <i class="fas fa-shield-alt position-icon"></i>
+      HSE Advisor
+    </a>
+    <a href="#" class="position-card">
+      <i class="fas fa-desktop position-icon"></i>
+      IT Support Executive
+    </a>
+    <a href="#" class="position-card">
+      <i class="fas fa-file-alt position-icon"></i>
+      Permit Applicant
+    </a>
+    <a href="#" class="position-card">
+      <i class="fas fa-check-circle position-icon"></i>
+      Permit Holder
+    </a>
+    <a href="#" class="position-card">
+      <i class="fas fa-tools position-icon"></i>
+      Pipe Fitter
+    </a>
+    <a href="#" class="position-card">
+      <i class="fas fa-check position-icon"></i>
+      Quality Control
+    </a>
+    <a href="#" class="position-card">
+      <i class="fas fa-calculator position-icon"></i>
+      Quantity Surveyor
+    </a>
+    <a href="#" class="position-card">
+      <i class="fas fa-plug position-icon"></i>
+      Site Engineer - Electrical
+    </a>
+    <a href="#" class="position-card">
+      <i class="fas fa-hard-hat position-icon"></i>
+      Site Engineer
+    </a>
+    <a href="#" class="position-card">
+      <i class="fas fa-warehouse position-icon"></i>
+      Stores Engineer - General
+    </a>
+    <a href="#" class="position-card">
+      <i class="fas fa-user-shield position-icon"></i>
+      Supervisor - Security
+    </a>
+  </div>
+</div>
+</div>
 
-  <style>
-    /* Styles for evaluation-page */
-    #evaluation-page {
-      background: linear-gradient(to bottom, #f0f4f8, #e8ecf1);
-      padding: 30px 0;
-    }
+<style>
+/* Styles for evaluation-page */
+#evaluation-page {
+  background: linear-gradient(to bottom, #f0f4f8, #e8ecf1);
+  padding: 30px 0;
+}
 
-    #evaluation-page .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 30px auto;
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      position: relative;
-      overflow: hidden;
-    }
+#evaluation-page .container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 30px auto;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
 
-    #evaluation-page .container::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg width='42' height='48' viewBox='0 0 42 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23e0e5ea' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M12 12h18v12h-18z'/%3E%3C/g%3E%3C/svg%3E");
-      opacity: 0.5;
-      z-index: -1;
-    }
+#evaluation-page .container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='42' height='48' viewBox='0 0 42 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23e0e5ea' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M12 12h18v12h-18z'/%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.5;
+  z-index: -1;
+}
 
-    #evaluation-page h1 {
-      color: #333;
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 2.5em;
-    }
+#evaluation-page h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5em;
+}
 
-    .position-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      /*Adjusted Column Width*/
-      gap: 15px;
-      /*Reduced Gap*/
-      padding: 20px;
-    }
+.position-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  /*Adjusted Column Width*/
+  gap: 15px;
+  /*Reduced Gap*/
+  padding: 20px;
+}
 
-    /* Position Card */
-    .position-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: #fff;
-      /*Solid White Background*/
-      border-radius: 8px;
-      /*Slightly less rounded corners*/
-      padding: 15px;
-      /*Reduced Padding*/
-      text-align: center;
-      text-decoration: none;
-      color: #343a40;
-      /*Darker Text Color*/
-      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-      /*Subtler Shadow*/
-      min-height: 100px;
-      /*Reduced Minimum Height*/
-      border: 1px solid #ced4da;
-      /* Softer Border */
-      font-weight: 500;
-      /*Semi-Bold Font*/
-    }
+/* Position Card */
+.position-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  /*Solid White Background*/
+  border-radius: 8px;
+  /*Slightly less rounded corners*/
+  padding: 15px;
+  /*Reduced Padding*/
+  text-align: center;
+  text-decoration: none;
+  color: #343a40;
+  /*Darker Text Color*/
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  /*Subtler Shadow*/
+  min-height: 100px;
+  /*Reduced Minimum Height*/
+  border: 1px solid #ced4da;
+  /* Softer Border */
+  font-weight: 500;
+  /*Semi-Bold Font*/
+}
 
-    .position-card:hover {
-      transform: translateY(-2px);
-      /*Reduced Lift*/
-      box-shadow: 0 3px 7px rgba(0, 0, 0, 0.12);
-      /*Slightly More Pronounced Shadow*/
-      background-color: #f8f9fa;
-    }
+.position-card:hover {
+  transform: translateY(-2px);
+  /*Reduced Lift*/
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.12);
+  /*Slightly More Pronounced Shadow*/
+  background-color: #f8f9fa;
+}
 
-    /* Position Icon */
-    .position-icon {
-      font-size: 24px;
-      /*Slightly Larger Icons*/
-      margin-bottom: 8px;
-      /*Reduced Margin*/
-      color: #6c757d;
-      /*Gray Icon Color*/
-    }
-  </style>
+/* Position Icon */
+.position-icon {
+  font-size: 24px;
+  /*Slightly Larger Icons*/
+  margin-bottom: 8px;
+  /*Reduced Margin*/
+  color: #6c757d;
+  /*Gray Icon Color*/
+}
+</style>
 
+<div id="ac-technician-form" class="ac-technician-container" style="display:none;">
 
-  <div id="ac-technician-form" class="ac-technician-container" style="display:none;">
-
-    <div id="form-container">
-      <div class="ac-header-container">
-        <h2 class="ac-header-title">EMPLOYEE PERFORMANCE EVALUATION FORM - AC TECHNICIAN</h2>
-        <div class="ac-review-date required-field">Review Date: <input type="date" id="review-date-header"
-            class="required" /></div>
-      </div>
-
-      <div class="ac-section-header" id="personal-details">EMPLOYEE PERSONAL DETAILS</div>
-      <table class="ac-table">
-        <tr>
-          <td class="ac-bold-text required-field">Employee Number</td>
-          <td><input type="text" id="emp-number" class="required" /><div id="suggestions"></div>
-          </td>
-          <td class="ac-bold-text required-field">Employee Name</td>
-          <td><input type="text" id="emp-name" class="required" readonly /></td>
-        </tr>
-        <tr>
-          <td class="ac-bold-text">Position Text</td>
-          <td><input type="text" id="position-text" readonly /></td>
-          <td class="ac-bold-text">Employee Group</td>
-          <td><input type="text" id="emp-group" readonly /></td>
-        </tr>
-        <tr>
-          <td class="ac-bold-text">Division Text</td>
-          <td><input type="text" id="division-text" readonly /></td>
-          <td class="ac-bold-text">Department Text</td>
-          <td><input type="text" id="department-text" readonly /></td>
-        </tr>
-        <tr>
-          <td class="ac-bold-text required-field">Email ID</td>
-          <td><input type="text" id="email" class="required" maxlength="40" /></td>
-          <td class="ac-bold-text required-field">Contact Number</td>
-          <td><input type="text" id="contact" class="required" maxlength="8"
-              oninput="this.value = this.value.replace(/[^0-9NA]/g, '').toUpperCase();" />
-          </td>
-        </tr>
-        <tr>
-          <td class="ac-bold-text required-field">Reviewer Employee ID</td>
-          <td>
-            <div id="reviewer-number-container">
-              <input type="text" id="reviewer-number" class="required" /><div id="suggestions-reviewer"
-                  class="suggestions"></div>
-            </div>
-          </td>
-          <td class="ac-bold-text required-field">Reviewer Name</td>
-          <td><input type="text" id="reviewer-name" class="required" readonly /></td>
-        </tr>
-
-      </table>
-
-      <div class="ac-section-header" id="performance-metrics-header">PERFORMANCE METRICS</div>
-      <div id="performance-metrics"></div>
-
-      <div class="ac-section-header" id="overall-performance-header">OVERALL EMPLOYEE PERFORMANCE</div>
-      <p id="overall-performance">Please rate all metrics.</p>
-
-      <div class="ac-section-header required-field">OVERALL REMARKS / COMMENTS</div>
-      <textarea rows="4" id="remarks" class="required"></textarea>
-
-      <div class="ac-section-header">APPROVAL SIGNATURES</div>
-      <table class="ac-table" id="approval-signatures-section">
-        <tr>
-          <th>EMPLOYEE</th>
-          <th>FIRST WITNESS</th>
-          <th>SECOND WITNESS</th>
-        </tr>
-        <tr>
-          <td>
-            <input type="text" id="employee-number-signature" placeholder="EMPLOYEE NUMBER"
-              class="placeholder-input" readonly />
-            <input type="text" id="employee-name-signature" placeholder="EMPLOYEE NAME"
-              class="placeholder-input" readonly />
-            <input type="text" id="position-signature" placeholder="POSITION / DESIGNATION"
-              class="placeholder-input" readonly />
-            <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
-          </td>
-          <td>
-            <input type="text" id="employee-number-2" placeholder="EMPLOYEE NUMBER"
-              class="placeholder-input" />
-            <div id="suggestions-2" class="suggestions"></div>
-            <input type="text" id="employee-name-2" placeholder="EMPLOYEE NAME" class="placeholder-input"
-              readonly />
-            <input type="text" id="position-2" placeholder="POSITION / DESIGNATION"
-              class="placeholder-input" readonly />
-            <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
-          </td>
-          <td>
-            <input type="text" id="employee-number-3" placeholder="EMPLOYEE NUMBER"
-              class="placeholder-input" />
-            <div id="suggestions-3" class="suggestions"></div>
-            <input type="text" id="employee-name-3" placeholder="EMPLOYEE NAME" class="placeholder-input"
-              readonly />
-            <input type="text" id="position-3" placeholder="POSITION / DESIGNATION"
-              class="placeholder-input" readonly />
-            <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
-          </td>
-        </tr>
-      </table>
-
-      <table class="ac-table">
-        <tr>
-          <th>REVIEWER</th>
-          <th>EMPLOYEE</th>
-        </tr>
-        <tr>
-          <td>
-            <input type="text" id="reviewer-number-signature" placeholder="EMPLOYEE NUMBER"
-              class="placeholder-input" readonly />
-            <input type="text" id="reviewer-name-signature" placeholder="EMPLOYEE NAME"
-              class="placeholder-input" readonly />
-            <input type="text" id="reviewer-position-signature" placeholder="POSITION / DESIGNATION"
-              class="placeholder-input" readonly />
-            <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
-          </td>
-          <td>
-            <input type="text" id="employee-number-4" placeholder="EMPLOYEE NUMBER"
-              class="placeholder-input" readonly />
-            <input type="text" id="employee-name-4" placeholder="EMPLOYEE NAME" class="placeholder-input"
-              readonly />
-            <input type="text" id="position-4" placeholder="POSITION / DESIGNATION"
-              class="placeholder-input" readonly />
-            <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
-          </td>
-        </tr>
-      </table>
-      <button class="ac-download-button" onclick="downloadPDF()">Download PDF</button>
-    </div>
+<div id="form-container">
+  <div class="ac-header-container">
+    <h2 class="ac-header-title">EMPLOYEE PERFORMANCE EVALUATION FORM - AC TECHNICIAN</h2>
+    <div class="ac-review-date required-field">Review Date: <input type="date" id="review-date-header"
+        class="required" /></div>
   </div>
 
+  <div class="ac-section-header" id="personal-details">EMPLOYEE PERSONAL DETAILS</div>
+  <table class="ac-table">
+    <tr>
+      <td class="ac-bold-text required-field">Employee Number</td>
+      <td><input type="text" id="emp-number" class="required" /><div id="suggestions"></div>
+      </td>
+      <td class="ac-bold-text required-field">Employee Name</td>
+      <td><input type="text" id="emp-name" class="required" readonly /></td>
+    </tr>
+    <tr>
+      <td class="ac-bold-text">Position Text</td>
+      <td><input type="text" id="position-text" readonly /></td>
+      <td class="ac-bold-text">Employee Group</td>
+      <td><input type="text" id="emp-group" readonly /></td>
+    </tr>
+    <tr>
+      <td class="ac-bold-text">Division Text</td>
+      <td><input type="text" id="division-text" readonly /></td>
+      <td class="ac-bold-text">Department Text</td>
+      <td><input type="text" id="department-text" readonly /></td>
+    </tr>
+    <tr>
+      <td class="ac-bold-text required-field">Email ID</td>
+      <td><input type="text" id="email" class="required" maxlength="40" /></td>
+      <td class="ac-bold-text required-field">Contact Number</td>
+      <td><input type="text" id="contact" class="required" maxlength="8"
+          oninput="this.value = this.value.replace(/[^0-9NA]/g, '').toUpperCase();" />
+      </td>
+    </tr>
+    <tr>
+      <td class="ac-bold-text required-field">Reviewer Employee ID</td>
+      <td>
+        <div id="reviewer-number-container">
+          <input type="text" id="reviewer-number" class="required" /><div id="suggestions-reviewer"
+              class="suggestions"></div>
+        </div>
+      </td>
+      <td class="ac-bold-text required-field">Reviewer Name</td>
+      <td><input type="text" id="reviewer-name" class="required" readonly /></td>
+    </tr>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-  <script>
-    // Show/Hide page functions
-    function showEvaluationPage() {
-      document.getElementById('welcome-page').style.display = 'none';
-      document.getElementById('evaluation-page').style.display = 'block';
-      document.getElementById('ac-technician-form').style.display = 'none';
+  </table>
 
-    }
+  <div class="ac-section-header" id="performance-metrics-header">PERFORMANCE METRICS</div>
+  <div id="performance-metrics"></div>
 
-    function showACTechnicianForm() {
-      document.getElementById('evaluation-page').style.display = 'none';
-      document.getElementById('welcome-page').style.display = 'none';
-      document.getElementById('ac-technician-form').style.display = 'block';
+  <div class="ac-section-header" id="overall-performance-header">OVERALL EMPLOYEE PERFORMANCE</div>
+  <p id="overall-performance">Please rate all metrics.</p>
 
+  <div class="ac-section-header required-field">OVERALL REMARKS / COMMENTS</div>
+  <textarea rows="4" id="remarks" class="required"></textarea>
 
-    }
-    // -----------------------------------------
-    // 1) DEFINE METRICS & RENDER THEM IN DOM
-    // -----------------------------------------
-    const metrics = [{
-        title: "1. TECHNICAL KNOWLEDGE",
-        details: `
+  <div class="ac-section-header">APPROVAL SIGNATURES</div>
+
+  <table class="approval-signature-table">
+      <thead>
+          <tr>
+              <th>EMPLOYEE</th>
+              <th>FIRST WITNESS</th>
+              <th>SECOND WITNESS</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>
+                  <input type="text" id="employee-number-signature" placeholder="EMPLOYEE NUMBER"
+                      class="placeholder-input" readonly />
+                  <input type="text" id="employee-name-signature" placeholder="EMPLOYEE NAME"
+                      class="placeholder-input" readonly />
+                  <input type="text" id="position-signature" placeholder="POSITION / DESIGNATION"
+                      class="placeholder-input" readonly />
+                  <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
+              </td>
+              <td>
+                  <input type="text" id="employee-number-2" placeholder="EMPLOYEE NUMBER"
+                      class="placeholder-input" />
+                  <div id="suggestions-2" class="suggestions"></div>
+                  <input type="text" id="employee-name-2" placeholder="EMPLOYEE NAME" class="placeholder-input"
+                      readonly />
+                  <input type="text" id="position-2" placeholder="POSITION / DESIGNATION"
+                      class="placeholder-input" readonly />
+                  <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
+              </td>
+              <td>
+                  <input type="text" id="employee-number-3" placeholder="EMPLOYEE NUMBER"
+                      class="placeholder-input" />
+                  <div id="suggestions-3" class="suggestions"></div>
+                  <input type="text" id="employee-name-3" placeholder="EMPLOYEE NAME" class="placeholder-input"
+                      readonly />
+                  <input type="text" id="position-3" placeholder="POSITION / DESIGNATION"
+                      class="placeholder-input" readonly />
+                  <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+  <table class="approval-signature-table">
+      <thead>
+          <tr>
+              <th>REVIEWER</th>
+              <th>HOD</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>
+                  <input type="text" id="reviewer-number-signature" placeholder="EMPLOYEE NUMBER"
+                      class="placeholder-input" readonly />
+                  <input type="text" id="reviewer-name-signature" placeholder="EMPLOYEE NAME"
+                      class="placeholder-input" readonly />
+                  <input type="text" id="reviewer-position-signature" placeholder="POSITION / DESIGNATION"
+                      class="placeholder-input" readonly />
+                  <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
+              </td>
+              <td>
+                  <input type="text" id="hod-number" placeholder="EMPLOYEE NUMBER" class="placeholder-input" />
+                  <div id="suggestions-hod" class="suggestions"></div>
+                  <input type="text" id="hod-name" placeholder="EMPLOYEE NAME" class="placeholder-input"
+                      readonly />
+                  <input type="text" id="hod-position" placeholder="POSITION / DESIGNATION"
+                      class="placeholder-input" readonly />
+                  <input type="text" placeholder="SIGNATURE / DATE" class="placeholder-input" />
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+  <button class="ac-download-button" onclick="downloadPDF()">Download PDF</button>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<script>
+// Show/Hide page functions
+function showEvaluationPage() {
+  document.getElementById('welcome-page').style.display = 'none';
+  document.getElementById('evaluation-page').style.display = 'block';
+  document.getElementById('ac-technician-form').style.display = 'none';
+
+}
+
+function showACTechnicianForm() {
+  document.getElementById('evaluation-page').style.display = 'none';
+  document.getElementById('welcome-page').style.display = 'none';
+  document.getElementById('ac-technician-form').style.display = 'block';
+
+}
+// -----------------------------------------
+// 1) DEFINE METRICS & RENDER THEM IN DOM
+// -----------------------------------------
+const metrics = [{
+    title: "1. TECHNICAL KNOWLEDGE",
+    details: `
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>HVAC Systems Understanding:</b> Knowledge of various AC systems, including residential, commercial, and industrial units.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Diagnostics and Troubleshooting:</b> Ability to diagnose issues accurately using appropriate tools and techniques.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Electrical Knowledge:</b> Understanding of electrical components and wiring in HVAC systems, including capacitors, relays, and circuit boards.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Refrigeration Knowledge:</b> Familiarity with refrigeration cycles, refrigerants, and their proper handling and charging procedures.</div>
 `
-      },
-      {
-        title: "2. HANDS-ON SKILLS",
-        details: `
+  },
+  {
+    title: "2. HANDS-ON SKILLS",
+    details: `
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Installation Skills:</b> Competence in installing AC units, including proper setup, connections, and system configuration.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Repair Skills:</b> Proficiency in repairing faulty components, including compressors, fans, coils, thermostats, and wiring.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Maintenance Skills:</b> Ability to perform routine maintenance tasks such as cleaning filters, coils, and condensers, checking refrigerant levels, and ensuring system efficiency.</div>
 `
-      },
-      {
-        title: "3. PROBLEM-SOLVING ABILITY",
-        details: `
+  },
+  {
+    title: "3. PROBLEM-SOLVING ABILITY",
+    details: `
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Diagnosing Complex Issues:</b> Ability to identify and troubleshoot complex mechanical or electrical problems.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Efficient Solutions:</b> Ability to devise practical, cost-effective solutions to fix problems or improve system performance.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Adaptability:</b> Adjusting solutions based on the specific needs of the environment (e.g., residential vs. commercial setups).</div>
 `
-      },
-      {
-        title: "4. ATTENTION TO DETAIL",
-        details: `
+  },
+  {
+    title: "4. ATTENTION TO DETAIL",
+    details: `
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Precision:</b> Ensuring all installations, repairs, and maintenance are completed accurately and to manufacturer specifications.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Safety Compliance:</b> Adhering to safety guidelines and protocols, such as handling refrigerants safely, working with electricity, and ensuring proper ventilation.</div>
 `
-      },
-      {
-        title: "5. CUSTOMER SERVICE SKILLS",
-        details: `
+  },
+  {
+    title: "5. CUSTOMER SERVICE SKILLS",
+    details: `
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Communication:</b> Explaining technical issues and solutions to customers in an understandable and professional manner.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Professionalism:</b> Maintaining a courteous, friendly, and respectful demeanor when interacting with customers, whether on site or over the phone.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin:0; margin-bottom: 3px;"><b>Customer Education:</b> Offering advice on system maintenance, energy-saving tips, and how to operate AC units properly.</div>
 `
-      },
-      {
-        title: "6. TIME MANAGEMENT",
-        details: `
+  },
+  {
+    title: "6. TIME MANAGEMENT",
+    details: `
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Efficiency:</b> Completing tasks within the expected time frame, ensuring minimal disruption to the customer’s daily activities.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Prioritization:</b> Managing multiple service calls, balancing urgent repairs with routine maintenance without compromising quality.</div>
 `
-      },
-      {
-        title: "7. KNOWLEDGE OF CODES AND REGULATIONS",
-        details: `
+  },
+  {
+    title: "7. KNOWLEDGE OF CODES AND REGULATIONS",
+    details: `
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Local Codes and Standards:</b> Knowledge of local, state, and federal regulations regarding HVAC systems, such as installation codes, refrigerant handling, and energy efficiency standards.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Permit Requirements:</b> Understanding when and how to obtain necessary permits for installation or repairs.</div>
 `
-      },
-      {
-        title: "8. PHYSICAL AND MANUAL DEXTERITY",
-        details: `
+  },
+  {
+    title: "8. PHYSICAL AND MANUAL DEXTERITY",
+    details: `
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Physical Stamina:</b> Ability to work in challenging physical environments (e.g., rooftops, basements, attics) and handle heavy equipment.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Precision Handling:</b> Skill in using tools such as wrenches, pressure gauges, thermometers, and soldering tools.</div>
 `
-      },
-      {
-        title: "9. SAFETY AWARENESS",
-        details: `
+  },
+  {
+    title: "9. SAFETY AWARENESS",
+    details: `
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Workplace Safety:</b> Consistently following safety protocols, such as wearing personal protective equipment (PPE), handling hazardous materials properly, and ensuring workspaces are safe.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Hazard Prevention:</b> Recognizing and mitigating potential safety hazards, such as electrical risks, refrigerant leaks, or improper ventilation.</div>
 `
-      },
-      {
-        title: "10. TROUBLESHOOTING EFFICIENCY",
-        details: `
+  },
+  {
+    title: "10. TROUBLESHOOTING EFFICIENCY",
+    details: `
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Speed:</b> The ability to identify problems and fix them quickly, minimizing downtime for the customer.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Comprehensive Troubleshooting:</b> Not only fixing the immediate issue but also identifying any other potential problems or areas for improvement.</div>
 `
-      },
-      {
-        title: "11. QUALITY OF WORK",
-        details: `
+  },
+  {
+    title: "11. QUALITY OF WORK",
+    details: `
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Durability of Work:</b> Ensuring repairs and installations are durable, minimizing the need for repeat visits or fixes.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Attention to Detail:</b> Thoroughness in performing repairs and maintenance, ensuring all components are functioning properly.</div>
 `
-      },
-      {
-        title: "12. ADAPTABILITY AND CONTINUED LEARNING",
-        details: `
+  },
+  {
+    title: "12. ADAPTABILITY AND CONTINUED LEARNING",
+    details: `
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Staying Current:</b> Keeping up to date with the latest AC technologies, refrigerants, and industry trends.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Certifications:</b> Having relevant certifications such as EPA 608 (for refrigerant handling), NATE (North American Technician Excellence), or HVACR certifications that demonstrate competence and knowledge.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Training and Development:</b> Willingness to participate in ongoing training or workshops to enhance skills and knowledge.</div>
 `
-      },
-      {
-        title: "13. PERFORMANCE METRICS",
-        details: `
+  },
+  {
+    title: "13. PERFORMANCE METRICS",
+    details: `
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Customer Satisfaction:</b> Positive feedback from clients regarding service quality, communication, and reliability.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>First-Time Fix Rate:</b> The percentage of issues resolved on the first visit.</div>
 <div style="border: 1px solid #ddd; padding: 5px; margin: 0; margin-bottom: 3px;"><b>Work Completion Rate:</b> Successful completion of jobs without the need for rework.</div>
 `
-      }
-    ];
+  }
+];
 
-    const metricsContainer = document.getElementById("performance-metrics");
-    const overallPerformanceText = document.getElementById("overall-performance");
+const metricsContainer = document.getElementById("performance-metrics");
+const overallPerformanceText = document.getElementById("overall-performance");
 
-    // Dynamically insert each metric into the DOM
-    metrics.forEach((metric, index) => {
-      const metricDiv = document.createElement("div");
-      metricDiv.classList.add("performance-feedback");
-      metricDiv.innerHTML = `
+// Rating descriptions
+const ratingDescriptions = {
+  1: "Poor",
+  2: "Average",
+  3: "Good",
+  4: "Very Good",
+  5: "Excellent"
+};
+
+// Dynamically insert each metric into the DOM
+metrics.forEach((metric, index) => {
+  const metricDiv = document.createElement("div");
+  metricDiv.classList.add("performance-feedback");
+  let ratingOptionsHTML = "";
+
+  for (let i = 1; i <= 5; i++) {
+    ratingOptionsHTML += `
+    <label class="rating-option" for="rating-${index}-${i}">
+        <div class="rating-number">${i}</div>
+        <span class="rating-text">${ratingDescriptions[i]}</span>
+        <input type="radio" name="rating-${index}" value="${i}" id="rating-${index}-${i}">
+    </label>
+    `;
+  }
+
+  metricDiv.innerHTML = `
 <div class="ac-metric-title"><b>${metric.title}</b></div>
 <p>${metric.details}</p>
 <div class="rating-box">
-    <div class="rating-container">
-      <label><input type="radio" name="rating-${index}" value="1"> Poor</label>
-      <label><input type="radio" name="rating-${index}" value="2"> Average</label>
-      <label><input type="radio" name="rating-${index}" value="3"> Good</label>
-      <label><input type="radio" name="rating-${index}" value="4"> Very Good</label>
-      <label><input type="radio" name="rating-${index}" value="5"> Excellent</label>
-    </div>
+<div class="rating-scale">
+${ratingOptionsHTML}
+</div>
 </div>
 <div style="margin-top: 20px;">
-    <div class="ac-comments-container">
-        <div>
-            <label for="comments-${index}" class="required-field"><b>Employee Comments:</b></label>
-            <textarea id="comments-${index}" rows="4" placeholder="Enter your comments here..." class="required"></textarea>
-        </div>
-        <div>
-            <label for="hr-comments-${index}"><b>HR Comments:</b></label>
-            <textarea id="hr-comments-${index}" rows="4" placeholder="Enter HR comments here..."></textarea>
-        </div>
+<div class="ac-comments-container">
+    <div>
+        <label for="comments-${index}" class="required-field"><b>Employee Comments:</b></label>
+        <textarea id="comments-${index}" rows="4" placeholder="Enter your comments here..." class="required"></textarea>
+    </div>
+    <div>
+        <label for="hr-comments-${index}"><b>HR Comments:</b></label>
+        <textarea id="hr-comments-${index}" rows="4" placeholder="Enter HR comments here..."></textarea>
     </div>
 </div>
+</div>
 `;
-      metricsContainer.appendChild(metricDiv);
+  metricsContainer.appendChild(metricDiv);
+});
+
+// Add event listeners for dynamic styling and toggle behavior
+metricsContainer.addEventListener("click", function(event) {
+  if (event.target.type === "radio") {
+    const selectedRadio = event.target;
+    const ratingScale = selectedRadio.closest(".rating-scale");
+    const ratingOptions = ratingScale.querySelectorAll('.rating-option');
+
+    // Clear previous selection
+    ratingOptions.forEach(option => option.classList.remove('selected'));
+
+    // Set new selection
+    selectedRadio.closest(".rating-option").classList.add('selected');
+  }
+});
+// -----------------------------------------
+// 2) STAR RATINGS LOGIC
+// -----------------------------------------
+metricsContainer.addEventListener("change", function(event) {
+  if (event.target.type === "radio") {
+    updateOverallPerformance();
+  }
+});
+
+function updateOverallPerformance() {
+  const ratings = [];
+  metrics.forEach((metric, index) => {
+    const selectedRating = document.querySelector(`input[name="rating-${index}"]:checked`);
+    if (selectedRating) {
+      ratings.push(parseInt(selectedRating.value));
+    }
+  });
+
+  if (ratings.length === metrics.length) {
+    const average = ratings.reduce((a, b) => a + b, 0) / ratings.length;
+    const roundedAverage = Math.round(average);
+    const descriptions = {
+      1: "Poor Performance",
+      2: "Average Performance",
+      3: "Good Performance",
+      4: "Very Good Performance",
+      5: "Excellent Performance"
+    };
+    overallPerformanceText.textContent = `Performance Rating: ${descriptions[roundedAverage]}`;
+  } else {
+    overallPerformanceText.textContent = "Please rate all metrics.";
+  }
+}
+
+// -----------------------------------------
+// 3) DOWNLOAD PDF USING html2pdf.js
+// -----------------------------------------
+function downloadPDF() {
+  if (!validateForm()) {
+    return; // Validation failed, don't proceed
+  }
+
+  const element = document.getElementById("form-container");
+  const suggestionsElements = document.querySelectorAll('.suggestions'); // Get all suggestion boxes
+
+  // Store original display values and temporarily hide suggestion boxes
+  const originalDisplays = [];
+  suggestionsElements.forEach((el, index) => {
+    originalDisplays[index] = el.style.display;
+    el.style.display = 'none'; // Hide the element
+  });
+
+  const opt = {
+      margin: [1, 2, 2, 1],  // Increase margins (top, right, bottom, left) in mm. Try these values, and adjust.
+      filename: 'Employee_Performance_Evaluation.pdf',
+      image: {
+        type: 'jpeg',
+        quality: 0.98, // Slightly reduce image quality to help reduce file size (optional)
+        scale: 1.7, // Play with this value to scale to your desires.
+        useCORS: true,
+        scrollX: 0,
+        scrollY: 0,
+        x: 0,
+        y: 0
+      },
+      jsPDF: {
+        unit: 'mm',
+        format: 'a4',
+        orientation: 'portrait'
+      },
+      pagebreak: {
+        mode: 'avoid-all'
+      }
+    };
+
+  opt.jsPDF.formatDate = function(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const reviewDate = new Date(document.getElementById("review-date-header").value);
+  opt.jsPDF.reviewDateFormatted = opt.jsPDF.formatDate(reviewDate);
+
+  const body = document.querySelector('body');
+  const originalMargin = body.style.margin;
+  body.style.margin = '0';
+
+  html2pdf().from(element).set(opt).save().then(() => {
+    body.style.margin = originalMargin;
+
+    // Restore the original display values of the suggestion boxes
+    suggestionsElements.forEach((el, index) => {
+      el.style.display = originalDisplays[index] || ''; // Revert to original or default
     });
 
-    // Add event listeners for dynamic styling and toggle behavior
-    metricsContainer.addEventListener("click", function(event) {
-      if (event.target.type === "radio") {
-        const selectedRadio = event.target;
-        const ratingBox = selectedRadio.closest(".rating-box");
-        const radios = ratingBox.querySelectorAll('input[type="radio"]');
+  });
+}
 
-        // Styling and checkmark
-        radios.forEach(radio => {
-          const label = radio.parentElement;
-          if (radio === event.target) {
-            radio.classList.toggle("checked");
-          } else {
-            radio.classList.remove("checked"); // Remove 'checked' class
-          }
-        });
-      }
-    });
-    // -----------------------------------------
-    // 2) STAR RATINGS LOGIC
-    // -----------------------------------------
-    metricsContainer.addEventListener("change", function(event) {
-      if (event.target.type === "radio") {
-        updateOverallPerformance();
-      }
-    });
+// -----------------------------------------
+// 4) VALIDATE FORM
+// -----------------------------------------
+function validateForm() {
+  let isValid = true;
 
-    function updateOverallPerformance() {
-      const ratings = [];
-      metrics.forEach((metric, index) => {
-        const selectedRating = document.querySelector(`input[name="rating-${index}"]:checked`);
-        if (selectedRating) {
-          ratings.push(parseInt(selectedRating.value));
-        }
-      });
+  // Reset all highlighted fields
+  resetHighlightedFields();
 
-      if (ratings.length === metrics.length) {
-        const average = ratings.reduce((a, b) => a + b, 0) / ratings.length;
-        const roundedAverage = Math.round(average);
-        const descriptions = {
-          1: "Poor Performance",
-          2: "Needs Improvement",
-          3: "Good Performance",
-          4: "Very Good Performance",
-          5: "Excellent Performance",
-        };
-        overallPerformanceText.textContent = `Performance Rating: ${descriptions[roundedAverage]}`;
-      } else {
-        overallPerformanceText.textContent = "Please rate all metrics.";
-      }
+  // Employee Personal Details
+  const employeeNumber = document.getElementById("emp-number");
+  const employeeName = document.getElementById("emp-name");
+  const email = document.getElementById("email");
+  const contact = document.getElementById("contact");
+  const reviewerNumber = document.getElementById("reviewer-number");
+  const reviewerName = document.getElementById("reviewer-name");
+  const remarks = document.getElementById("remarks");
+  const reviewDate = document.getElementById("review-date-header");
+
+  if (!employeeNumber.value) {
+    isValid = false;
+    highlightField(employeeNumber);
+  }
+  if (!employeeName.value) {
+    isValid = false;
+    highlightField(employeeName);
+  }
+  if (!email.value) {
+    isValid = false;
+    highlightField(email);
+  }
+  if (!contact.value) {
+    isValid = false;
+    highlightField(contact);
+  }
+  if (!reviewerNumber.value) {
+    isValid = false;
+    highlightField(reviewerNumber);
+  }
+  if (!reviewerName.value) {
+    isValid = false;
+    highlightField(reviewerName);
+  }
+  if (!reviewDate.value) {
+    isValid = false;
+    highlightField(reviewDate);
+  }
+
+  // Performance Metrics
+  metrics.forEach((metric, index) => {
+    const selectedRating = document.querySelector(`input[name="rating-${index}"]:checked`);
+    const employeeComments = document.getElementById(`comments-${index}`);
+
+    if (!selectedRating) {
+      isValid = false;
+      // Highlight the rating radios (since they are not direct elements)
+      const ratingBox = document.querySelector(`.rating-box:nth-child(${index+1})`);
+      ratingBox.classList.add("highlighted");
     }
-
-    // -----------------------------------------
-    // 3) DOWNLOAD PDF USING html2pdf.js
-    // -----------------------------------------
-    function downloadPDF() {
-      if (!validateForm()) {
-        return; // Validation failed, don't proceed
-      }
-
-      const element = document.getElementById("form-container");
-      const suggestionsElements = document.querySelectorAll('.suggestions'); // Get all suggestion boxes
-
-      // Store original display values and temporarily hide suggestion boxes
-      const originalDisplays = [];
-      suggestionsElements.forEach((el, index) => {
-        originalDisplays[index] = el.style.display;
-        el.style.display = 'none'; // Hide the element
-      });
-
-      const opt = {
-        margin: [0, 0, 0, 0],
-        filename: 'Employee_Performance_Evaluation.pdf',
-        image: {
-          type: 'jpeg',
-          quality: 1.0,
-          scale: 2,
-          useCORS: true,
-          scrollX: 0,
-          scrollY: 0,
-          x: 0,
-          y: 0
-        },
-        jsPDF: {
-          unit: 'mm',
-          format: 'a4',
-          orientation: 'portrait'
-        },
-        pagebreak: {
-          mode: 'avoid-all'
-        }
-      };
-
-      opt.jsPDF.formatDate = function(date) {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-      };
-
-      const reviewDate = new Date(document.getElementById("review-date-header").value);
-      opt.jsPDF.reviewDateFormatted = opt.jsPDF.formatDate(reviewDate);
-
-      const body = document.querySelector('body');
-      const originalMargin = body.style.margin;
-      body.style.margin = '0';
-
-      html2pdf().from(element).set(opt).save().then(() => {
-        body.style.margin = originalMargin;
-
-        // Restore the original display values of the suggestion boxes
-        suggestionsElements.forEach((el, index) => {
-          el.style.display = originalDisplays[index] || ''; // Revert to original or default
-        });
-
-      });
+    if (!employeeComments.value) {
+      isValid = false;
+      highlightField(employeeComments);
     }
+  });
 
-    // -----------------------------------------
-    // 4) VALIDATE FORM
-    // -----------------------------------------
-    function validateForm() {
-      let isValid = true;
+  if (!remarks.value) {
+    isValid = false;
+    highlightField(remarks);
+  }
 
-      // Reset all highlighted fields
-      resetHighlightedFields();
+  if (!isValid) {
+    alert("Please fill in the highlighted required fields.");
+  }
 
-      // Employee Personal Details
-      const employeeNumber = document.getElementById("emp-number");
-      const employeeName = document.getElementById("emp-name");
-      const email = document.getElementById("email");
-      const contact = document.getElementById("contact");
-      const reviewerNumber = document.getElementById("reviewer-number");
-      const reviewerName = document.getElementById("reviewer-name");
-      const remarks = document.getElementById("remarks");
-      const reviewDate = document.getElementById("review-date-header");
+  return isValid;
+}
 
+function highlightField(element) {
+  element.classList.add("highlighted");
+}
 
-      if (!employeeNumber.value) {
-        isValid = false;
-        highlightField(employeeNumber);
-      }
-      if (!employeeName.value) {
-        isValid = false;
-        highlightField(employeeName);
-      }
-      if (!email.value) {
-        isValid = false;
-        highlightField(email);
-      }
-      if (!contact.value) {
-        isValid = false;
-        highlightField(contact);
-      }
-      if (!reviewerNumber.value) {
-        isValid = false;
-        highlightField(reviewerNumber);
-      }
-      if (!reviewerName.value) {
-        isValid = false;
-        highlightField(reviewerName);
-      }
-      if (!reviewDate.value) {
-        isValid = false;
-        highlightField(reviewDate);
-      }
+function resetHighlightedFields() {
+  let highlighted = document.querySelectorAll('.highlighted');
+  highlighted.forEach(element => {
+    element.classList.remove('highlighted');
+  });
+}
+// -----------------------------------------
+// 5) FETCH & POPULATE EMPLOYEE DATA
+// -----------------------------------------
+let employeeData = [];
+let userData = []; // To store user login data
 
-      // Performance Metrics
-      metrics.forEach((metric, index) => {
-        const selectedRating = document.querySelector(`input[name="rating-${index}"]:checked`);
-        const employeeComments = document.getElementById(`comments-${index}`);
+const employeeNumberInput = document.getElementById("emp-number");
+const employeeNameInput = document.getElementById("emp-name");
+const positionTextInput = document.getElementById("position-text");
+const employeeGroupInput = document.getElementById("emp-group");
+const divisionTextInput = document.getElementById("division-text");
+const departmentTextInput = document.getElementById("department-text");
+const emailInput = document.getElementById("email");
+  const contactInput = document.getElementById("contact");
+  const suggestionsDiv = document.getElementById("suggestions");
 
+  const googleSheetsUrl =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdxa99pRN_wDel4uOm07GpSSi8YcHP4Q9z-7h7hD70gIeqyhY6QcWoxDjHKn8EGiUdnkNLDOdOY2Fu/pub?output=csv";
+  const usersGoogleSheetsUrl =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbER5yTvms6Xt2DMLUeE3nTS2jhiO6c81vd3uSlKGqzM7qFHgxgNhP0Hho4AXo1dL0D53RqjYO3nK8/pub?output=csv";
 
-        if (!selectedRating) {
-          isValid = false;
-          // Highlight the rating radios (since they are not direct elements)
-          const ratingBox = document.querySelector(`.rating-box:nth-child(${index+1})`);
-          ratingBox.classList.add("highlighted");
-        }
-        if (!employeeComments.value) {
-          isValid = false;
-          highlightField(employeeComments);
-        }
-      });
+  function fetchEmployeeData() {
+    return fetch(googleSheetsUrl)
+      .then(response => response.text())
+      .then(csvData => {
+        employeeData = parseCSV(csvData);
+        return employeeData;
+      })
+      .catch(error => console.error("Error fetching employee data:", error));
+  }
 
-      if (!remarks.value) {
-        isValid = false;
-        highlightField(remarks);
-      }
-
-      if (!isValid) {
-        alert("Please fill in the highlighted required fields.");
-      }
-
-      return isValid;
-    }
-
-    function highlightField(element) {
-      element.classList.add("highlighted");
-    }
-
-    function resetHighlightedFields() {
-      let highlighted = document.querySelectorAll('.highlighted');
-      highlighted.forEach(element => {
-        element.classList.remove('highlighted');
-      });
-    }
-    // -----------------------------------------
-    // 5) FETCH & POPULATE EMPLOYEE DATA
-    // -----------------------------------------
-    let employeeData = [];
-    let userData = []; // To store user login data
-
-    const employeeNumberInput = document.getElementById("emp-number");
-    const employeeNameInput = document.getElementById("emp-name");
-    const positionTextInput = document.getElementById("position-text");
-    const employeeGroupInput = document.getElementById("emp-group");
-    const divisionTextInput = document.getElementById("division-text");
-    const departmentTextInput = document.getElementById("department-text");
-    const emailInput = document.getElementById("email");
-    const contactInput = document.getElementById("contact");
-    const suggestionsDiv = document.getElementById("suggestions");
-
-    const googleSheetsUrl =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdxa99pRN_wDel4uOm07GpSSi8YcHP4Q9z-7h7hD70gIeqyhY6QcWoxDjHKn8EGiUdnkNLDOdOY2Fu/pub?output=csv";
-    const usersGoogleSheetsUrl =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbER5yTvms6Xt2DMLUeE3nTS2jhiO6c81vd3uSlKGqzM7qFHgxgNhP0Hho4AXo1dL0D53RqjYO3nK8/pub?output=csv";
-
-    function fetchEmployeeData() {
-      return fetch(googleSheetsUrl)
-        .then(response => response.text())
-        .then(csvData => {
-          employeeData = parseCSV(csvData);
-          return employeeData;
-        })
-        .catch(error => console.error("Error fetching employee data:", error));
-    }
-
-    function fetchUserData() {
-      return fetch(usersGoogleSheetsUrl)
+  function fetchUserData() {
+    return fetch(usersGoogleSheetsUrl)
         .then(response => response.text())
         .then(csvData => {
           userData = parseUsersCSV(csvData);
@@ -1685,7 +1805,7 @@
         const data = lines[i].split(',').map(item => item.trim());
         if (data.length === headers.length) {
           const user = {};
-          for (let j= 0; j < headers.length; j++) {
+          for (let j = 0; j < headers.length; j++) {
             user[headers[j]] = data[j];
           }
           users.push(user);
@@ -1711,9 +1831,14 @@
         document.getElementById("employee-name-signature").value = employee["Employee Name"];
         document.getElementById("position-signature").value = employee["Position Text"];
 
-        document.getElementById("employee-number-4").value = empNumber;
-        document.getElementById("employee-name-4").value = employee["Employee Name"];
-        document.getElementById("position-4").value = employee["Position Text"];
+
+          // Ensure that hod-number is defined
+          const hodNumberInput = document.getElementById("hod-number");
+          if(hodNumberInput) {
+          document.getElementById("employee-number-4").value = empNumber;
+          document.getElementById("employee-name-4").value = employee["Employee Name"];
+          document.getElementById("position-4").value = employee["Position Text"];
+          }
 
       } else {
         employeeNameInput.value = "";
@@ -1728,6 +1853,11 @@
         document.getElementById("reviewer-number-signature").value = "";
         document.getElementById("reviewer-name-signature").value = "";
         document.getElementById("reviewer-position-signature").value = "";
+
+          // Clear signature table fields if no employee found
+          document.getElementById("employee-number-4").value = "";
+          document.getElementById("employee-name-4").value = "";
+          document.getElementById("position-4").value = "";
       }
       document.getElementById("reviewer-number-signature").value = document.getElementById("reviewer-number").value;
       document.getElementById("reviewer-name-signature").value = document.getElementById("reviewer-name").value;
@@ -1749,7 +1879,10 @@
       }
 
       populateEmployeeDetails(empNumber);
+      // Add delay before showing suggestions
+      setTimeout(() => {
       showSuggestions(empNumber, "suggestions", "emp-number");
+      }, 500);
     });
 
     // Event listener for reviewer number
@@ -1814,6 +1947,69 @@
         suggestionsDiv.style.display = "block";
       }
     }
+
+      // Event listener for HOD number input
+      document.getElementById("hod-number").addEventListener("input", function() {
+          const hodEmpNumber = this.value;
+
+          if (hodEmpNumber.length > 6) {
+              this.value = hodEmpNumber.slice(0, 6);
+              alert("Employee number cannot exceed 6 digits.");
+              return;
+          }
+
+          populateHODDetails(hodEmpNumber);
+          showSuggestionsHOD(hodEmpNumber, "suggestions-hod", "hod-number");
+      });
+
+      // Function to populate HOD details
+      function populateHODDetails(empNumber) {
+          const employee = employeeData.find(emp => emp["Employee Number"] === empNumber);
+
+          if (employee) {
+              document.getElementById("hod-name").value = employee["Employee Name"];
+              document.getElementById("hod-position").value = employee["Position Text"];
+          } else {
+              document.getElementById("hod-name").value = "";
+              document.getElementById("hod-position").value = "";
+          }
+      }
+
+      // Function to show suggestions for HOD number
+      function showSuggestionsHOD(input, suggestionsDivId, inputId) {
+          const suggestionsDiv = document.getElementById(suggestionsDivId);
+          suggestionsDiv.innerHTML = "";
+          suggestionsDiv.style.display = "none";
+
+          if (input.trim() === "") {
+              return;
+          }
+
+          const matchingEmployees = employeeData.filter(emp =>
+              emp["Employee Number"].startsWith(input)
+          );
+
+          if (matchingEmployees.length > 0) {
+              matchingEmployees.slice(0, 10).forEach(emp => {
+                  const suggestionItem = document.createElement("div");
+                  suggestionItem.classList.add("suggestion-item");
+                  suggestionItem.textContent = emp["Employee Number"];
+
+                  suggestionItem.addEventListener("click", function() {
+                      const selectedEmpNumber = emp["Employee Number"];
+                      document.getElementById(inputId).value = selectedEmpNumber;
+                      populateHODDetails(selectedEmpNumber);
+                      suggestionsDiv.style.display = "none";
+                  });
+
+                  suggestionsDiv.appendChild(suggestionItem);
+              });
+
+              suggestionsDiv.style.display = "block";
+          }
+      }
+
+
     // Event listeners for signature table inputs
     document.getElementById("employee-number-2").addEventListener("input", function() {
       populateSignatureDetails(this.value, "employee-name-2", "position-2");
@@ -1919,7 +2115,7 @@
 
     function showWelcomeMessage() {
       document.getElementById('login-container').style.display = 'none';
-      document.getElementById('welcome-message-container').style.display = 'block';
+      document.getElementById('welcome-message-container').style.display = 'flex'; // Modified this
       // Make sure to hide the background panels as well
       document.getElementById('panel1').style.display = 'none';
       document.getElementById('panel2').style.display = 'none';
