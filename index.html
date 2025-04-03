@@ -45,11 +45,11 @@
         a { color: #007bff; text-decoration: none; transition: color 0.2s ease; }
         a:hover { text-decoration: underline; color: #0056b3; }
         table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th, td { border: 1px solid #adb5bd; padding: 8px; text-align: left; } /* Darker default border */
         th { background-color: #e9ecef; font-weight: bold; color: #495057; } /* Adjusted header bg */
-        .button { background-color: #007bff; color: white; padding: 10px 16px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; }
-        .button:hover { background-color: #0056b3; }
-        input[type="text"], input[type="email"], input[type="date"], input[type="password"], textarea, select {
+        .button { background-color: #007bff; color: white; padding: 10px 16px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; }
+        .button:hover { background-color: #0056b3; transform: translateY(-1px); }
+        input[type="text"], input[type="email"], input[type="password"], textarea, select { /* Excluded type="date" here */
             width: 100%;
             padding: 9px; /* Slightly increased padding */
             margin-bottom: 10px;
@@ -58,16 +58,20 @@
             box-sizing: border-box;
             font-size: 12px;
             transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Added transition */
+            background-color: #fff; /* Ensure white background */
+            color: #333; /* Ensure dark text */
         }
+         /* Special handling for hidden date input moved below */
         input:focus, textarea:focus, select:focus {
             border-color: #86b7fe;
             outline: 0;
-            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25); /* Bootstrap focus color */
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.35) !important; /* Stronger focus */
         }
         input[readonly], textarea[readonly] {
              background-color: #f8f9fa; /* Subtle grey for readonly */
              cursor: default; /* Default cursor */
-             border-color: #dee2e6;
+             border-color: #dee2e6; /* Slightly lighter border for readonly */
+             color: #555; /* Slightly dimmer text for readonly */
         }
         textarea { resize: vertical; min-height: 50px; } /* Set min-height */
         .container { /* General page container */
@@ -199,16 +203,108 @@
         }
         #form-container { padding: 5px 10px 10px 10px; /* Apply padding to inner container */ }
         .ac-header-container { display: flex; justify-content: space-between; align-items: center; border: none; /* Removed border */ border-bottom: 5px solid #343a40; padding: 8px 15px; /* Adjusted padding */ background-color: #004085; color: white; font-weight: bold; text-align: center; border-radius: 0; /* Remove rounding */ }
-        #form-header-title { font-size: 17px; flex-grow: 1; text-align: center; color: white; letter-spacing: 0.5px;}
-        .ac-review-date { font-size: 12px; padding: 5px 10px; border: 1px solid white; border-radius: 5px; text-align: center; background-color: rgba(255,255,255,0.1); margin-left: 10px; }
-        .ac-review-date input[type="date"] { display: block; margin: 5px auto 0; border: 1px solid #ced4da; padding: 6px; font-size: 11px; border-radius: 3px; box-sizing: border-box; }
-        .ac-section-header { font-size: 13px; font-weight: 600; padding: 6px 10px; margin-top: 18px; margin-bottom: 15px; /* Increased spacing */ background-color: #6c757d; /* Grey header */ color: white; border: 1px solid #5a6268; text-align: center; border-radius: 3px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        #form-header-title { font-size: 17px; flex-grow: 1; text-align: center; color: white; letter-spacing: 0.5px;} /* Static Title */
+
+        /* --- Review Date Area (REVISED FOR VISUAL OVERLAY) --- */
+        .ac-review-date-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center items horizontally */
+            font-size: 12px;
+            padding: 5px 10px;
+            border: 1px solid white;
+            border-radius: 5px;
+            background-color: rgba(255,255,255,0.1);
+            margin-left: 10px;
+            min-width: 180px; /* Adjust as needed */
+            text-align: center; /* Center text within the area */
+        }
+        #form-type-indicator {
+             font-size: 11px;
+             font-weight: bold;
+             color: #ffc107; /* Yellow color for form type */
+             margin-bottom: 4px;
+             display: block; /* Ensure it takes full width */
+        }
+        .ac-review-date-label.required-field {
+            display: flex; /* Use flex to align label and asterisk */
+            align-items: center; /* Vertically align */
+            justify-content: center; /* Center label */
+            margin-bottom: 5px; /* Space below label */
+            font-weight: bold;
+            width: 100%; /* Take full width */
+        }
+        .ac-review-date-input-wrapper {
+            position: relative; /* Crucial for absolute positioning of the input */
+            width: 100%;
+            height: 30px; /* Define height for positioning */
+            cursor: pointer; /* Indicate the whole area is clickable */
+        }
+        #review-date-visual { /* The styled visual box */
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Pushes icon to the right */
+            width: 100%;
+            height: 100%; /* Takes height from wrapper */
+            padding: 0 8px; /* Padding inside the visual box */
+            border: 1px solid #ced4da;
+            border-radius: 3px;
+            background-color: #fff; /* White background */
+            box-sizing: border-box;
+            transition: border-color 0.2s ease;
+        }
+        #review-date-visual.date-visual-placeholder #review-date-display {
+            color: #888; /* Lighter color for placeholder */
+            font-style: italic;
+        }
+        #review-date-display { /* The DD/MMM/YYYY text */
+             font-size: 11px;
+             color: #333; /* Normal text color */
+             white-space: nowrap;
+             flex-grow: 1; /* Allow text to take available space */
+             text-align: left; /* Align text left within the span */
+             pointer-events: none; /* Don't interfere with clicks on wrapper */
+        }
+        .date-picker-icon {
+            color: #6c757d; /* Icon color */
+            margin-left: 5px; /* Space between text and icon */
+            pointer-events: none; /* Don't interfere with clicks on wrapper */
+        }
+        /* The actual input, now visually hidden but covering the area */
+        .ac-review-date-area input[type="date"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0; /* Make it invisible */
+            cursor: pointer;
+            border: none;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        /* Optional: Slight border change on hover for visual feedback */
+         .ac-review-date-input-wrapper:hover #review-date-visual {
+             border-color: #86b7fe;
+         }
+        /* Keep highlight style for the area */
+         .ac-review-date-area.highlighted {
+             border: 2px solid #dc3545 !important;
+             box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.35) !important;
+         }
+         .ac-review-date-area.highlighted #review-date-visual {
+            border-color: #dc3545 !important; /* Highlight inner border too */
+         }
+        /* --- End Review Date Area Styles --- */
+
+        .ac-section-header { font-size: 13px; font-weight: 600; padding: 6px 10px; margin-top: 1px; margin-bottom: 3px; /* Increased spacing */ background-color: #6c757d; /* Grey header */ color: white; border: 1px solid #5a6268; text-align: center; border-radius: 3px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
         .ac-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
-        .ac-table, .ac-table th, .ac-table td { border: 1px solid #dee2e6; /* Lighter border */ padding: 5px; /* Increased padding */ font-size: 11px; /* Slightly larger base */ }
+        .ac-table, .ac-table th, .ac-table td { border: 1px solid #adb5bd; /* Darker border */ padding: 5px; font-size: 11px; color: #333; } /* Darker text */
         .ac-table th { background-color: #f8f9fa; color: #004085; font-weight: 600; text-align: left; padding: 6px; } /* Adjusted TH */
         .ac-table td { vertical-align: middle; word-break: break-word; position: relative; background-color: #fff; }
         /* Employee Detail Table */
-        .ac-table:first-of-type { table-layout: fixed; width: 100%; border: 1px solid #adb5bd; /* Slightly darker border for this table */}
+        .ac-table:first-of-type { table-layout: fixed; width: 100%; border: 1px solid #888; /* Even darker border for main details */}
         .ac-table:first-of-type td { padding: 6px;}
         .ac-table:first-of-type td:nth-child(1), .ac-table:first-of-type td:nth-child(3) { width: 13%; font-weight: 600; color: #004085; padding-right: 8px; vertical-align: middle; font-size: 11px; background-color: #f8f9fa;} /* Label cells with subtle bg */
         .ac-table:first-of-type td:nth-child(2), .ac-table:first-of-type td:nth-child(4) { width: 32%; vertical-align: middle; }
@@ -216,7 +312,7 @@
         .ac-table:first-of-type td input[type="email"] { width: 100%; box-sizing: border-box; margin-bottom: 0; padding: 7px; font-size: 11px; border: 1px solid #ced4da; border-radius: 3px;}
         .ac-table select, .ac-table textarea { width: 100%; padding: 7px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; margin-bottom: 0; font-size: 11px;}
         /* Make readonly inputs in this table also have the bg */
-         .ac-table:first-of-type td input[readonly] { background-color: #f8f9fa; cursor: default; }
+         .ac-table:first-of-type td input[readonly] { background-color: #f8f9fa; cursor: default; border: 1px solid #dee2e6; color: #555;}
 
         /* --- Rating Box & Metrics (Accordion Style) --- */
         .performance-feedback {
@@ -247,10 +343,11 @@
              display: flex; /* Use flexbox for alignment */
              justify-content: space-between; /* Space between title and icon */
              align-items: center; /* Center items vertically */
-             transition: background-color 0.2s ease;
+             transition: background-color 0.2s ease, box-shadow 0.2s ease; /* Added transition */
         }
         .ac-metric-title.metric-toggle:hover {
             background-color: #f57c00; /* Darker orange on hover */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .metric-indicator {
             font-size: 14px; /* Adjust icon size */
@@ -286,26 +383,35 @@
         /* --- End Accordion Styles --- */
 
         /* Highlight Styles */
-        input.highlighted, select.highlighted, textarea.highlighted, .metric-rating-box.highlighted, .ac-comments-container textarea.highlighted { border-color: #dc3545 !important; box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25); }
-        .ac-review-date.highlighted { border: 2px solid #dc3545 !important; box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25); }
+        input.highlighted, select.highlighted, textarea.highlighted, .metric-rating-box.highlighted, .ac-comments-container textarea.highlighted { border-color: #dc3545 !important; box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.35) !important; /* More prominent shadow */ }
+        /* Highlight for the date area */
+         .ac-review-date-area.highlighted {
+             border: 2px solid #dc3545 !important;
+             box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.35) !important;
+         }
+         .ac-review-date-area.highlighted #review-date-visual {
+            border-color: #dc3545 !important; /* Highlight inner border too */
+         }
         /* Highlight for collapsed accordion title if content inside fails validation */
         .ac-metric-title.metric-toggle.highlighted {
             border-color: #dc3545 !important;
-            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.35) !important;
             background-color: #d9534f; /* Change background to indicate error */
         }
 
         /* Remove focus shadow from invalid required fields by default */
         input:required:invalid, textarea:required:invalid, select:required:invalid, input[type="date"]:required:invalid { box-shadow: none; }
-        /* Set default border for required fields */
-        input:required, textarea:required, select:required, input[type="date"]:required { border: 1px solid #ced4da; }
+        /* Set default border for required fields (non-date) */
+        input:required:not([type="date"]), textarea:required, select:required { border: 1px solid #ced4da; }
+         /* Ensure date input itself (hidden) doesn't show odd borders */
+         input[type="date"]:required { border: none; }
         /* Added: Specific style for email input (not required) */
         input#email { border: 1px solid #ced4da; }
-        input#email:focus { border-color: #86b7fe; outline: 0; box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25); }
+        input#email:focus { border-color: #86b7fe; outline: 0; box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.35) !important; }
 
 
         /* label { font-weight: 600; color: #004085; font-size: 11px;} */ /* Moved below */
-        .ac-bold-text { font-weight: 600; font-size: 11px; }
+        .ac-bold-text { font-weight: 600; font-size: 11px; color: #004085; /* Ensure label text is dark */ }
         .ac-download-button {
             background-image: linear-gradient(to right, #5cb85c, #4cae4c); border: none; color: white; padding: 12px 24px; text-align: center; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; font-weight: 500; margin: 20px auto 10px auto; cursor: pointer; border-radius: 5px; display: block; transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(76, 174, 76, 0.4);
         }
@@ -313,10 +419,23 @@
         .ac-comments-container { display: flex; justify-content: space-between; gap: 15px; margin-top: 10px; }
         .ac-comments-container div { width: calc(50% - 7.5px); }
         .placeholder-input::placeholder { color: #888; font-style: italic; } .placeholder-input { width: calc(100% - 16px); padding: 7px; margin-bottom: 7px; box-sizing: border-box; height: auto; border: 1px solid #ced4da; border-radius: 3px; font-size: 11px; }
-        .approval-signature-table { width: 100%; table-layout: fixed; border-collapse: collapse; margin-bottom: 15px; margin-top: 5px; border: 1px solid #adb5bd; }
-        .approval-signature-table th, .approval-signature-table td { border: 1px solid #adb5bd; padding: 8px; text-align: center; box-sizing: border-box; vertical-align: top; word-break: break-word; position: relative; }
-        .approval-signature-table .placeholder-input { width: calc(100% - 1px); margin: 0 auto; text-align: center; padding: 12px; box-sizing: border-box; border: 1px solid #ccc; font-size: 11px; height: auto; white-space: normal; margin-bottom: 6px; background-color: #fff; }
-        .approval-signature-table th { background-color: #fdcdab; /* Lighter salmon */ font-weight: 600; font-size: 11px; color: #5c3c20; }
+
+        /* --- Signature Table Styles --- */
+        .approval-signature-table { width: 100%; table-layout: fixed; border-collapse: collapse; margin-bottom: 15px; margin-top: 5px; border: 1px solid #888; /* Darker border */ }
+        .approval-signature-table th, .approval-signature-table td { border: 1px solid #adb5bd; /* Darker border */ padding: 8px; text-align: center; box-sizing: border-box; vertical-align: top; word-break: break-word; position: relative; }
+        .approval-signature-table .placeholder-input { width: calc(100% - 1px); margin: 0 auto; text-align: center; padding: 12px; box-sizing: border-box; border: 1px solid #ccc; font-size: 11px; height: auto; white-space: normal; margin-bottom: 6px; background-color: #fff; color: #333; /* Ensure text is dark */ }
+        /* Lighter Placeholder for Signature/Date */
+        .approval-signature-table .placeholder-input[placeholder="SIGNATURE / DATE"]::placeholder {
+            color: #bbb !important; /* Light grey */
+            font-style: italic;
+            font-weight: normal;
+        }
+        /* Ensure typed text in signature field is normal */
+         .approval-signature-table .placeholder-input[placeholder="SIGNATURE / DATE"] {
+             color: #333; /* Normal text color when typing */
+             font-style: normal;
+         }
+        .approval-signature-table th { background-color: #fdcdab; /* Lighter salmon */ font-weight: 600; font-size: 11px; color: #5c3c20; border-bottom: 2px solid #888; } /* Slightly stronger bottom border */
         .approval-signature-table td { font-size: 10px; background-color: #fff; }
         #suggestions, .suggestions { display: none !important; } /* Keep suggestions hidden, managed by JS if needed */
 
@@ -333,7 +452,17 @@
         input[type="radio"] { display: none; }
         /* --- End Rating Option Layout --- */
 
+        /* --- Required Field Indicator Styling --- */
         .required-field::after { content: " *"; color: #dc3545; font-weight: bold; margin-left: 2px;}
+        /* Apply directly to specific labels/containers where needed */
+        .ac-bold-text.required-field::after,
+        .ac-review-date-label.required-field::after,
+        .ac-comments-container div label.required-field::after,
+        .ac-section-header.required-field::after {
+             content: " *"; color: #dc3545; font-weight: bold; margin-left: 2px;
+        }
+        /* --- End Required Field Indicator Styling --- */
+
         .suggestion-item { padding: 5px 8px; cursor: pointer; white-space: nowrap; font-size: 11px; }
         .suggestion-item:hover { background-color: #f0f0f0; }
         .approval-signature-table td { padding: 8px; }
@@ -426,10 +555,27 @@
     <!-- GENERIC Evaluation Form Container -->
     <div id="evaluation-form-container">
         <div id="form-container">
+            <!-- Header Section Modified -->
             <div class="ac-header-container">
                 <h2 id="form-header-title">EMPLOYEE PERFORMANCE EVALUATION FORM</h2>
-                <div class="ac-review-date required-field">Review Date: <input type="date" id="review-date-header" class="required" /></div>
+                <!-- REVISED Review Date Area -->
+                <div class="ac-review-date-area">
+                    <span id="form-type-indicator">SELECT FORM TYPE</span> <!-- Placeholder -->
+                    <span class="ac-review-date-label required-field">Review Date:</span>
+                    <div class="ac-review-date-input-wrapper">
+                        <!-- The visual representation -->
+                        <div id="review-date-visual" class="date-visual-placeholder">
+                            <span id="review-date-display">DD/MMM/YYYY</span> <!-- Placeholder Text -->
+                            <i class="fas fa-calendar-alt date-picker-icon"></i>
+                        </div>
+                        <!-- The actual hidden input -->
+                        <input type="date" id="review-date-header" class="required" aria-label="Review Date" />
+                    </div>
+                </div>
+                <!-- END REVISED Review Date Area -->
             </div>
+            <!-- End Header Section Modified -->
+
             <div class="ac-section-header" id="personal-details">EMPLOYEE DETAILS</div>
             <table class="ac-table">
                 <tr>
@@ -446,7 +592,7 @@
                 </tr>
                 <tr>
                     <!-- Email ID is NOT mandatory -->
-                    <td class="ac-bold-text">Email ID</td><td><input type="text" id="email" maxlength="40" /></td>
+                    <td class="ac-bold-text">Email ID</td><td><input type="email" id="email" maxlength="40" /></td> <!-- Changed type to email for potential validation -->
                     <td class="ac-bold-text required-field">Contact No</td><td><input type="text" id="contact" class="required" maxlength="8" oninput="this.value = this.value.replace(/[^0-9NA]/g, '').toUpperCase();" /></td>
                 </tr>
                 <tr>
@@ -462,6 +608,7 @@
             <div class="ac-section-header" id="overall-performance-header">OVERALL PERFORMANCE</div>
             <p id="overall-performance" style="text-align: center; font-weight: 500; margin: 12px 0 15px 0; font-size: 12px;">Please rate all metrics.</p> <!-- Adjusted style -->
 
+            <!-- Overall Remarks: Added required-field class to header for consistency -->
             <div class="ac-section-header required-field">OVERALL REMARKS</div>
             <textarea rows="4" id="remarks" class="required" style="width: calc(100% - 20px); margin: 10px auto; display: block; box-sizing: border-box;"></textarea> <!-- Centered textarea -->
 
@@ -510,7 +657,7 @@
         const usersGoogleSheetsUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbER5yTvms6Xt2DMLUeE3nTS2jhiO6c81vd3uSlKGqzM7qFHgxgNhP0Hho4AXo1dL0D53RqjYO3nK8/pub?output=csv";
         const googleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbwYBCAPSat5TL-OdKt91VEVypjC3Ki4Up09thKroTWYr9IFvaca-BvLN1WKkR1rvuGs/exec"; // For saving data
 
-        // --- DOM Element References (Declare globally after DOM is ready or ensure they exist) ---
+        // --- DOM Element References (Declare globally) ---
         let employeeNumberInput, employeeNameInput, positionTextInput, employeeGroupInput, divisionTextInput, departmentTextInput, emailInput, contactInput;
         let reviewerNumberInput, reviewerNameInput;
         let witness2NumberInput, witness2NameInput, witness2PosInput;
@@ -519,9 +666,10 @@
         let metricsContainer, overallPerformanceText;
         let loginMessageElement, loginContainerElement, welcomeMessageContainerElement, passwordInputElement, usernameInputElement;
         let evaluationPageElement, evaluationFormContainerElement, welcomePageElement;
+        let reviewDateInput, reviewDateDisplaySpan, formTypeIndicatorSpan, reviewDateVisual; // Added date elements
 
 
-         // --- METRICS DATA STRUCTURE (Paste Complete Structure Here) ---
+         // --- METRICS DATA STRUCTURE (Keep the full structure as provided before) ---
          const allMetricsData = {
               "AC Technician": [ { title: "1. TECHNICAL KNOWLEDGE", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>HVAC Systems Understanding:</b> Knowledge of various AC systems, including residential, commercial, and industrial units.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Diagnostics and Troubleshooting:</b> Ability to diagnose issues accurately using appropriate tools and techniques.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Electrical Knowledge:</b> Understanding of electrical components and wiring in HVAC systems, including capacitors, relays, and circuit boards.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Refrigeration Knowledge:</b> Familiarity with refrigeration cycles, refrigerants, and their proper handling and charging procedures.</div>` }, { title: "2. HANDS-ON SKILLS", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Installation Skills:</b> Competence in installing AC units, including proper setup, connections, and system configuration.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Repair Skills:</b> Proficiency in repairing faulty components, including compressors, fans, coils, thermostats, and wiring.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Maintenance Skills:</b> Ability to perform routine maintenance tasks such as cleaning filters, coils, and condensers, checking refrigerant levels, and ensuring system efficiency.</div>` }, { title: "3. PROBLEM-SOLVING ABILITY", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Diagnosing Complex Issues:</b> Ability to identify and troubleshoot complex mechanical or electrical problems.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Efficient Solutions:</b> Ability to devise practical, cost-effective solutions to fix problems or improve system performance.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Adaptability:</b> Adjusting solutions based on the specific needs of the environment (e.g., residential vs. commercial setups).</div>` }, { title: "4. ATTENTION TO DETAIL", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Precision:</b> Ensuring all installations, repairs, and maintenance are completed accurately and to manufacturer specifications.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Safety Compliance:</b> Adhering to safety guidelines and protocols, such as handling refrigerants safely, working with electricity, and ensuring proper ventilation.</div>` }, { title: "5. CUSTOMER SERVICE SKILLS", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Communication:</b> Explaining technical issues and solutions to customers in an understandable and professional manner.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Professionalism:</b> Maintaining a courteous, friendly, and respectful demeanor when interacting with customers, whether on site or over the phone.</div><div style="border: 1px solid #ddd; padding: 2px; margin:0; margin-bottom: 3px;"><b>Customer Education:</b> Offering advice on system maintenance, energy-saving tips, and how to operate AC units properly.</div>` }, { title: "6. TIME MANAGEMENT", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Efficiency:</b> Completing tasks within the expected time frame, ensuring minimal disruption to the customer’s daily activities.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Prioritization:</b> Managing multiple service calls, balancing urgent repairs with routine maintenance without compromising quality.</div>` }, { title: "7. KNOWLEDGE OF CODES AND REGULATIONS", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Local Codes and Standards:</b> Knowledge of local, state, and federal regulations regarding HVAC systems, such as installation codes, refrigerant handling, and energy efficiency standards.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Permit Requirements:</b> Understanding when and how to obtain necessary permits for installation or repairs.</div>` }, { title: "8. PHYSICAL AND MANUAL DEXTERITY", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Physical Stamina:</b> Ability to work in challenging physical environments (e.g., rooftops, basements, attics) and handle heavy equipment.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Precision Handling:</b> Skill in using tools such as wrenches, pressure gauges, thermometers, and soldering tools.</div>` }, { title: "9. SAFETY AWARENESS", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Workplace Safety:</b> Consistently following safety protocols, such as wearing personal protective equipment (PPE), handling hazardous materials properly, and ensuring workspaces are safe.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Hazard Prevention:</b> Recognizing and mitigating potential safety hazards, such as electrical risks, refrigerant leaks, or improper ventilation.</div>` }, { title: "10. TROUBLESHOOTING EFFICIENCY", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Speed:</b> The ability to identify problems and fix them quickly, minimizing downtime for the customer.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Comprehensive Troubleshooting:</b> Not only fixing the immediate issue but also identifying any other potential problems or areas for improvement.</div>` }, { title: "11. QUALITY OF WORK", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Durability of Work:</b> Ensuring repairs and installations are durable, minimizing the need for repeat visits or fixes.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Attention to Detail:</b> Thoroughness in performing repairs and maintenance, ensuring all components are functioning properly.</div>` }, { title: "12. ADAPTABILITY AND CONTINUED LEARNING", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Staying Current:</b> Keeping up to date with the latest AC technologies, refrigerants, and industry trends.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Certifications:</b> Having relevant certifications such as EPA 608 (for refrigerant handling), NATE (North American Technician Excellence), or HVACR certifications that demonstrate competence and knowledge.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Training and Development:</b> Willingness to participate in ongoing training or workshops to enhance skills and knowledge.</div>` }, { title: "13. PERFORMANCE METRICS", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Customer Satisfaction:</b> Positive feedback from clients regarding service quality, communication, and reliability.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>First-Time Fix Rate:</b> The percentage of issues resolved on the first visit.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Work Completion Rate:</b> Successful completion of jobs without the need for rework.</div>` } ],
               "Dispatch Officer": [ { title: "1. COMMUNICATION SKILLS", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Clarity and Efficiency:</b> Ability to provide clear, concise, and accurate information to drivers, clients, or team members.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Listening Skills:</b> Actively listens to instructions, requests, and information to ensure accurate understanding and response.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Multitasking in Communication:</b> Managing multiple communication channels (radio, phone, email) without errors.</div>`}, { title: "2. ORGANIZATIONAL SKILLS", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Time Management:</b> Effectively prioritizing tasks to ensure timely deliveries or dispatches.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Documentation:</b> Accurately recording and maintaining logs, reports, and other relevant paperwork.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Scheduling:</b> Ability to create and adjust schedules efficiently to maximize resources and meet operational demands.</div>`}, { title: "3. PROBLEM-SOLVING ABILITY", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Quick Thinking:</b> Ability to handle unforeseen challenges (e.g., delays, accidents) with a calm and logical approach.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Decision Making:</b> Making informed and practical decisions quickly, especially under pressure.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Adaptability:</b> Adjusting to changes or emergencies without compromising service or safety.</div>`}, { title: "4. ATTENTION TO DETAIL", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Accuracy:</b> Ensuring dispatches are carried out correctly, including addresses, times, routes, and special instructions.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Monitoring:</b> Keeping track of drivers, deliveries, and schedules, ensuring that everything is progressing as planned.</div>`}, { title: "5. TECHNOLOGICAL PROFICIENCY", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Software Use:</b> Familiarity with dispatching software and tools used for tracking shipments, vehicles, or deliveries.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>GPS and Routing Systems:</b> Ability to use navigation systems or route optimization tools to guide drivers effectively.</div>`}, { title: "6. KNOWLEDGE OF SAFETY REGULATIONS", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Compliance:</b> Ensuring that dispatches are made in accordance with safety and regulatory guidelines, especially regarding transport laws, driver hours, and vehicle maintenance.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Risk Management:</b> Identifying potential safety hazards and taking preventive measures.</div>`}, { title: "7. CUSTOMER SERVICE SKILLS", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Client Interaction:</b> Professionalism in dealing with customers, addressing complaints, and providing updates.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Problem Resolution:</b> Handling customer service issues that may arise during dispatch, such as delays or route changes.</div>`}, { title: "8. TEAM COLLABORATION", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Cooperation:</b> Working effectively with other team members, drivers, and departments.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Leadership:</b> Guiding the dispatch team or taking charge when necessary, especially during busy times or emergencies.</div>`}, { title: "9. STRESS MANAGEMENT", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Composure Under Pressure:</b> Ability to stay calm and focused when handling multiple tasks or responding to emergencies.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Conflict Resolution:</b> Managing conflicts within the team or with customers effectively.</div>`}, { title: "10. PERFORMANCE METRICS", details: `<div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Timeliness:</b> Meeting deadlines for dispatch and deliveries consistently.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Accuracy:</b> Minimizing errors in dispatch and delivery details, including addresses, times, and special requirements.</div><div style="border: 1px solid #ddd; padding: 2px; margin: 0; margin-bottom: 3px;"><b>Customer Satisfaction:</b> Maintaining a high level of customer satisfaction, measured through feedback and service consistency.</div>`} ],
@@ -568,8 +716,12 @@
             if (evaluationPageElement) evaluationPageElement.style.display = 'none';
             if (welcomePageElement) welcomePageElement.style.display = 'none';
 
-            const titleElement = document.getElementById('form-header-title');
-            if(titleElement) { titleElement.textContent = `EMPLOYEE PERFORMANCE EVALUATION FORM - ${formType.toUpperCase()}`; }
+            // Update the Form Type indicator in the header
+            if (formTypeIndicatorSpan) {
+                formTypeIndicatorSpan.textContent = formType ? formType.toUpperCase() : 'SELECT FORM TYPE';
+            } else {
+                console.warn("Form type indicator span not found.");
+            }
 
             clearAllFormInputs(); // Clear inputs when switching form type
             renderMetrics(formType); // Render new metrics
@@ -603,8 +755,10 @@
              if (hodNumberInput) hodNumberInput.value = '';
              clearHODFields();
 
-             const reviewDateHeader = document.getElementById("review-date-header");
-             if (reviewDateHeader) reviewDateHeader.value = '';
+             // Clear Review Date input and update display
+             if (reviewDateInput) reviewDateInput.value = '';
+             updateDateDisplay(); // This handles clearing the visual display text
+
 
              const remarksTextArea = document.getElementById("remarks");
              if (remarksTextArea) remarksTextArea.value = '';
@@ -719,6 +873,7 @@
                         <div class="metric-details-container">${metric.details || "No details provided."}</div>
                         <div class="metric-rating-box"><div class="rating-scale">${ratingOptionsHTML}</div></div>
                         <div class="ac-comments-container">
+                             <!-- Added required-field class to Employee Comments label -->
                             <div><label for="${commentId}" class="required-field">Employee Comments:</label><textarea id="${commentId}" rows="3" placeholder="Enter comments..." class="required"></textarea></div>
                             <div><label for="${hrCommentId}">HR Comments:</label><textarea id="${hrCommentId}" rows="3" placeholder="Enter HR comments..."></textarea></div>
                         </div>
@@ -813,6 +968,45 @@
              }
          }
 
+        // --- Date Formatting and Handling (REVISED) ---
+        function formatDate_DDMMMYYYY(dateString) { // Expects YYYY-MM-DD
+            if (!dateString) return null; // Return null if no date
+            try {
+                // Use UTC to avoid timezone shifts changing the date
+                const parts = dateString.split('-');
+                const year = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1; // JS months are 0-indexed
+                const day = parseInt(parts[2], 10);
+                const date = new Date(Date.UTC(year, month, day));
+
+                if (isNaN(date.getTime())) return null; // Invalid date
+
+                const formattedDay = String(date.getUTCDate()).padStart(2, '0');
+                const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                const formattedMonth = monthNames[date.getUTCMonth()];
+                const formattedYear = date.getUTCFullYear();
+                return `${formattedDay}/${formattedMonth}/${formattedYear}`;
+            } catch (e) {
+                console.error("Error formatting date:", dateString, e);
+                return null; // Return null on error
+            }
+        }
+
+        function updateDateDisplay() {
+             // reviewDateVisual is the styled div container
+            if (reviewDateInput && reviewDateDisplaySpan && reviewDateVisual) {
+                const formattedDate = formatDate_DDMMMYYYY(reviewDateInput.value);
+                if (formattedDate) {
+                    reviewDateDisplaySpan.textContent = formattedDate;
+                    reviewDateVisual.classList.remove('date-visual-placeholder'); // Remove placeholder style
+                } else {
+                    reviewDateDisplaySpan.textContent = "DD/MMM/YYYY"; // Reset placeholder text
+                    reviewDateVisual.classList.add('date-visual-placeholder'); // Add placeholder style
+                }
+            }
+        }
+
+
         // --- SAVE PROCESS FUNCTIONS ---
         function downloadAndSave() {
             console.log("Initiating download and save process...");
@@ -826,7 +1020,7 @@
                 return;
             }
             console.log("Form data collected successfully.");
-            // Call PDF download first, then send data in its completion callback (or parallel if desired)
+            // Call PDF download first, then send data in its completion callback
             downloadPDF_noCallback(() => {
                 console.log("PDF generation process initiated/completed. Proceeding to send data...");
                 sendDataToSheet(formData);
@@ -844,8 +1038,10 @@
                 const getVal = (id) => document.getElementById(id)?.value || '';
 
                 const formData = {
-                    "Form Name": `${currentFormType} Performance Evaluation`,
-                    "Review Date": getVal("review-date-header"),
+                    "Evaluation Type": currentFormType,
+                     // Save formatted date for easier reading in sheet, keep original for backup if needed
+                    "Review Date (YYYY-MM-DD)": getVal("review-date-header"),
+                    "Review Date Formatted": formatDate_DDMMMYYYY(getVal("review-date-header")) || "", // Save formatted version
                     "Employee ID": getVal("emp-number"),
                     "Employee Name": getVal("emp-name"),
                     "Position Text": getVal("position-text"),
@@ -924,13 +1120,14 @@
             }
         }
 
+        // --- PDF Generation with Footer ---
         function downloadPDF_noCallback(onComplete) {
-            console.log("Preparing PDF download...");
+            console.log("Preparing PDF download with footer...");
             const element = document.getElementById("form-container");
             if (!element) {
                 console.error("PDF generation failed: form-container not found.");
                 alert("Error generating PDF: Form container missing.");
-                if (onComplete) onComplete(); // Still call callback if PDF fails? Decide based on requirement.
+                if (onComplete) onComplete();
                 return;
             }
 
@@ -938,74 +1135,107 @@
             const backButtonEvalList = element.querySelector('button[onclick="showEvaluationPage()"]');
             const signatureDatePlaceholders = element.querySelectorAll('.approval-signature-table input[placeholder="SIGNATURE / DATE"]');
 
-            // Store original states and temporarily expand all metrics for PDF
-            let originalButtonDisplay = downloadButton ? downloadButton.style.display : '';
+            // Store original states and expand metrics
+            let originalDlButtonDisplay = downloadButton ? downloadButton.style.display : '';
             let originalBackButtonDisplay = backButtonEvalList ? backButtonEvalList.style.display : '';
             const originalSignatureValues = [];
             signatureDatePlaceholders.forEach((input, index) => { originalSignatureValues[index] = input.value; });
             const originallyCollapsedMetrics = [];
-             if (metricsContainer) {
-                 metricsContainer.querySelectorAll('.performance-feedback:not(.expanded)').forEach(item => {
-                     originallyCollapsedMetrics.push(item);
-                     item.classList.add('expanded'); // Expand for PDF
-                     const indicator = item.querySelector('.metric-indicator');
-                     if (indicator) {
-                         indicator.classList.remove('fa-chevron-down');
-                         indicator.classList.add('fa-chevron-up');
-                     }
-                 });
-             }
+            if (metricsContainer) {
+                metricsContainer.querySelectorAll('.performance-feedback:not(.expanded)').forEach(item => {
+                    originallyCollapsedMetrics.push(item);
+                    item.classList.add('expanded');
+                    const indicator = item.querySelector('.metric-indicator');
+                    if (indicator) {
+                        indicator.classList.remove('fa-chevron-down');
+                        indicator.classList.add('fa-chevron-up');
+                    }
+                });
+            }
 
-            // Hide elements for PDF
+            // --- Prepare elements for PDF ---
             if (downloadButton) downloadButton.style.display = 'none';
             if (backButtonEvalList) backButtonEvalList.style.display = 'none';
-            signatureDatePlaceholders.forEach(input => { input.value = ''; }); // Clear signature/date for PDF
+            signatureDatePlaceholders.forEach(input => { input.value = ''; });
 
             const safeFormType = currentFormType ? currentFormType.replace(/[^a-zA-Z0-9]/g, '_') : 'Form';
             const empIdForFilename = document.getElementById('emp-number')?.value || 'Employee';
             const filename = `${safeFormType}_Eval_${empIdForFilename}.pdf`;
 
-            const opt = {
-                 margin: [5, 5, 5, 5], // mm [top, left, bottom, right]
-                 filename: filename,
-                 image: { type: 'jpeg', quality: 0.98 },
-                 html2canvas: {
-                     scale: 2,
-                     useCORS: true,
-                     dpi: 192,
-                     letterRendering: true,
-                     logging: false,
-                     // Ensure it waits for images/transitions if any, though less likely here
-                     // allowTaint: true // Use if CORS issues persist with images, but can reduce quality
-                 },
-                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                 pagebreak: { mode: ['css', 'avoid-all', 'legacy'] } // Avoid breaking elements where possible
-             };
+            // Get footer data BEFORE starting PDF generation
+            const footerEmpId = empIdForFilename;
+            const footerDate = formatDate_DDMMMYYYY(document.getElementById('review-date-header')?.value) || 'No Date';
+            const footerTextRight = `${footerEmpId} / ${footerDate}`;
 
+            // --- Updated html2pdf Options ---
+            const opt = {
+                margin: [10, 5, 10, 5], // Increased top/bottom margin for footer [top, left, bottom, right] in mm
+                filename: filename,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 2.5,
+                    useCORS: true,
+                    dpi: 300,
+                    letterRendering: true,
+                    logging: false,
+                },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['css', 'avoid-all', 'legacy'] }
+            };
 
             console.log("Generating PDF with options:", opt);
 
-            // Add a small delay before generating PDF to allow DOM changes (expanding) to render
-             setTimeout(() => {
-                 html2pdf().from(element).set(opt).save().then(() => {
-                     console.log("PDF generation finished.");
-                     // Restore elements and collapse metrics after PDF generation
-                     restoreElementsAndMetrics(downloadButton, backButtonEvalList, signatureDatePlaceholders, originalButtonDisplay, originalBackButtonDisplay, originalSignatureValues, originallyCollapsedMetrics);
-                     // Call the completion callback
-                     if (onComplete) setTimeout(onComplete, 50);
-                 }).catch(err => {
-                     console.error("Error during PDF generation:", err);
-                     alert("Failed to generate PDF. Please check console. Data saving will still be attempted.");
-                     // Restore elements and collapse metrics even if PDF fails
-                     restoreElementsAndMetrics(downloadButton, backButtonEvalList, signatureDatePlaceholders, originalButtonDisplay, originalBackButtonDisplay, originalSignatureValues, originallyCollapsedMetrics);
-                     // Call the completion callback even on PDF error
-                     if (onComplete) setTimeout(onComplete, 50);
-                 });
-             }, 200); // 200ms delay - adjust if needed
+            // Use promise chain to add footer after rendering
+            html2pdf().from(element).set(opt).toPdf().get('pdf').then(function (pdf) {
+                console.log("PDF rendered, adding footer...");
+                const totalPages = pdf.internal.getNumberOfPages();
+                const footerFontSize = 8; // Small font size for footer
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const footerMargin = opt.margin[2] || 5; // Use bottom margin defined in options
+
+                for (let i = 1; i <= totalPages; i++) {
+                    pdf.setPage(i);
+                    pdf.setFontSize(footerFontSize);
+                    pdf.setTextColor(100, 100, 100); // Grey color for footer
+
+                    // Page X of Y (Centered)
+                    const pageText = `Page ${i} of ${totalPages}`;
+                    const pageTextWidth = pdf.getStringUnitWidth(pageText) * footerFontSize / pdf.internal.scaleFactor;
+                    const pageTextX = (pageWidth - pageTextWidth) / 2;
+                    pdf.text(pageText, pageTextX, pageHeight - footerMargin + 3); // Adjust Y position slightly if needed
+
+                    // Employee ID / Date (Right Aligned)
+                    const rightTextWidth = pdf.getStringUnitWidth(footerTextRight) * footerFontSize / pdf.internal.scaleFactor;
+                    const rightTextX = pageWidth - rightTextWidth - (opt.margin[3] || 5); // Align to right margin
+                    pdf.text(footerTextRight, rightTextX, pageHeight - footerMargin + 3);
+                }
+                console.log("Footer added to all pages.");
+                return pdf; // Return the pdf object for the next step
+            }).save().then(() => {
+                 console.log("PDF saving finished.");
+                 // Restore elements and collapse metrics
+                 restoreElementsAfterPDF(downloadButton, backButtonEvalList, signatureDatePlaceholders, originalDlButtonDisplay, originalBackButtonDisplay, originalSignatureValues, originallyCollapsedMetrics);
+                 // Call the completion callback
+                 if (onComplete) setTimeout(onComplete, 50);
+            }).catch(err => {
+                console.error("Error during PDF generation or footer addition:", err);
+                alert("Failed to generate PDF with footer. Please check console. Data saving will still be attempted.");
+                // Restore elements and collapse metrics even if PDF fails
+                 restoreElementsAfterPDF(downloadButton, backButtonEvalList, signatureDatePlaceholders, originalDlButtonDisplay, originalBackButtonDisplay, originalSignatureValues, originallyCollapsedMetrics);
+                // Call the completion callback even on PDF error
+                if (onComplete) setTimeout(onComplete, 50);
+            });
+
+             // Small delay before initiating PDF generation (might still be needed for complex DOM updates)
+            // NOTE: The main work is now in the promise chain above. This delay is less critical.
+            // setTimeout(() => {}, 100);
+
         }
 
-        // Helper function to restore elements and collapse metrics after PDF generation
-        function restoreElementsAndMetrics(dlBtn, backBtn, sigInputs, origDlDisp, origBackDisp, origSigVals, collapsedMetrics) {
+
+        // Helper function to restore elements after PDF generation (simplified)
+        function restoreElementsAfterPDF(dlBtn, backBtn, sigInputs, origDlDisp, origBackDisp, origSigVals, collapsedMetrics) {
              if (dlBtn) dlBtn.style.display = origDlDisp;
              if (backBtn) backBtn.style.display = origBackDisp;
              sigInputs.forEach((input, index) => { input.value = origSigVals[index] || ''; });
@@ -1018,6 +1248,7 @@
                      indicator.classList.add('fa-chevron-down');
                  }
              });
+             // Date elements restore themselves via CSS (no need to change display/opacity here)
         }
 
 
@@ -1031,17 +1262,14 @@
 
             fetch(googleAppsScriptUrl, {
                 method: "POST",
-                // Use text/plain for simple POST to Apps Script doGet/doPost
-                // If your Apps Script expects JSON, use 'application/json'
                 headers: {
-                    "Content-Type": "text/plain",
+                    "Content-Type": "text/plain", // Required for simple cross-origin POST to Apps Script
                 },
                 body: JSON.stringify(formData), // Stringify the data
                 mode: 'no-cors' // Necessary for simple POST across origins to Apps Script
             })
             .then(response => {
-                // With no-cors, response is opaque, status is 0, ok is false.
-                // We can't reliably check success here, so assume initiation was ok.
+                // With no-cors, we can't check the response status. Assume it worked if no network error.
                 console.log("Data send request initiated (no-cors). Form will be cleared.");
                 alert("PDF downloaded (or attempted) and data saving initiated!");
                 clearAllFormInputs(); // Clear form after initiating save
@@ -1067,20 +1295,30 @@
                 if (input.id === 'email') return; // Skip optional email
 
                 let isFieldValid = true;
+                const fieldLabel = input.closest('td')?.previousElementSibling?.textContent
+                                  || input.closest('.ac-review-date-area')?.querySelector('.ac-review-date-label')?.textContent
+                                  || input.previousElementSibling?.textContent
+                                  || input.id
+                                  || 'Field';
+
                 if (input.type === 'date') {
                     if (!input.value) isFieldValid = false;
                 } else if (input.tagName === 'TEXTAREA') {
-                    if (!input.value.trim()) isFieldValid = false;
+                     // Check required textareas (like comments and overall remarks)
+                     if (!input.value.trim()) {
+                        isFieldValid = false;
+                     }
                 } else { // General input fields
                     if (!input.value.trim()) isFieldValid = false;
                 }
 
                 if (!isFieldValid) {
                     isValid = false;
-                    const fieldToHighlight = (input.type === 'date') ? input.closest('.ac-review-date') : input;
+                    // Highlight logic: Highlight input/textarea. For date, highlight the parent area.
+                    const fieldToHighlight = (input.type === 'date') ? input.closest('.ac-review-date-area') : input;
                     highlightField(fieldToHighlight);
                     if (!firstErrorElement) firstErrorElement = fieldToHighlight; // Store first error
-                    console.warn(`Validation failed: Input '${input.id || input.name || 'Date'}' is empty.`);
+                    console.warn(`Validation failed: '${fieldLabel.replace(':','').trim()}' is empty.`);
                 }
             });
 
@@ -1106,7 +1344,7 @@
                             metricValid = false;
                             if (ratingContainer) highlightField(ratingContainer);
                             if (!firstErrorElement) firstErrorElement = ratingContainer || metricTitleToggle;
-                            console.warn(`Validation failed: Rating missing for metric ${index + 1}`);
+                            console.warn(`Validation failed: Rating missing for metric ${index + 1} (${metric.title})`);
                         }
 
                         // Check if required employee comment is filled
@@ -1115,7 +1353,7 @@
                             metricValid = false;
                             highlightField(employeeComments);
                              if (!firstErrorElement) firstErrorElement = employeeComments;
-                            console.warn(`Validation failed: Employee Comment missing for metric ${index + 1}`);
+                            console.warn(`Validation failed: Employee Comment missing for metric ${index + 1} (${metric.title})`);
                         }
 
                          // If metric is invalid AND collapsed, expand it and highlight title
@@ -1147,18 +1385,25 @@
                 alert("Please fill in all highlighted required fields (*), including ratings and employee comments for each metric.");
                 if (firstErrorElement) {
                     try {
-                        // Special handling for metric title highlight
-                        const targetElement = firstErrorElement.classList.contains('metric-toggle') ? firstErrorElement : firstErrorElement;
+                        // Target the element to scroll to
+                        const targetElement = firstErrorElement.classList.contains('ac-review-date-area') ? firstErrorElement : firstErrorElement;
 
                         targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-                        // Try focusing the element if it's focusable (input, textarea)
-                        // Don't focus the rating box or title div directly
+                        // Try focusing the first actual input/textarea within the error element, if applicable
+                        let focusTarget = null;
                         if (['INPUT', 'TEXTAREA'].includes(targetElement.tagName)) {
+                            focusTarget = targetElement;
+                        } else if (targetElement.querySelector('input:not([type="hidden"]):not([type="radio"]), textarea')) {
+                            // Find the first focusable field within the highlighted container (e.g., rating box, comment)
+                            focusTarget = targetElement.querySelector('input:not([type="hidden"]):not([type="radio"]), textarea');
+                        }
+
+                        if (focusTarget) {
                            setTimeout(() => {
-                              try { targetElement.focus({ preventScroll: true }); } // preventScroll avoids conflict with scrollIntoView
-                              catch (e) { console.warn("Focus failed on element:", targetElement, e); }
-                           }, 150); // Delay focus slightly after scroll
+                              try { focusTarget.focus({ preventScroll: true }); }
+                              catch (e) { console.warn("Focus failed on element:", focusTarget, e); }
+                           }, 150);
                         }
                     } catch (e) {
                         console.error("Error scrolling/focusing on validation error:", e);
@@ -1176,6 +1421,7 @@
                 console.warn("Attempted to highlight a null element.");
                 return;
             }
+             // Add 'highlighted' class, CSS handles the visual styling
             element.classList.add("highlighted");
         }
 
@@ -1322,10 +1568,10 @@
              } else {
                  // Employee not found
                  console.log(`Employee number ${empNumber} (length ${length}) not found in data.`);
-                 // ✨ Only show "not found" alert if it was a 6-digit search ✨
+                 // Only show "not found" alert if it was a 6-digit search
                  if (length === 6) {
                      alert(`Employee number ${empNumber} not found.`);
-                     // Don't clear the input field (employeeNumberInput.value) - user might want to correct it
+                     // Don't clear the input field - user might want to correct it
                      clearEmployeeFields(); // Clear associated fields
                  } else {
                      // If it was a 3-digit search and not found, do nothing, user might still be typing
@@ -1380,7 +1626,7 @@
             const posInput = document.getElementById(positionInputId);
             const witnessInput = document.getElementById(witnessNumberInputId); // Get the input element itself
 
-            // Determine if this is Witness 2 or Witness 3 for console logging
+            // Determine if this is Witness 1 or Witness 2 for console logging
             const witnessLabel = nameInputId.includes("2") ? "Witness 1" : "Witness 2";
             console.log(`Attempting to populate details for ${witnessLabel} ID: ${witnessNumber}`);
 
@@ -1404,13 +1650,15 @@
             // --- Conflict Checks ---
             const mainEmpNo = employeeNumberInput?.value || '';
             const reviewerNo = reviewerNumberInput?.value || '';
-            const witness2No = witness2NumberInput?.value || '';
-            const witness3No = witness3NumberInput?.value || '';
+            const witness2No = witness2NumberInput?.value || ''; // Witness 1's number
+            const witness3No = witness3NumberInput?.value || ''; // Witness 2's number
             let validationError = "";
 
             if (witnessNumber === mainEmpNo && mainEmpNo) validationError = `${witnessLabel} cannot be the employee.`;
             else if (witnessNumber === reviewerNo && reviewerNo) validationError = `${witnessLabel} cannot be the reviewer.`;
+            // Check if Witness 1 is trying to be the same as Witness 2
             else if (witnessLabel === "Witness 1" && witnessNumber === witness3No && witness3No) validationError = "Witnesses cannot be the same.";
+             // Check if Witness 2 is trying to be the same as Witness 1
             else if (witnessLabel === "Witness 2" && witnessNumber === witness2No && witness2No) validationError = "Witnesses cannot be the same.";
 
             if (validationError) {
@@ -1459,8 +1707,8 @@
              // --- Conflict Checks ---
              const mainEmpNo = employeeNumberInput?.value || '';
              const reviewerNo = reviewerNumberInput?.value || '';
-             const witness2No = witness2NumberInput?.value || '';
-             const witness3No = witness3NumberInput?.value || '';
+             const witness2No = witness2NumberInput?.value || ''; // Witness 1
+             const witness3No = witness3NumberInput?.value || ''; // Witness 2
              let validationError = "";
 
              if (hodNumber === mainEmpNo && mainEmpNo) validationError = "HOD cannot be the employee.";
@@ -1527,14 +1775,19 @@
              evaluationPageElement = document.getElementById('evaluation-page');
              evaluationFormContainerElement = document.getElementById('evaluation-form-container');
              welcomePageElement = document.getElementById('welcome-page');
+             // New date elements
+             reviewDateInput = document.getElementById("review-date-header");
+             reviewDateDisplaySpan = document.getElementById("review-date-display");
+             formTypeIndicatorSpan = document.getElementById("form-type-indicator");
+             reviewDateVisual = document.getElementById("review-date-visual");
 
 
              // Check if essential elements exist before adding listeners
-             if (!employeeNumberInput || !reviewerNumberInput || !witness2NumberInput || !witness3NumberInput || !hodNumberInput || !passwordInputElement || !usernameInputElement || !metricsContainer) {
-                console.error("CRITICAL ERROR: One or more essential input elements not found. Event listeners cannot be attached.");
-                alert("Initialization Error: Could not find essential form elements. Please check the HTML structure.");
-                return; // Prevent adding listeners to null elements
-             }
+              if (!employeeNumberInput || !reviewerNumberInput || !witness2NumberInput || !witness3NumberInput || !hodNumberInput || !passwordInputElement || !usernameInputElement || !metricsContainer || !reviewDateInput || !reviewDateDisplaySpan || !formTypeIndicatorSpan || !reviewDateVisual) {
+                 console.error("CRITICAL ERROR: One or more essential input/display elements not found. Event listeners cannot be attached.");
+                 alert("Initialization Error: Could not find essential form elements. Please check the HTML structure.");
+                 return; // Prevent adding listeners to null elements
+              }
 
 
             // Employee Number Input Handling
@@ -1544,37 +1797,29 @@
                 if (this.value.length === 0) {
                     clearEmployeeFields(); // Clear details if input is emptied
                 }
-                // DO NOT trigger lookup here, wait for keyup/blur
             });
-
             employeeNumberInput.addEventListener("keyup", function(event) {
                 clearTimeout(empLookupTimeout); // Clear previous timeout
                 const empNumber = this.value.trim();
                 const length = empNumber.length;
-
                 if (length === 3 || length === 6) {
-                    // Set timeout to perform lookup after user pauses typing
                     console.log(`Setting ${LOOKUP_DELAY}ms timeout for Employee lookup: ${empNumber}`);
-                    empLookupTimeout = setTimeout(() => {
-                        populateEmployeeDetails(empNumber);
-                    }, LOOKUP_DELAY);
+                    empLookupTimeout = setTimeout(() => { populateEmployeeDetails(empNumber); }, LOOKUP_DELAY);
                 }
             });
-
             employeeNumberInput.addEventListener("blur", function() {
                 clearTimeout(empLookupTimeout); // Clear any pending timeout from keyup
                 const empNumber = this.value.trim();
                 const length = empNumber.length;
-
                 if (length === 3 || length === 6) {
                     console.log(`Performing immediate Employee lookup on blur: ${empNumber}`);
                     populateEmployeeDetails(empNumber); // Perform lookup immediately on blur
                 } else if (length > 0) {
                     console.log(`Invalid Employee No length (${length}) on blur.`);
                     alert("Employee number must be 3 or 6 digits.");
-                    clearEmployeeFields(); // Clear associated fields
+                    clearEmployeeFields();
                 } else {
-                    clearEmployeeFields(); // Ensure fields are clear if empty on blur
+                    clearEmployeeFields();
                 }
             });
 
@@ -1589,9 +1834,7 @@
                  const reviewerNumber = this.value.trim();
                  if (reviewerNumber.length === 6) {
                      console.log(`Setting ${LOOKUP_DELAY}ms timeout for Reviewer lookup: ${reviewerNumber}`);
-                     reviewerLookupTimeout = setTimeout(() => {
-                         populateReviewerDetails(reviewerNumber);
-                     }, LOOKUP_DELAY);
+                     reviewerLookupTimeout = setTimeout(() => { populateReviewerDetails(reviewerNumber); }, LOOKUP_DELAY);
                  }
              });
             reviewerNumberInput.addEventListener("blur", function() {
@@ -1619,9 +1862,7 @@
                  const witnessNumber = this.value.trim();
                  if (witnessNumber.length === 6) {
                      console.log(`Setting ${LOOKUP_DELAY}ms timeout for Witness 1 lookup: ${witnessNumber}`);
-                     witness2LookupTimeout = setTimeout(() => {
-                         populateSignatureDetails(witnessNumber, 'employee-number-2', "employee-name-2", "position-2");
-                     }, LOOKUP_DELAY);
+                     witness2LookupTimeout = setTimeout(() => { populateSignatureDetails(witnessNumber, 'employee-number-2', "employee-name-2", "position-2"); }, LOOKUP_DELAY);
                  }
              });
             witness2NumberInput.addEventListener("blur", function() {
@@ -1649,9 +1890,7 @@
                  const witnessNumber = this.value.trim();
                  if (witnessNumber.length === 6) {
                     console.log(`Setting ${LOOKUP_DELAY}ms timeout for Witness 2 lookup: ${witnessNumber}`);
-                     witness3LookupTimeout = setTimeout(() => {
-                         populateSignatureDetails(witnessNumber, 'employee-number-3', "employee-name-3", "position-3");
-                     }, LOOKUP_DELAY);
+                     witness3LookupTimeout = setTimeout(() => { populateSignatureDetails(witnessNumber, 'employee-number-3', "employee-name-3", "position-3"); }, LOOKUP_DELAY);
                  }
              });
             witness3NumberInput.addEventListener("blur", function() {
@@ -1679,9 +1918,7 @@
                  const hodNumber = this.value.trim();
                  if (hodNumber.length === 6) {
                      console.log(`Setting ${LOOKUP_DELAY}ms timeout for HOD lookup: ${hodNumber}`);
-                     hodLookupTimeout = setTimeout(() => {
-                         populateHODDetails(hodNumber);
-                     }, LOOKUP_DELAY);
+                     hodLookupTimeout = setTimeout(() => { populateHODDetails(hodNumber); }, LOOKUP_DELAY);
                  }
              });
             hodNumberInput.addEventListener("blur", function() {
@@ -1697,6 +1934,10 @@
                      clearHODFields();
                  }
              });
+
+             // Review Date Change Listener (triggers display update)
+             reviewDateInput.addEventListener('change', updateDateDisplay);
+             reviewDateInput.addEventListener('input', updateDateDisplay); // Also update on input
 
              // Login on Enter Key
              const handleLoginEnter = (event) => { if (event.key === 'Enter') { event.preventDefault(); authenticateUser(); } };
@@ -1714,11 +1955,13 @@
             // Setup essential event listeners first
             setupEventListeners();
 
+            // Initialize date display on load (in case of browser prefill)
+            updateDateDisplay();
+
             // Then fetch data
             Promise.all([fetchEmployeeData(), fetchUserData()])
                 .then(() => {
                     console.log("Initial data fetch complete (Employee & User).");
-                    // Any actions dependent on data being loaded can go here
                 })
                 .catch(error => {
                     console.error("CRITICAL ERROR during initial data fetch:", error);
@@ -1743,13 +1986,12 @@
                  loginMessageElement.textContent = "Authentication data unavailable. Please wait or refresh.";
                  loginMessageElement.className = 'error';
                  loginMessageElement.style.display = 'flex'; // Show message
-                 // Attempt to fetch user data again if it's missing?
                  fetchUserData().then(() => {
                     if (!userData || userData.length === 0) {
                         loginMessageElement.textContent = "Still unable to load authentication data.";
                     } else {
                          loginMessageElement.textContent = "Auth data loaded. Please try logging in again.";
-                         loginMessageElement.className = 'success'; // Or just remove error class
+                         loginMessageElement.className = 'success';
                     }
                  });
                  return;
@@ -1765,7 +2007,6 @@
                  return;
              }
 
-             // Find user - case-sensitive match for User ID
              const user = userData.find(u => u && u['User ID'] === username);
 
              if (!user) {
@@ -1776,8 +2017,6 @@
                  return;
              }
 
-             // Basic password check (replace with hashing in a real application!)
-             // Ensure the 'Password' property name matches your CSV header exactly
              if (user['Password'] === password) {
                  console.log(`Login successful for user: ${username}`);
                  loginMessageElement.textContent = 'Login successful!';
